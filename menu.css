@@ -6,13 +6,23 @@ ul {
   font-family: sans-serif;
   font-size: 0.8rem;
   display: grid;
-  row-gap: 5px;
 }
 
 ul li {
-  padding: 0.5rem;
+  padding: 8px;
 }
 
 ul li:nth-child(odd) {
   background-color: #eee;
+}
+
+ul li a {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+ul li a:focus {
+  outline: rgb(94, 158, 214) 2px solid;
+  outline-offset: 6px;
 }

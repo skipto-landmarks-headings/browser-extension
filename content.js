@@ -6,13 +6,21 @@ function getHeadingElements () {
 
 function sendHeadingsData () {
   let headingsArray = [];
+  let counter = 0;
+  let dataAttribName = 'data-skipto';
+
   headingElements = getHeadingElements();
 
   headingElements.forEach(function (elem) {
+    let dataId = `h-${++counter}`;
+    elem.setAttribute(dataAttribName, dataId);
+
     let headingInfo = {
-      tag: elem.tagName,
-      content: elem.textContent.trim()
+      tag: elem.tagName.toLowerCase(),
+      content: elem.textContent.trim(),
+      dataId: dataId
     };
+
     headingsArray.push(headingInfo);
   });
 

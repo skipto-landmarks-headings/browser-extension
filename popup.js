@@ -60,7 +60,12 @@ function displayMenu (headings) {
     const ul = shadow.querySelector('ul');
     headings.forEach(function (item) {
       const li = document.createElement('li');
-      li.textContent = item.content;
+      const a = document.createElement('a');
+      a.setAttribute('data-skipto', item.dataId);
+      a.textContent = item.content;
+      a.href = '#';
+      a.addEventListener('click', (evt) => console.log(`click: ${evt.target.getAttribute('data-skipto')}`));
+      li.appendChild(a);
       ul.appendChild(li);
     });
   }
