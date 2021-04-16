@@ -64,7 +64,7 @@ function displayMenu (headings) {
       a.setAttribute('data-skipto', item.dataId);
       a.textContent = item.content;
       a.href = '#';
-      a.addEventListener('click', (evt) => console.log(`click: ${evt.target.getAttribute('data-skipto')}`));
+      a.addEventListener('click', sendSkipToData);
       li.appendChild(a);
       ul.appendChild(li);
     });
@@ -75,6 +75,27 @@ function displayMenu (headings) {
     const ul = shadow.querySelector('ul');
     while (ul.lastChild) {
       ul.removeChild(ul.lastChild);
+    }
+  }
+
+  function sendSkipToData (evt) {
+    let data = evt.target.getAttribute('data-skipto');
+    // console.log(`click: ${data}`);
+
+    browser.tabs.query({
+      currentWindow: true,
+      active: true
+    }).then(sendMessageToTabs).catch(onError);
+
+    function sendMessageToTabs (tabs) {
+      const message = {
+        id: 'popup',
+        data: data
+      };
+
+      for (let tab of tabs) {
+        browser.tabs.sendMessage(tab.id, message);
+      }
     }
   }
 }
