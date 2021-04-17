@@ -1,6 +1,10 @@
 /* content.js */
 
+/*
+*   Set up the listener for message from popup script
+*/
 browser.runtime.onMessage.addListener(messageHandler);
+
 function messageHandler (message, sender) {
   switch (message.id) {
     case 'popup':
@@ -9,6 +13,9 @@ function messageHandler (message, sender) {
   }
 }
 
+/*
+*   Perform the action requested by menu activation
+*/
 function skipToContent (data) {
   let selector = `[data-skipto="${data}"]`;
   let element = document.querySelector(selector);
@@ -19,6 +26,10 @@ function skipToContent (data) {
   }
 }
 
+/*
+*   Functions that are called when the script is executed:
+*   Extract the page data and send it to the popup script.
+*/
 function getHeadingElements () {
   return document.querySelectorAll('h1,h2');
 }
