@@ -1,5 +1,7 @@
 /* popup.js */
 
+var emptyContentMsg = `[empty text content]`;
+
 /*
 **  Set up listener/handler for message from content script
 */
@@ -69,7 +71,7 @@ function displayMenu (headings) {
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.setAttribute('data-skipto', item.dataId);
-        a.textContent = item.content;
+        a.textContent = item.content ? item.content : emptyContentMsg;
         a.href = '#';
         a.addEventListener('click', sendSkipToData);
         li.appendChild(a);
