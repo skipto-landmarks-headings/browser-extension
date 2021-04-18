@@ -1,7 +1,7 @@
 /* popup.js */
 
 /*
-*   Set up listener for the message from the content script
+**  Set up listener/handler for message from content script
 */
 browser.runtime.onMessage.addListener(messageHandler);
 
@@ -14,7 +14,7 @@ function messageHandler (message, sender) {
 }
 
 /*
-*   Run the content script to extract data from active tab
+**  Run content script to extract data from active tab
 */
 browser.tabs.executeScript( { file: 'content.js' } );
 
@@ -23,7 +23,7 @@ function onError(error) {
 }
 
 /*
-*   Once the data is available, display the SkipTo menu
+**  Once data is available, display SkipTo menu
 */
 function displayMenu (headings) {
   // logHeadings();
@@ -41,7 +41,7 @@ function displayMenu (headings) {
     });
   }
 
-  // Define the SkipTo menu as a web component
+  // Define SkipTo menu as web component
 
   class SkipToMenu extends HTMLElement {
     constructor () {
@@ -61,7 +61,7 @@ function displayMenu (headings) {
     }
 
     connectedCallback () {
-      // Add the menu items to 'ul' container
+      // Add menu items to 'ul' container
       const shadowRoot = this.shadowRoot;
       const ul = shadowRoot.querySelector('ul');
 
@@ -76,16 +76,6 @@ function displayMenu (headings) {
         ul.appendChild(li);
       });
     }
-
-    disconnectedCallback() {
-      // Clear the menu items (not sure if this is necessary or beneficial)
-      const shadowRoot = this.shadowRoot;
-      const ul = shadowRoot.querySelector('ul');
-
-      while (ul.lastChild) {
-        ul.removeChild(ul.lastChild);
-      }
-    }
   }   // end class SkipToMenu
 
   // Instantiate SkipToMenu by attaching it to 'skipto-menu' custom element
@@ -94,7 +84,7 @@ function displayMenu (headings) {
 }   // end displayMenu
 
 /*
-*   When a menu item is activated, notify the content script
+**  When a menu item is activated, send message to content script
 */
 function sendSkipToData (evt) {
   let data = evt.target.getAttribute('data-skipto');
