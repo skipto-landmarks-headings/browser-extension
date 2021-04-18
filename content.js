@@ -1,7 +1,7 @@
 /* content.js */
 
 /*
-*   Set up the listener for message from popup script
+**  Set up listener/handler for message from popup script
 */
 browser.runtime.onMessage.addListener(messageHandler);
 
@@ -14,7 +14,7 @@ function messageHandler (message, sender) {
 }
 
 /*
-*   Perform the action requested by menu activation
+**  Perform the action specified by activated menu item
 */
 function skipToContent (data) {
   let selector = `[data-skipto="${data}"]`;
@@ -27,14 +27,14 @@ function skipToContent (data) {
 }
 
 /*
-*   Functions that are called when the script is executed:
-*   Extract the page data and send it to the popup script.
+**  When this script is executed directly, extract the skipto
+**  data and send it to the popup script.
 */
 function getHeadingElements () {
   return document.querySelectorAll('h1,h2');
 }
 
-function sendHeadingsData () {
+(function () {
   let headingsArray = [];
   let counter = 0;
   let dataAttribName = 'data-skipto';
@@ -59,6 +59,4 @@ function sendHeadingsData () {
     data: headingsArray
   };
   browser.runtime.sendMessage(message);
-}
-
-sendHeadingsData();
+})();
