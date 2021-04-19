@@ -46,7 +46,7 @@ function getHeadingElements () {
     elem.setAttribute(dataAttribName, dataId);
 
     let headingInfo = {
-      tag: elem.tagName.toLowerCase(),
+      tagName: elem.tagName.toLowerCase(),
       content: elem.textContent.trim(),
       dataId: dataId
     };
