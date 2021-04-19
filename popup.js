@@ -3,7 +3,8 @@
 var emptyContentMsg = `[empty text content]`;
 
 /*
-**  Set up listener/handler for message from content script
+**  Set up listener/handler for message containing menu data
+**  sent from content script
 */
 browser.runtime.onMessage.addListener(messageHandler);
 
@@ -16,7 +17,7 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Run content script to extract data from active tab
+**  Run content script to extract menu data from active tab
 */
 browser.tabs.executeScript( { file: 'content.js' } );
 
@@ -25,7 +26,7 @@ function onError(error) {
 }
 
 /*
-**  Once data is available, display SkipTo menu
+**  Once menu data is available, display SkipTo menu
 */
 function displayMenu (headings) {
   // logHeadings();
@@ -48,7 +49,8 @@ function displayMenu (headings) {
   class SkipToMenu extends HTMLElement {
     constructor () {
       super();
-      // After the following, 'shadowRoot' is retrievable as a property of 'this'
+      // After the following call to attachShadow, the 'shadowRoot'
+      // element is retrievable as 'this.shadowRoot'
       const shadowRoot = this.attachShadow( { mode: "open" } );
 
       // Use an external CSS stylesheet for the component
@@ -80,13 +82,15 @@ function displayMenu (headings) {
     }
   }   // end class SkipToMenu
 
-  // Instantiate SkipToMenu by attaching it to 'skipto-menu' custom element
+  // Define the 'skipto-menu' custom element as deriving its
+  // structure and behavior from a SkipToMenu class instance
   customElements.define('skipto-menu', SkipToMenu);
 
 }   // end displayMenu
 
 /*
-**  When a menu item is activated, send message to content script
+**  When a menu item is activated, send a message containing the
+**  value of its 'data-skipto' attribute to the content script
 */
 function sendSkipToData (evt) {
   let data = evt.target.getAttribute('data-skipto');

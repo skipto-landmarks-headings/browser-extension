@@ -28,7 +28,7 @@ function skipToContent (data) {
 
 /*
 **  When this script is executed directly, extract the skipto
-**  data and send it to the popup script.
+**  menu data and send it to the popup script.
 */
 function getHeadingElements () {
   return document.querySelectorAll('h1,h2');
