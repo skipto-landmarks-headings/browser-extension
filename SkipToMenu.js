@@ -15,6 +15,7 @@ class SkipToMenu extends HTMLElement {
 
     // Add menu container as 'ul' element
     const ul = document.createElement('ul');
+    ul.role = 'menu';
     shadowRoot.appendChild(ul);
     this._ul = ul;
 
@@ -29,6 +30,7 @@ class SkipToMenu extends HTMLElement {
 
     data.forEach(item => {
       const li = document.createElement('li');
+      li.role = 'menuitem';
       const a = document.createElement('a');
       a.setAttribute('data-skipto', item.dataId);
       a.textContent = item.content ? item.content : emptyContentMsg;
