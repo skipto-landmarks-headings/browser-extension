@@ -19,10 +19,6 @@ snippets.txt
     "persistent": true
   },
 
-function onError(error) {
-  console.log(`Error: ${error}`);
-}
-
 function logHeadings () {
   if (headings.length === 0) {
     console.log('No headings found!');
