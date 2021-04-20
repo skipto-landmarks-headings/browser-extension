@@ -1,6 +1,6 @@
 /* SkipToMenu.js */
 
-export default class SkipToMenu extends HTMLElement {
+class SkipToMenu extends HTMLElement {
   constructor () {
     super();
     // After the following call to attachShadow, the 'shadowRoot'
@@ -44,3 +44,5 @@ export default class SkipToMenu extends HTMLElement {
     this.onMenuItemClicked = func;
   }
 }
+
+export { SkipToMenu as default };
