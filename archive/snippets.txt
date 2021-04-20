@@ -7,7 +7,6 @@ snippets.txt
     }
   ],
 
-
   "permissions": [
     "activeTab",
     "storage",
@@ -15,17 +14,14 @@ snippets.txt
     "<all_urls>"
   ],
 
-
   "background": {
     "scripts": ["background.js"],
     "persistent": true
   },
 
-
 function onError(error) {
   console.log(`Error: ${error}`);
 }
-
 
 function logHeadings () {
   if (headings.length === 0) {
@@ -38,4 +34,11 @@ function logHeadings () {
   headings.forEach(function (item) {
     console.log(`${item.tag}: ${item.content}`);
   });
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
