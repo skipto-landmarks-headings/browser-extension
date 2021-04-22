@@ -14,19 +14,42 @@ function messageHandler (message, sender) {
 }
 
 /*
+**  getTargetElement: Find an element that is focusable based on the type of
+**  landmark that element is.
+*/
+function getTargetElement (dataId, element) {
+  let contentSelector = 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea';
+  let isSearch = dataId.startsWith('s-');
+  let isNav = dataId.startsWith('n-');
+
+  if (isSearch) {
+    return element.querySelector('input');
+  }
+
+  if (isNav) {
+    return element.querySelector('a');
+  }
+
+  // Must be main landmark
+  return element.querySelector(contentSelector);
+}
+
+/*
 **  Perform the action specified by activated menu item
 */
 function skipToContent (dataId) {
   let selector = `[data-skipto="${dataId}"]`;
+  let isHeading = dataId.startsWith('h-');
+  let target = null;
+
   let element = document.querySelector(selector);
   if (element) {
-    element.setAttribute('tabindex', '-1');
-    element.focus();
-    if (dataId.startsWith('l-')) {
-      element.scrollIntoView( {behavior: "smooth", block: "start", inline: "nearest"} );
-    }
-    else {
-      element.scrollIntoView( {behavior: "smooth", block: "center", inline: "nearest"} );
+    target = isHeading ? element : getTargetElement(dataId, element);
+    if (target && isVisible(target)) {
+      let options = { behavior: 'smooth', block: 'center' };
+      target.setAttribute('tabindex', '-1');
+      target.focus();
+      target.scrollIntoView(options);
     }
   }
 }
@@ -59,36 +82,39 @@ function getHeadingElements () {
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
 
   mainLandmarks.forEach(function (elem) {
-    dataId = `l-${++counter}`;
+    dataId = `m-${++counter}`;
     elem.setAttribute(dataAttribName, dataId);
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
       ariaRole: 'Main',
+      accessibleName: getAccessibleName(elem),
       dataId: dataId
     }
     landmarksArray.push(landmarkInfo);
   });
 
   searchLandmarks.forEach(function (elem) {
-    dataId = `l-${++counter}`;
+    dataId = `s-${++counter}`;
     elem.setAttribute(dataAttribName, dataId);
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
       ariaRole: 'Search',
+      accessibleName: getAccessibleName(elem),
       dataId: dataId
     }
     landmarksArray.push(landmarkInfo);
   });
 
   navigationLandmarks.forEach(function (elem) {
-    dataId = `l-${++counter}`;
+    dataId = `n-${++counter}`;
     elem.setAttribute(dataAttribName, dataId);
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
       ariaRole: 'Navigation',
+      accessibleName: getAccessibleName(elem),
       dataId: dataId
     }
     landmarksArray.push(landmarkInfo);

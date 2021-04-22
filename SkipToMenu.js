@@ -57,9 +57,10 @@ class SkipToMenu extends HTMLElement {
     const group = this.shadowRoot.querySelector('div[id="landmarks-group"]');
 
     landmarks.forEach(item => {
+      const accessibleName = item.accessibleName;
       const div = this.createMenuItem('landmark');
       const a = this.createMenuItemAnchor(item.dataId);
-      a.textContent = item.ariaRole;
+      a.textContent = accessibleName ? `${item.ariaRole}: ${accessibleName}` : item.ariaRole;
       div.appendChild(a);
       group.appendChild(div);
     });

@@ -3,12 +3,18 @@
 div[role='menu'] {
   padding: 0.5rem 1rem;
   font-family: sans-serif;
-  font-size: 0.825rem;
+  font-size: 0.9rem;
 }
 
 div[role='separator'] {
   padding: 6px;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+div[role='separator']:not(:first-child) {
+  margin-top: 0.25rem;
 }
 
 div[role='group'] > div {

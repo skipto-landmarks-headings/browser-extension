@@ -27,6 +27,7 @@ function messageHandler (message, sender) {
 /*
 **  Run content script to extract menu data from active tab
 */
+browser.tabs.executeScript( { file: 'domUtils.js' } );
 browser.tabs.executeScript( { file: 'content.js' } );
 
 /*
