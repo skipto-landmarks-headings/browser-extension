@@ -39,7 +39,7 @@ class SkipToMenu extends HTMLElement {
 
   set menuItems (data) {
     const emptyContentMsg = `[empty text content]`;
-    const group = this.shadowRoot.querySelector(`div[id='headings-group']`);
+    const group = this.shadowRoot.querySelector('div[id="headings-group"]');
 
     data.forEach(item => {
       const div = document.createElement('div');
@@ -55,7 +55,6 @@ class SkipToMenu extends HTMLElement {
       div.appendChild(a);
       group.appendChild(div);
     });
-
   }
 
   // Note: This property must be set *before* setting menuItems
