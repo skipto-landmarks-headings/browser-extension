@@ -37,24 +37,51 @@ class SkipToMenu extends HTMLElement {
       evt => console.log(evt.target.getAttribute('data-skipto'));
   }
 
-  set menuItems (data) {
-    const emptyContentMsg = `[empty text content]`;
-    const group = this.shadowRoot.querySelector('div[id="headings-group"]');
+  createMenuItem (className) {
+    const div = document.createElement('div');
+    div.role = 'menuitem';
+    div.tabindex = '-1';
+    div.className = className;
+    return div;
+  }
 
-    data.forEach(item => {
-      const div = document.createElement('div');
-      div.role = 'menuitem';
-      div.tabindex = '-1';
-      div.className = 'heading';
+  createMenuItemAnchor (dataId) {
+    const a = document.createElement('a');
+    a.setAttribute('data-skipto', dataId);
+    a.href = '#';
+    a.addEventListener('click', this.onMenuItemClicked);
+    return a;
+  }
 
-      const a = document.createElement('a');
-      a.setAttribute('data-skipto', item.dataId);
-      a.textContent = item.content ? item.content : emptyContentMsg;
-      a.href = '#';
-      a.addEventListener('click', this.onMenuItemClicked);
+  populateLandmarksGroup (landmarks) {
+    const group = this.shadowRoot.querySelector('div[id="landmarks-group"]');
+
+    landmarks.forEach(item => {
+      const div = this.createMenuItem('landmark');
+      const a = this.createMenuItemAnchor(item.dataId);
+      a.textContent = item.ariaRole;
       div.appendChild(a);
       group.appendChild(div);
     });
+  }
+
+  populateHeadingsGroup (headings) {
+    const group = this.shadowRoot.querySelector('div[id="headings-group"]');
+    const emptyContentMsg = `[empty text content]`;
+
+    headings.forEach(item => {
+      const div = this.createMenuItem('heading');
+      const a = this.createMenuItemAnchor(item.dataId);
+      a.textContent = item.content ? item.content : emptyContentMsg;
+      div.appendChild(a);
+      group.appendChild(div);
+    });
+  }
+
+  // Use this setter to pass in menu data from external module
+  set menuItems (data) {
+    this.populateLandmarksGroup(data.landmarks);
+    this.populateHeadingsGroup(data.headings);
   }
 
   // Note: This property must be set *before* setting menuItems

@@ -16,7 +16,10 @@ browser.runtime.onMessage.addListener(messageHandler);
 function messageHandler (message, sender) {
   switch (message.id) {
     case 'content':
-      displayMenu(message.data);
+      displayMenu({
+        landmarks: message.landmarks,
+        headings: message.headings
+      });
       break;
   }
 }
@@ -29,10 +32,10 @@ browser.tabs.executeScript( { file: 'content.js' } );
 /*
 **  Once menu data is available, display SkipTo menu
 */
-function displayMenu (headings) {
+function displayMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
   skipToMenu.menuItemClickHandler = sendSkipToData;
-  skipToMenu.menuItems = headings;
+  skipToMenu.menuItems = data;
 }
 
 /*

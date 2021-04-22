@@ -16,13 +16,18 @@ function messageHandler (message, sender) {
 /*
 **  Perform the action specified by activated menu item
 */
-function skipToContent (data) {
-  let selector = `[data-skipto="${data}"]`;
+function skipToContent (dataId) {
+  let selector = `[data-skipto="${dataId}"]`;
   let element = document.querySelector(selector);
   if (element) {
     element.setAttribute('tabindex', '-1');
     element.focus();
-    element.scrollIntoView({block: 'center'});
+    if (dataId.startsWith('l-')) {
+      element.scrollIntoView( {behavior: "smooth", block: "start", inline: "nearest"} );
+    }
+    else {
+      element.scrollIntoView( {behavior: "smooth", block: "center", inline: "nearest"} );
+    }
   }
 }
 
@@ -35,18 +40,63 @@ function getLandmarkElements () {
 }
 
 function getHeadingElements () {
-  return document.querySelectorAll('h1,h2');
+  return document.querySelectorAll('main h1, [role="main"] h1, main h2, [role="main"] h2');
 }
 
 (function () {
+  let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
   let dataAttribName = 'data-skipto';
+  let dataId;
 
-  headingElements = getHeadingElements();
+  let landmarkElements = getLandmarkElements();
+  let headingElements = getHeadingElements();
 
+  // Process the landmarkElements
+  let mainLandmarks = document.querySelectorAll('main, [role="main"]');
+  let searchLandmarks = document.querySelectorAll('[role="search"]');
+  let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
+
+  mainLandmarks.forEach(function (elem) {
+    dataId = `l-${++counter}`;
+    elem.setAttribute(dataAttribName, dataId);
+
+    let landmarkInfo = {
+      tagName: elem.tagName.toLowerCase(),
+      ariaRole: 'Main',
+      dataId: dataId
+    }
+    landmarksArray.push(landmarkInfo);
+  });
+
+  searchLandmarks.forEach(function (elem) {
+    dataId = `l-${++counter}`;
+    elem.setAttribute(dataAttribName, dataId);
+
+    let landmarkInfo = {
+      tagName: elem.tagName.toLowerCase(),
+      ariaRole: 'Search',
+      dataId: dataId
+    }
+    landmarksArray.push(landmarkInfo);
+  });
+
+  navigationLandmarks.forEach(function (elem) {
+    dataId = `l-${++counter}`;
+    elem.setAttribute(dataAttribName, dataId);
+
+    let landmarkInfo = {
+      tagName: elem.tagName.toLowerCase(),
+      ariaRole: 'Navigation',
+      dataId: dataId
+    }
+    landmarksArray.push(landmarkInfo);
+  });
+
+  // Process the heading elements
   headingElements.forEach(function (elem) {
-    let dataId = `h-${++counter}`;
+    dataId = `h-${++counter}`;
     elem.setAttribute(dataAttribName, dataId);
 
     let headingInfo = {
@@ -54,13 +104,13 @@ function getHeadingElements () {
       content: elem.textContent.trim(),
       dataId: dataId
     };
-
     headingsArray.push(headingInfo);
   });
 
   const message = {
     id: 'content',
-    data: headingsArray
+    landmarks: landmarksArray,
+    headings: headingsArray
   };
   browser.runtime.sendMessage(message);
 })();
