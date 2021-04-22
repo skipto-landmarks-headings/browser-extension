@@ -21,11 +21,11 @@ function getAccessibleName (landmark) {
     return strings.join(' ');
   }
 
-  if (isNotEmptyString(label)) {
+  if (isNonEmptyString(label)) {
     return label;
   }
 
-  if (isNotEmptyString(title)) {
+  if (isNonEmptyString(title)) {
     return title;
   }
 
@@ -73,12 +73,8 @@ function getTextContent (elem) {
   return str;
 }
 
-function isNotEmptyString (str) {
+function isNonEmptyString (str) {
   return typeof str === 'string' && str.length;
-}
-
-function isEmptyString (str) {
-  return typeof str !== 'string' || str.length === 0;
 }
 
 function isVisible (element) {
