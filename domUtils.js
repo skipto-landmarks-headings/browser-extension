@@ -37,7 +37,7 @@ function getAccessibleName (landmark) {
 */
 function getTextContent (elem) {
 
-  function getText (e, strings) {
+  function getTextRec (e, strings) {
     // If text node, get the text and return
     if (e.nodeType === Node.TEXT_NODE) {
       strings.push(e.data);
@@ -55,22 +55,20 @@ function getTextContent (elem) {
         else {
           let c = e.firstChild;
           while (c) {
-            getText(c, strings);
+            getTextRec(c, strings);
             c = c.nextSibling;
           } // end loop
         }
       }
     }
-  } // end getStrings
+  } // end getTextRec
 
-  // Create return object
-  let str = 'Test',
-    strings = [];
-  getText(elem, strings);
+  let strings = [];
+  getTextRec(elem, strings);
   if (strings.length) {
-    str = strings.join(' ');
+    return strings.join(' ');
   }
-  return str;
+  return '';
 }
 
 function isNonEmptyString (str) {
