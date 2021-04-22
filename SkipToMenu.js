@@ -1,23 +1,36 @@
 /* SkipToMenu.js */
 
+const template = document.createElement('template');
+template.innerHTML = `
+  <div role="menu">
+    <div role="separator" id="landmarks-label">
+      <slot name="landmarks-label">group label</slot>
+    </div>
+    <div role="group" id="landmarks-group" aria-labelledby="landmarks-label">
+    </div>
+    <div role="separator" id="headings-label">
+      <slot name="headings-label">group label</slot>
+    </div>
+    <div role="group" id="headings-group" aria-labelledby="headings-label">
+    </div>
+  </div>
+`;
+
 class SkipToMenu extends HTMLElement {
   constructor () {
     super();
     // After the following call to attachShadow, the 'shadowRoot'
     // element is retrievable as 'this.shadowRoot'
-    const shadowRoot = this.attachShadow( { mode: "open" } );
+    this.attachShadow( { mode: "open" } );
 
     // Use an external CSS stylesheet for the component
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', 'menu.css');
-    shadowRoot.appendChild(link);
+    this.shadowRoot.appendChild(link);
 
-    // Add menu container as 'ul' element
-    const ul = document.createElement('ul');
-    ul.role = 'menu';
-    shadowRoot.appendChild(ul);
-    this._ul = ul;
+    // Add menu container
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     // Add default handler for click event
     this.onMenuItemClicked =
@@ -25,20 +38,24 @@ class SkipToMenu extends HTMLElement {
   }
 
   set menuItems (data) {
-    const ul = this._ul;
     const emptyContentMsg = `[empty text content]`;
+    const group = this.shadowRoot.querySelector(`div[id='headings-group']`);
 
     data.forEach(item => {
-      const li = document.createElement('li');
-      li.role = 'menuitem';
+      const div = document.createElement('div');
+      div.role = 'menuitem';
+      div.tabindex = '-1';
+      div.className = 'heading';
+
       const a = document.createElement('a');
       a.setAttribute('data-skipto', item.dataId);
       a.textContent = item.content ? item.content : emptyContentMsg;
       a.href = '#';
       a.addEventListener('click', this.onMenuItemClicked);
-      li.appendChild(a);
-      ul.appendChild(li);
+      div.appendChild(a);
+      group.appendChild(div);
     });
+
   }
 
   // Note: This property must be set *before* setting menuItems
