@@ -30,6 +30,10 @@ function skipToContent (data) {
 **  When this script is executed directly, extract the skipto
 **  menu data and send it to the popup script.
 */
+function getLandmarkElements () {
+  return document.querySelectorAll('main, [role="main"], [role="search"], nav, [role="navigation"]');
+}
+
 function getHeadingElements () {
   return document.querySelectorAll('h1,h2');
 }

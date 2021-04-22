@@ -1,28 +1,31 @@
 /* menu.css */
 
-ul {
-  list-style: none;
+div[role='menu'] {
   padding: 0.5rem 1rem;
   font-family: sans-serif;
-  font-size: 0.8rem;
-  display: grid;
+  font-size: 0.825rem;
 }
 
-ul li {
-  padding: 8px;
+div[role='separator'] {
+  padding: 6px;
+  font-size: 1rem;
 }
 
-ul li:nth-child(odd) {
+div[role='group'] > div {
+  padding: 6px;
+}
+
+div[role='group'] > div:nth-child(odd) {
   background-color: #eee;
 }
 
-ul li a {
+div[role='group'] > div > a {
   color: inherit;
   display: block;
   text-decoration: none;
 }
 
-ul li a:focus {
+div[role='group'] > div > a:focus {
   outline: rgb(94, 158, 214) 2px solid;
-  outline-offset: 6px;
+  outline-offset: 4px;
 }
