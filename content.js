@@ -55,17 +55,45 @@ function skipToContent (dataId) {
 }
 
 /*
-**  When this script is executed directly, extract the skipto
-**  menu data and send it to the popup script.
+**  getHeadingSelector: Return a CSS selector for heading levels 1
+**  through 'maxLevel'. If 'mainOnly' is true, select headings only
+**  if they are contained within a 'main' landmark.
 */
-function getLandmarkElements () {
-  return document.querySelectorAll('main, [role="main"], [role="search"], nav, [role="navigation"]');
+function getHeadingSelector (maxLevel, mainOnly) {
+  let selectors = [];
+  for (let i = 1; i <= maxLevel; i++) {
+    let tagName = `h${i}`;
+    if (mainOnly) {
+      selectors.push(`main ${tagName}`, `[role="main"] ${tagName}`);
+    }
+    else {
+      selectors.push(tagName);
+    }
+  }
+  return selectors.join(', ');
 }
 
+/*
+**  getHeadingElements: Return a nodelist of all headings in the
+**  document based on the specified and constructed CSS selector.
+*/
 function getHeadingElements () {
-  return document.querySelectorAll('main h1, [role="main"] h1, main h2, [role="main"] h2');
+  let selector = getHeadingSelector(3, false);
+  console.log(selector);
+  return document.querySelectorAll(selector);
 }
 
+/*
+**  When this script is executed directly, extract the skipto menu
+**  data and send it to the popup script.
+**
+**  Note: Landmarks are handled differently than headings in that when
+**  the skipto function is invoked, a representative target element is
+**  selected for focusing and scrolling (see skipToContent). Headings,
+**  on the other hand, are used in a more direct fashion, and therefore
+**  a conditional filter is applied when building the headingsArray to
+**  select only visible elements.
+*/
 (function () {
   let landmarksArray = [];
   let headingsArray = [];
@@ -73,10 +101,7 @@ function getHeadingElements () {
   let dataAttribName = 'data-skipto';
   let dataId;
 
-  let landmarkElements = getLandmarkElements();
-  let headingElements = getHeadingElements();
-
-  // Process the landmarkElements
+  // Process the landmark elements
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');
   let searchLandmarks = document.querySelectorAll('[role="search"]');
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
@@ -121,16 +146,20 @@ function getHeadingElements () {
   });
 
   // Process the heading elements
-  headingElements.forEach(function (elem) {
-    dataId = `h-${++counter}`;
-    elem.setAttribute(dataAttribName, dataId);
+  let headingElements = getHeadingElements();
 
-    let headingInfo = {
-      tagName: elem.tagName.toLowerCase(),
-      content: elem.textContent.trim(),
-      dataId: dataId
-    };
-    headingsArray.push(headingInfo);
+  headingElements.forEach(function (elem) {
+    if (isVisible(elem)) {
+      dataId = `h-${++counter}`;
+      elem.setAttribute(dataAttribName, dataId);
+
+      let headingInfo = {
+        tagName: elem.tagName.toLowerCase(),
+        content: elem.textContent.trim(),
+        dataId: dataId
+      };
+      headingsArray.push(headingInfo);
+    }
   });
 
   const message = {
