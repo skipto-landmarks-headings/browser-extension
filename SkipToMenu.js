@@ -89,6 +89,7 @@ class SkipToMenu extends HTMLElement {
 
       const text = document.createElement('span');
       text.className = 'text';
+      text.classList.add(item.tagName);
       text.textContent = item.content ? item.content : emptyContentMsg;
       a.appendChild(text);
 

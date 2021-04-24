@@ -59,3 +59,30 @@ div[role='group'] > div.landmark.main {
 div[role='group'] > div.heading:not(.h1) .name {
   color: #999;
 }
+
+div[role='group'] > div.heading .text.h2 {
+  padding-left: 0.75rem;
+}
+
+div[role='group'] > div.heading .text.h3 {
+  padding-left: 1.5rem;
+}
+
+div[role='group'] > div.heading .text.h4 {
+  padding-left: 2.25rem;
+}
+
+div[role='group'] > div.heading .text.h5 {
+  padding-left: 3rem;
+}
+div[role='group'] > div.heading .text.h6 {
+  padding-left: 3.75rem;
+}
+
+div[role='group'] > div.heading .text.h2 {
+  padding-left: 1rem;
+}
+
+div[role='group'] > div.heading .text.h3 {
+  padding-left: 2.5rem;
+}
