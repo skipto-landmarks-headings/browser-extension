@@ -112,7 +112,7 @@ function getHeadingElements () {
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'Main',
+      ariaRole: 'main',
       accessibleName: getAccessibleName(elem),
       dataId: dataId
     }
@@ -125,7 +125,7 @@ function getHeadingElements () {
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'Search',
+      ariaRole: 'search',
       accessibleName: getAccessibleName(elem),
       dataId: dataId
     }
@@ -138,7 +138,7 @@ function getHeadingElements () {
 
     let landmarkInfo = {
       tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'Navigation',
+      ariaRole: 'navigation',
       accessibleName: getAccessibleName(elem),
       dataId: dataId
     }

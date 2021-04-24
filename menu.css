@@ -36,12 +36,26 @@ div[role='group'] > div > a:focus {
   outline-offset: 4px;
 }
 
+div[role='group'] > div.landmark .role {
+  text-transform: capitalize;
+}
+
+div[role='group'] > div.landmark .name::before {
+  content: ': ';
+}
+
 div[role='group'] > div.heading > a {
   display: grid;
   grid-template-columns: 1fr 1.33rem;
   grid-column-gap: 4px;
 }
 
-.heading .name {
+div[role='group'] > div.heading.h1,
+div[role='group'] > div.landmark.main {
+  color: #fff;
+  background-color: #0060df;
+}
+
+div[role='group'] > div.heading:not(.h1) .name {
   color: #999;
 }

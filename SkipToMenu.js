@@ -57,13 +57,22 @@ class SkipToMenu extends HTMLElement {
     const group = this.shadowRoot.querySelector('div[id="landmarks-group"]');
 
     landmarks.forEach(item => {
-      const accessibleName = item.accessibleName;
       const div = this.createMenuItem('landmark');
+      if (item.ariaRole === 'main') { div.classList.add('main') }
       const a = this.createMenuItemAnchor(item.dataId);
-      const span = document.createElement('span');
 
-      span.textContent = accessibleName ? `${item.ariaRole}: ${accessibleName}` : item.ariaRole;
-      a.appendChild(span);
+      const role = document.createElement('span');
+      role.className = 'role';
+      role.textContent = item.ariaRole;
+      a.appendChild(role);
+
+      if (item.accessibleName) {
+        const name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = item.accessibleName;
+        a.appendChild(name);
+      }
+
       div.appendChild(a);
       group.appendChild(div);
     });
@@ -71,22 +80,23 @@ class SkipToMenu extends HTMLElement {
 
   populateHeadingsGroup (headings) {
     const group = this.shadowRoot.querySelector('div[id="headings-group"]');
-    const emptyContentMsg = `[empty text content]`;
+    const emptyContentMsg = '[empty text content]';
 
     headings.forEach(item => {
       const div = this.createMenuItem('heading');
+      if (item.tagName === 'h1') { div.classList.add('h1') }
       const a = this.createMenuItemAnchor(item.dataId);
 
       const text = document.createElement('span');
-      text.className = `text`;
+      text.className = 'text';
       text.textContent = item.content ? item.content : emptyContentMsg;
+      a.appendChild(text);
 
       const name = document.createElement('span');
-      name.className = `name`;
+      name.className = 'name';
       name.textContent = item.tagName;
-
-      a.appendChild(text);
       a.appendChild(name);
+
       div.appendChild(a);
       group.appendChild(div);
     });
