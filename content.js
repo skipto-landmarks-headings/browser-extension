@@ -27,7 +27,12 @@ function getTargetElement (dataId, element) {
   }
 
   if (isNav) {
-    return element.querySelector('a');
+    // return element.querySelector('a');
+    let elements = element.querySelectorAll('a');
+    for (const elem of elements) {
+      if (isVisible(elem)) return elem;
+    }
+    return element;
   }
 
   // Must be main landmark
@@ -50,6 +55,10 @@ function skipToContent (dataId) {
       target.setAttribute('tabindex', '-1');
       target.focus();
       target.scrollIntoView(options);
+    }
+    else {
+      let status = (target === null) ? 'null' : !isVisible(target) ? 'not visible' : 'unknown';
+      console.log(`target: ${target.tagName.toLowerCase()} - status: ${status}`);
     }
   }
 }
@@ -107,42 +116,48 @@ function getHeadingElements () {
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
 
   mainLandmarks.forEach(function (elem) {
-    dataId = `m-${++counter}`;
-    elem.setAttribute(dataAttribName, dataId);
+    if (isVisible(elem)) {
+      dataId = `m-${++counter}`;
+      elem.setAttribute(dataAttribName, dataId);
 
-    let landmarkInfo = {
-      tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'main',
-      accessibleName: getAccessibleName(elem),
-      dataId: dataId
+      let landmarkInfo = {
+        tagName: elem.tagName.toLowerCase(),
+        ariaRole: 'main',
+        accessibleName: getAccessibleName(elem),
+        dataId: dataId
+      }
+      landmarksArray.push(landmarkInfo);
     }
-    landmarksArray.push(landmarkInfo);
   });
 
   searchLandmarks.forEach(function (elem) {
-    dataId = `s-${++counter}`;
-    elem.setAttribute(dataAttribName, dataId);
+    if (isVisible(elem)) {
+      dataId = `s-${++counter}`;
+      elem.setAttribute(dataAttribName, dataId);
 
-    let landmarkInfo = {
-      tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'search',
-      accessibleName: getAccessibleName(elem),
-      dataId: dataId
+      let landmarkInfo = {
+        tagName: elem.tagName.toLowerCase(),
+        ariaRole: 'search',
+        accessibleName: getAccessibleName(elem),
+        dataId: dataId
+      }
+      landmarksArray.push(landmarkInfo);
     }
-    landmarksArray.push(landmarkInfo);
   });
 
   navigationLandmarks.forEach(function (elem) {
-    dataId = `n-${++counter}`;
-    elem.setAttribute(dataAttribName, dataId);
+    if (isVisible(elem)) {
+      dataId = `n-${++counter}`;
+      elem.setAttribute(dataAttribName, dataId);
 
-    let landmarkInfo = {
-      tagName: elem.tagName.toLowerCase(),
-      ariaRole: 'navigation',
-      accessibleName: getAccessibleName(elem),
-      dataId: dataId
+      let landmarkInfo = {
+        tagName: elem.tagName.toLowerCase(),
+        ariaRole: 'navigation',
+        accessibleName: getAccessibleName(elem),
+        dataId: dataId
+      }
+      landmarksArray.push(landmarkInfo);
     }
-    landmarksArray.push(landmarkInfo);
   });
 
   // Process the heading elements
@@ -155,7 +170,7 @@ function getHeadingElements () {
 
       let headingInfo = {
         tagName: elem.tagName.toLowerCase(),
-        content: elem.textContent.trim(),
+        content: getTextContent(elem).trim(),
         dataId: dataId
       };
       headingsArray.push(headingInfo);
