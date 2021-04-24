@@ -14,8 +14,8 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  getTargetElement: Find an element that is focusable based on the type of
-**  landmark that element is.
+**  getTargetElement: Find an element that is focusable based on the
+**  aria role of the landmark (indicated by dataId prefix).
 */
 function getTargetElement (dataId, element) {
   let contentSelector = 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea';
@@ -95,20 +95,12 @@ function getHeadingElements () {
 /*
 **  When this script is executed directly, extract the skipto menu
 **  data and send it to the popup script.
-**
-**  Note: Landmarks are handled differently than headings in that when
-**  the skipto function is invoked, a representative target element is
-**  selected for focusing and scrolling (see skipToContent). Headings,
-**  on the other hand, are used in a more direct fashion, and therefore
-**  a conditional filter is applied when building the headingsArray to
-**  select only visible elements.
 */
 (function () {
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
   let dataAttribName = 'data-skipto';
-  let dataId;
 
   // Process the landmark elements
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');
@@ -126,7 +118,7 @@ function getHeadingElements () {
 
   mainLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      dataId = `m-${++counter}`;
+      let dataId = `m-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'main'));
     }
@@ -134,7 +126,7 @@ function getHeadingElements () {
 
   searchLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      dataId = `s-${++counter}`;
+      let dataId = `s-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'search'));
     }
@@ -142,7 +134,7 @@ function getHeadingElements () {
 
   navigationLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      dataId = `n-${++counter}`;
+      let dataId = `n-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'navigation'));
     }
@@ -153,7 +145,7 @@ function getHeadingElements () {
 
   headingElements.forEach(function (elem) {
     if (isVisible(elem)) {
-      dataId = `h-${++counter}`;
+      let dataId = `h-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       headingsArray.push({
         tagName: elem.tagName.toLowerCase(),
