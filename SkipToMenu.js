@@ -60,7 +60,10 @@ class SkipToMenu extends HTMLElement {
       const accessibleName = item.accessibleName;
       const div = this.createMenuItem('landmark');
       const a = this.createMenuItemAnchor(item.dataId);
-      a.textContent = accessibleName ? `${item.ariaRole}: ${accessibleName}` : item.ariaRole;
+      const span = document.createElement('span');
+
+      span.textContent = accessibleName ? `${item.ariaRole}: ${accessibleName}` : item.ariaRole;
+      a.appendChild(span);
       div.appendChild(a);
       group.appendChild(div);
     });
@@ -73,7 +76,17 @@ class SkipToMenu extends HTMLElement {
     headings.forEach(item => {
       const div = this.createMenuItem('heading');
       const a = this.createMenuItemAnchor(item.dataId);
-      a.textContent = item.content ? item.content : emptyContentMsg;
+
+      const text = document.createElement('span');
+      text.className = `text`;
+      text.textContent = item.content ? item.content : emptyContentMsg;
+
+      const name = document.createElement('span');
+      name.className = `name`;
+      name.textContent = item.tagName;
+
+      a.appendChild(text);
+      a.appendChild(name);
       div.appendChild(a);
       group.appendChild(div);
     });

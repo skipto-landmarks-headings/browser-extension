@@ -35,3 +35,13 @@ div[role='group'] > div > a:focus {
   outline: rgb(94, 158, 214) 2px solid;
   outline-offset: 4px;
 }
+
+div[role='group'] > div.heading > a {
+  display: grid;
+  grid-template-columns: 1fr 1.33rem;
+  grid-column-gap: 4px;
+}
+
+.heading .name {
+  color: #999;
+}

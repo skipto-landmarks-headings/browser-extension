@@ -44,7 +44,7 @@ function displayMenu (data) {
 ** value of its 'data-skipto' attribute to the content script
 */
 function sendSkipToData (evt) {
-  let data = evt.target.getAttribute('data-skipto');
+  let data = evt.target.closest('a').getAttribute('data-skipto');
 
   function sendMessageToTabs (tabs) {
     const message = {
