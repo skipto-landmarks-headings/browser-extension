@@ -115,18 +115,20 @@ function getHeadingElements () {
   let searchLandmarks = document.querySelectorAll('[role="search"]');
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
 
+  function getLandmarkInfo (elem, dataId, role) {
+    return {
+      tagName: elem.tagName.toLowerCase(),
+      ariaRole: role,
+      accessibleName: getLandmarkAccessibleName(elem),
+      dataId: dataId
+    };
+  }
+
   mainLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
       dataId = `m-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
-
-      let landmarkInfo = {
-        tagName: elem.tagName.toLowerCase(),
-        ariaRole: 'main',
-        accessibleName: getAccessibleName(elem),
-        dataId: dataId
-      }
-      landmarksArray.push(landmarkInfo);
+      landmarksArray.push(getLandmarkInfo(elem, dataId, 'main'));
     }
   });
 
@@ -134,14 +136,7 @@ function getHeadingElements () {
     if (isVisible(elem)) {
       dataId = `s-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
-
-      let landmarkInfo = {
-        tagName: elem.tagName.toLowerCase(),
-        ariaRole: 'search',
-        accessibleName: getAccessibleName(elem),
-        dataId: dataId
-      }
-      landmarksArray.push(landmarkInfo);
+      landmarksArray.push(getLandmarkInfo(elem, dataId, 'search'));
     }
   });
 
@@ -149,14 +144,7 @@ function getHeadingElements () {
     if (isVisible(elem)) {
       dataId = `n-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
-
-      let landmarkInfo = {
-        tagName: elem.tagName.toLowerCase(),
-        ariaRole: 'navigation',
-        accessibleName: getAccessibleName(elem),
-        dataId: dataId
-      }
-      landmarksArray.push(landmarkInfo);
+      landmarksArray.push(getLandmarkInfo(elem, dataId, 'navigation'));
     }
   });
 
@@ -167,13 +155,11 @@ function getHeadingElements () {
     if (isVisible(elem)) {
       dataId = `h-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
-
-      let headingInfo = {
+      headingsArray.push({
         tagName: elem.tagName.toLowerCase(),
         content: getTextContent(elem).trim(),
         dataId: dataId
-      };
-      headingsArray.push(headingInfo);
+      });
     }
   });
 

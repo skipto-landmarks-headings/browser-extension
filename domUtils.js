@@ -1,6 +1,6 @@
 /* domUtils.js */
 
-function getAccessibleName (landmark) {
+function getLandmarkAccessibleName (landmark) {
   const labelledbyIds = landmark.getAttribute('aria-labelledby'),
     label = landmark.getAttribute('aria-label'),
     title = landmark.getAttribute('title');
