@@ -3,14 +3,13 @@
 div[role='menu'] {
   padding: 1rem;
   font-family: sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 div[role='separator'] {
   color: #fff;
   background-color: #0060df;
   padding: 8px 6px 6px;
-  font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
 }
