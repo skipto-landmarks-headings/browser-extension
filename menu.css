@@ -1,13 +1,15 @@
 /* menu.css */
 
 div[role='menu'] {
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   font-family: sans-serif;
   font-size: 0.9rem;
 }
 
 div[role='separator'] {
-  padding: 6px;
+  color: #fff;
+  background-color: #0060df;
+  padding: 8px 6px 6px;
   font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -50,10 +52,9 @@ div[role='group'] > div.heading > a {
   grid-column-gap: 4px;
 }
 
-div[role='group'] > div.heading.h1,
-div[role='group'] > div.landmark.main {
-  color: #fff;
-  background-color: #0060df;
+div[role='group'] > div.landmark.main,
+div[role='group'] > div.heading.h1 {
+  font-weight: bold;
 }
 
 div[role='group'] > div.heading:not(.h1) .name {
@@ -61,28 +62,21 @@ div[role='group'] > div.heading:not(.h1) .name {
 }
 
 div[role='group'] > div.heading .text.h2 {
-  padding-left: 0.75rem;
-}
-
-div[role='group'] > div.heading .text.h3 {
-  padding-left: 1.5rem;
-}
-
-div[role='group'] > div.heading .text.h4 {
-  padding-left: 2.25rem;
-}
-
-div[role='group'] > div.heading .text.h5 {
-  padding-left: 3rem;
-}
-div[role='group'] > div.heading .text.h6 {
-  padding-left: 3.75rem;
-}
-
-div[role='group'] > div.heading .text.h2 {
   padding-left: 1rem;
 }
 
 div[role='group'] > div.heading .text.h3 {
-  padding-left: 2.5rem;
+  padding-left: 2rem;
+}
+
+div[role='group'] > div.heading .text.h4 {
+  padding-left: 3rem;
+}
+
+div[role='group'] > div.heading .text.h5 {
+  padding-left: 4rem;
+}
+
+div[role='group'] > div.heading .text.h6 {
+  padding-left: 5rem;
 }
