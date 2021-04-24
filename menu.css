@@ -49,7 +49,7 @@ div[role='group'] > div.landmark .name::before {
 div[role='group'] > div.heading > a {
   display: grid;
   grid-template-columns: 1fr 1.33rem;
-  grid-column-gap: 4px;
+  grid-column-gap: 0.5rem;
 }
 
 div[role='group'] > div.landmark.main,
