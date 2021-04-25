@@ -35,6 +35,7 @@ browser.tabs.executeScript( { file: 'content.js' } );
 */
 function displayMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
+  skipToMenu.showLandmarks = true;
   skipToMenu.menuItemClickHandler = sendSkipToData;
   skipToMenu.menuItems = data;
 }

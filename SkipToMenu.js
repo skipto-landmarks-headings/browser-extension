@@ -16,10 +16,6 @@ template.innerHTML = `
   </div>
 `;
 
-const options = {
-  landmarks: true
-};
-
 class SkipToMenu extends HTMLElement {
   constructor () {
     super();
@@ -39,6 +35,9 @@ class SkipToMenu extends HTMLElement {
     // Add default handler for click event
     this.onMenuItemClicked =
       evt => console.log(evt.target.getAttribute('data-skipto'));
+
+    // Initialize showLandmarks setting
+    this._showLandmarks = true;
   }
 
   createMenuItem (className) {
@@ -109,7 +108,7 @@ class SkipToMenu extends HTMLElement {
 
   // Use this setter to pass in menu data from external module
   set menuItems (data) {
-    if (options.landmarks) {
+    if (this._showLandmarks) {
       this.populateLandmarksGroup(data.landmarks);
     }
     else {
@@ -121,6 +120,11 @@ class SkipToMenu extends HTMLElement {
   // Note: This property must be set *before* setting menuItems
   set menuItemClickHandler (func) {
     this.onMenuItemClicked = func;
+  }
+
+  // Note: This property must be set *before* setting menuItems
+  set showLandmarks (value) {
+    this._showLandmarks = value;
   }
 }
 
