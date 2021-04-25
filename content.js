@@ -1,5 +1,12 @@
 /* content.js */
 
+var options = {
+  headings: {
+    maxLevel: 3,
+    mainOnly: false
+  }
+};
+
 /*
 **  Set up listener/handler for message from popup script
 */
@@ -68,7 +75,9 @@ function skipToContent (dataId) {
 **  through 'maxLevel'. If 'mainOnly' is true, select headings only
 **  if they are contained within a 'main' landmark.
 */
-function getHeadingSelector (maxLevel, mainOnly) {
+function getHeadingSelector () {
+  let maxLevel = options.headings.maxLevel;
+  let mainOnly = options.headings.mainOnly;
   let selectors = [];
   for (let i = 1; i <= maxLevel; i++) {
     let tagName = `h${i}`;
@@ -87,7 +96,7 @@ function getHeadingSelector (maxLevel, mainOnly) {
 **  document based on the specified and constructed CSS selector.
 */
 function getHeadingElements () {
-  let selector = getHeadingSelector(3, false);
+  let selector = getHeadingSelector();
   console.log(selector);
   return document.querySelectorAll(selector);
 }

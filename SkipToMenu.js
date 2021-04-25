@@ -16,6 +16,10 @@ template.innerHTML = `
   </div>
 `;
 
+const options = {
+  landmarks: true
+};
+
 class SkipToMenu extends HTMLElement {
   constructor () {
     super();
@@ -105,7 +109,12 @@ class SkipToMenu extends HTMLElement {
 
   // Use this setter to pass in menu data from external module
   set menuItems (data) {
-    this.populateLandmarksGroup(data.landmarks);
+    if (options.landmarks) {
+      this.populateLandmarksGroup(data.landmarks);
+    }
+    else {
+      this.shadowRoot.querySelector('div[id="landmarks-label"]').style = "display: none";
+    }
     this.populateHeadingsGroup(data.headings);
   }
 
