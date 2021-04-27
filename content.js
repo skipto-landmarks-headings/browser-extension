@@ -44,8 +44,8 @@ function getTargetElement (dataId, element) {
   // Must be main landmark
   for (const selector of selectorsArray) {
     let elem = element.querySelector(selector);
-    if (isVisible(elem)) {
-      console.log(`target for main: ${elem.tagName}`);
+    if (elem && isVisible(elem)) {
+      console.log(`target for main: ${elem.tagName.toLowerCase()}`);
       return elem;
     }
   }
