@@ -25,8 +25,7 @@ function messageHandler (message, sender) {
 **  aria role of the landmark (indicated by dataId prefix).
 */
 function getTargetElement (dataId, element) {
-  // let contentSelector = 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea';
-  let selectorsArray = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li'];
+  let selectorsArray = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'section', 'article', 'p', 'li'];
   let isSearch = dataId.startsWith('s-');
   let isNav = dataId.startsWith('n-');
 
