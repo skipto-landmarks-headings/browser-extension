@@ -62,6 +62,10 @@ div[role='group'] > div.heading:not(.h1) .name {
 
 div[role='group'] > div.heading .text {
   max-width: 20rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 div[role='group'] > div.heading .text.h2 {
