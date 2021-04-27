@@ -25,7 +25,8 @@ function messageHandler (message, sender) {
 **  aria role of the landmark (indicated by dataId prefix).
 */
 function getTargetElement (dataId, element) {
-  let contentSelector = 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea';
+  // let contentSelector = 'h1, h2, h3, h4, h5, h6, p, li, img, input, select, textarea';
+  let selectorsArray = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li'];
   let isSearch = dataId.startsWith('s-');
   let isNav = dataId.startsWith('n-');
 
@@ -34,7 +35,6 @@ function getTargetElement (dataId, element) {
   }
 
   if (isNav) {
-    // return element.querySelector('a');
     let elements = element.querySelectorAll('a');
     for (const elem of elements) {
       if (isVisible(elem)) return elem;
@@ -43,7 +43,14 @@ function getTargetElement (dataId, element) {
   }
 
   // Must be main landmark
-  return element.querySelector(contentSelector);
+  for (const selector of selectorsArray) {
+    let elem = element.querySelector(selector);
+    if (isVisible(elem)) {
+      console.log(`target for main: ${elem.tagName}`);
+      return elem;
+    }
+  }
+  return element;
 }
 
 /*

@@ -4,6 +4,7 @@ div[role='menu'] {
   padding: 1rem;
   font-family: sans-serif;
   font-size: 0.8rem;
+  scroll-behavior: smooth;
 }
 
 div[role='separator'] {
