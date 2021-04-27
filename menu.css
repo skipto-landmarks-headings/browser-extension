@@ -3,7 +3,7 @@
 div[role='menu'] {
   padding: 1rem;
   font-family: sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 
 div[role='separator'] {
@@ -58,6 +58,10 @@ div[role='group'] > div.heading.h1 {
 
 div[role='group'] > div.heading:not(.h1) .name {
   color: #999;
+}
+
+div[role='group'] > div.heading .text {
+  max-width: 20rem;
 }
 
 div[role='group'] > div.heading .text.h2 {
