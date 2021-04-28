@@ -47,6 +47,7 @@ class KbdEventMgr {
 
   setFocusToLastMenuitem () {
     this.setFocusToMenuitem(this.lastMenuitem);
+    this.lastMenuitem.scrollIntoView({block: 'start'});
   }
 
   setFocusToPreviousMenuitem (currentMenuitem) {
@@ -78,6 +79,9 @@ class KbdEventMgr {
     }
 
     this.setFocusToMenuitem(newMenuitem);
+    if (newMenuitem === this.lastMenuitem) {
+      newMenuitem.scrollIntoView({block: 'start'});
+    }
   }
 
   // Menuitem event handlers
