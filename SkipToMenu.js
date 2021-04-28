@@ -1,5 +1,7 @@
 /* SkipToMenu.js */
 
+import KbdEventMgr from './KbdEventMgr.js';
+
 const template = document.createElement('template');
 template.innerHTML = `
   <div role="menu">
@@ -40,29 +42,24 @@ class SkipToMenu extends HTMLElement {
     this._showLandmarks = true;
   }
 
-  createMenuItem (className) {
+  createMenuItem (className, dataId) {
     const div = document.createElement('div');
     div.role = 'menuitem';
     div.tabindex = '-1';
     div.className = className;
+    div.setAttribute('data-skipto', dataId);
+    div.addEventListener('click', this.onMenuItemClicked);
     return div;
-  }
-
-  createMenuItemAnchor (dataId) {
-    const a = document.createElement('a');
-    a.setAttribute('data-skipto', dataId);
-    a.href = '#';
-    a.addEventListener('click', this.onMenuItemClicked);
-    return a;
   }
 
   populateLandmarksGroup (landmarks) {
     const group = this.shadowRoot.querySelector('div[id="landmarks-group"]');
 
     landmarks.forEach(item => {
-      const div = this.createMenuItem('landmark');
+      const div = this.createMenuItem('landmark', item.dataId);
       if (item.ariaRole === 'main') { div.classList.add('main') }
-      const a = this.createMenuItemAnchor(item.dataId);
+      const a = document.createElement('a');
+      a.href = '#';
 
       const role = document.createElement('span');
       role.className = 'role';
@@ -86,9 +83,10 @@ class SkipToMenu extends HTMLElement {
     const emptyContentMsg = '[empty text content]';
 
     headings.forEach(item => {
-      const div = this.createMenuItem('heading');
+      const div = this.createMenuItem('heading', item.dataId);
       if (item.tagName === 'h1') { div.classList.add('h1') }
-      const a = this.createMenuItemAnchor(item.dataId);
+      const a = document.createElement('a');
+      a.href = '#';
 
       const text = document.createElement('span');
       text.className = 'text';
@@ -115,6 +113,11 @@ class SkipToMenu extends HTMLElement {
       this.shadowRoot.querySelector('div[id="landmarks-label"]').style = "display: none";
     }
     this.populateHeadingsGroup(data.headings);
+
+    // Instantiate KbdEventMgr object to manage keyboard events
+    const menuNode = this.shadowRoot.querySelector('div[role="menu"]');
+    this.kbdEventMgr = new KbdEventMgr(menuNode, this.onMenuItemClicked);
+    this.kbdEventMgr.setFocusToFirstMenuitem();
   }
 
   // Note: This property must be set *before* setting menuItems

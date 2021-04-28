@@ -23,6 +23,11 @@ div[role='group'] > div {
   padding: 6px;
 }
 
+div[role='group'] > div:focus {
+  outline: #ff552e 2px solid;
+  outline-offset: -2px;
+}
+
 div[role='group'] > div:nth-child(odd) {
   background-color: #eee;
 }
@@ -31,11 +36,6 @@ div[role='group'] > div > a {
   color: inherit;
   display: block;
   text-decoration: none;
-}
-
-div[role='group'] > div > a:focus {
-  outline: rgb(94, 158, 214) 2px solid;
-  outline-offset: 4px;
 }
 
 div[role='group'] > div.landmark .role {
