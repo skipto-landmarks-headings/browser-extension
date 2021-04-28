@@ -117,7 +117,7 @@ class SkipToMenu extends HTMLElement {
     // Instantiate KbdEventMgr object to manage keyboard events
     const menuNode = this.shadowRoot.querySelector('div[role="menu"]');
     this.kbdEventMgr = new KbdEventMgr(menuNode, this.onMenuItemClicked);
-    this.kbdEventMgr.setFocusToFirstMenuitem();
+    this.kbdEventMgr.setFocusFirstItem();
   }
 
   // Note: This property must be set *before* setting menuItems

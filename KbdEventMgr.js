@@ -15,6 +15,7 @@ class KbdEventMgr {
     this.menuitems = [];
     this.firstMenuitem = null;
     this.lastMenuitem = null;
+    this.pageIncrement = 8;
 
     const menuitemNodes = this.menuNode.querySelectorAll('div[role="group"] > div');
     menuitemNodes.forEach((menuitem) => {
@@ -40,47 +41,65 @@ class KbdEventMgr {
     });
   }
 
-  setFocusToFirstMenuitem () {
+  setFocusFirstItem () {
     this.setFocusToMenuitem(this.firstMenuitem);
     this.firstMenuitem.scrollIntoView({block: 'end'});
   }
 
-  setFocusToLastMenuitem () {
+  setFocusLastItem () {
     this.setFocusToMenuitem(this.lastMenuitem);
     this.lastMenuitem.scrollIntoView({block: 'start'});
   }
 
-  setFocusToPreviousMenuitem (currentMenuitem) {
-    let newMenuitem;
-
+  setFocusPrevItem (currentMenuitem) {
     if (currentMenuitem === this.firstMenuitem) {
-      return; // newMenuitem = this.lastMenuitem;
-    }
-    else {
-      const index = this.menuitems.indexOf(currentMenuitem);
-      newMenuitem = this.menuitems[index - 1];
+      return;
     }
 
+    const index = this.menuitems.indexOf(currentMenuitem);
+    const newMenuitem = this.menuitems[index - 1];
     this.setFocusToMenuitem(newMenuitem);
+
     if (newMenuitem === this.firstMenuitem) {
       newMenuitem.scrollIntoView({block: 'end'});
     }
   }
 
-  setFocusToNextMenuitem (currentMenuitem) {
-    let newMenuitem;
-
+  setFocusNextItem (currentMenuitem) {
     if (currentMenuitem === this.lastMenuitem) {
-      return; // newMenuitem = this.firstMenuitem;
-    }
-    else {
-      const index = this.menuitems.indexOf(currentMenuitem);
-      newMenuitem = this.menuitems[index + 1];
+      return;
     }
 
+    const index = this.menuitems.indexOf(currentMenuitem);
+    const newMenuitem = this.menuitems[index + 1];
     this.setFocusToMenuitem(newMenuitem);
+
     if (newMenuitem === this.lastMenuitem) {
       newMenuitem.scrollIntoView({block: 'start'});
+    }
+  }
+
+  setFocusPrevPage (currentMenuitem) {
+    const index = this.menuitems.indexOf(currentMenuitem);
+
+    if (index < this.pageIncrement) {
+      this.setFocusFirstItem();
+    }
+    else {
+      const newMenuitem = this.menuitems[index - this.pageIncrement];
+      this.setFocusToMenuitem(newMenuitem);
+    }
+  }
+
+  setFocusNextPage (currentMenuitem) {
+    const index = this.menuitems.indexOf(currentMenuitem);
+
+    if (this.menuitems.length - index <= this.pageIncrement) {
+      this.setFocusLastItem();
+    }
+    else {
+      const newMenuitem = this.menuitems[index + this.pageIncrement];
+      this.setFocusToMenuitem(newMenuitem);
     }
   }
 
@@ -96,7 +115,7 @@ class KbdEventMgr {
     }
 
     if (event.shiftKey && event.key === 'Tab') {
-      this.setFocusToPreviousMenuitem(tgt);
+      this.setFocusPrevItem(tgt);
       flag = true;
     }
     else {
@@ -108,30 +127,38 @@ class KbdEventMgr {
 
         case 'Up':
         case 'ArrowUp':
-          this.setFocusToPreviousMenuitem(tgt);
+          this.setFocusPrevItem(tgt);
           flag = true;
           break;
 
         case 'ArrowDown':
         case 'Down':
-          this.setFocusToNextMenuitem(tgt);
+          this.setFocusNextItem(tgt);
+          flag = true;
+          break;
+
+        case 'PageUp':
+          this.setFocusPrevPage(tgt);
+          flag = true;
+          break;
+
+        case 'PageDown':
+          this.setFocusNextPage(tgt);
           flag = true;
           break;
 
         case 'Home':
-        case 'PageUp':
-          this.setFocusToFirstMenuitem();
+          this.setFocusFirstItem();
           flag = true;
           break;
 
         case 'End':
-        case 'PageDown':
-          this.setFocusToLastMenuitem();
+          this.setFocusLastItem();
           flag = true;
           break;
 
         case 'Tab':
-          this.setFocusToNextMenuitem(tgt);
+          this.setFocusNextItem(tgt);
           flag = true;
           break;
 
