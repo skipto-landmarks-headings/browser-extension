@@ -30,9 +30,6 @@ class MenuGroup extends HTMLElement {
     div.className = className;
     div.setAttribute('data-skipto', dataId);
     div.addEventListener('click', this.onMenuitemClicked);
-    const a = document.createElement('a');
-    a.href = '#';
-    div.appendChild(a);
     return div;
   }
 
@@ -54,8 +51,6 @@ class LandmarksGroup extends MenuGroup {
     // const group = this.shadowRoot.querySelector('div[role="group"]')
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
-      const a = div.querySelector('a');
-
       if (info.ariaRole === 'main') {
         div.classList.add('main');
       }
@@ -63,13 +58,13 @@ class LandmarksGroup extends MenuGroup {
       const roleSpan = document.createElement('span');
       roleSpan.className = 'role';
       roleSpan.textContent = info.ariaRole;
-      a.appendChild(roleSpan);
+      div.appendChild(roleSpan);
 
       if (info.accessibleName) {
         const nameSpan = document.createElement('span');
         nameSpan.className = 'name';
         nameSpan.textContent = info.accessibleName;
-        a.appendChild(nameSpan);
+        div.appendChild(nameSpan);
       }
 
       this.group.appendChild(div);
@@ -90,18 +85,17 @@ class HeadingsGroup extends MenuGroup {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }
-      const a = div.querySelector('a');
 
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
       textSpan.textContent = info.content ? info.content : emptyContentMsg;
-      a.appendChild(textSpan);
+      div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');
       nameSpan.className = 'name';
       nameSpan.textContent = info.tagName;
-      a.appendChild(nameSpan);
+      div.appendChild(nameSpan);
 
       this.group.appendChild(div);
     }

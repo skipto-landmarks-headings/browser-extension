@@ -33,7 +33,7 @@ div[role='group'] > div:nth-child(odd) {
   background-color: #eee;
 }
 
-div[role='group'] > div > a {
+div[role='group'] > div {
   color: inherit;
   display: block;
   text-decoration: none;
@@ -47,7 +47,7 @@ div[role='group'] > div.landmark .name::before {
   content: ': ';
 }
 
-div[role='group'] > div.heading > a {
+div[role='group'] > div.heading {
   display: grid;
   grid-template-columns: 1fr 1.33rem;
   grid-column-gap: 0.5rem;
