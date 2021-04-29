@@ -3,11 +3,6 @@
 import SkipToMenu from './SkipToMenu.js';
 
 /*
-**  Register skipto-menu custom element
-*/
-customElements.define('skipto-menu', SkipToMenu);
-
-/*
 **  Set up listener/handler for message containing menu data
 **  sent from content script
 */
@@ -35,6 +30,7 @@ browser.tabs.executeScript( { file: 'content.js' } );
 */
 function displayMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
+  customElements.define('skipto-menu', SkipToMenu);
 
   skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
   skipToMenu.landmarksGroup.menuitems = data.landmarks;
