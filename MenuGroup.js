@@ -10,12 +10,14 @@ class MenuGroup extends HTMLElement {
 
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', 'menu.css');
+    link.setAttribute('href', 'menuitem.css');
     this.shadowRoot.appendChild(link);
 
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.group = this.shadowRoot.querySelector('div');
-    this.onMenuitemClicked = defaultClickHandler;
+    this.group = this.shadowRoot.querySelector('div[role="group"]');
+
+    this.onMenuitemClicked =
+      evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
   }
 
   set attributes (obj) {
@@ -48,7 +50,6 @@ class LandmarksGroup extends MenuGroup {
   // Use this setter to pass in menu data from external module
   set menuitems (landmarksInfo) {
     console.log('in landmarksGroup');
-    // const group = this.shadowRoot.querySelector('div[role="group"]')
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
       if (info.ariaRole === 'main') {
@@ -100,10 +101,6 @@ class HeadingsGroup extends MenuGroup {
       this.group.appendChild(div);
     }
   }
-}
-
-function defaultClickHandler (evt) {
-  console.log(evt.currentTarget.getAttribute('data-skipto'));
 }
 
 customElements.define('landmarks-group', LandmarksGroup);
