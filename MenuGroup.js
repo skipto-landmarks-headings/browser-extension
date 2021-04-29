@@ -27,10 +27,10 @@ class MenuGroup extends HTMLElement {
 
   createMenuitem (className, dataId) {
     const div = document.createElement('div');
-    div.role = 'menuitem';
-    div.tabindex = '-1';
     div.className = className;
     div.setAttribute('data-skipto', dataId);
+    div.setAttribute('role', 'menuitem');
+    div.tabindex = '-1';
     div.addEventListener('click', this.onMenuitemClicked);
     return div;
   }

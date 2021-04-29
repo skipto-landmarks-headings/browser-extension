@@ -1,6 +1,6 @@
 /* menuitem.css */
 
-div[role='group'] > div {
+div[role='menuitem'] {
   color: inherit;
   cursor: pointer;
   display: block;
@@ -9,39 +9,39 @@ div[role='group'] > div {
   border-bottom: 1px solid #ddd;
 }
 
-div[role='group'] > div:focus {
+div[role='menuitem']:focus {
   outline: 3px solid #aaa;
   outline-offset: -3px;
 }
 
-div[role='group'] > div:nth-child(odd) {
+div[role='menuitem']:nth-child(odd) {
   background-color: #eee;
 }
 
-div[role='group'] > div.landmark .role {
+div[role='menuitem'].landmark .role {
   text-transform: capitalize;
 }
 
-div[role='group'] > div.landmark .name::before {
+div[role='menuitem'].landmark .name::before {
   content: ': ';
 }
 
-div[role='group'] > div.heading {
+div[role='menuitem'].heading {
   display: grid;
   grid-template-columns: 1fr 1.33rem;
   grid-column-gap: 0.5rem;
 }
 
-div[role='group'] > div.landmark.main,
-div[role='group'] > div.heading.h1 {
+div[role='menuitem'].landmark.main,
+div[role='menuitem'].heading.h1 {
   font-weight: bold;
 }
 
-div[role='group'] > div.heading:not(.h1) .name {
+div[role='menuitem'].heading:not(.h1) .name {
   color: #999;
 }
 
-div[role='group'] > div.heading .text {
+div[role='menuitem'].heading .text {
   max-width: 20rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -49,22 +49,22 @@ div[role='group'] > div.heading .text {
   overflow: hidden;
 }
 
-div[role='group'] > div.heading .text.h2 {
+div[role='menuitem'].heading .text.h2 {
   padding-left: 1rem;
 }
 
-div[role='group'] > div.heading .text.h3 {
+div[role='menuitem'].heading .text.h3 {
   padding-left: 2rem;
 }
 
-div[role='group'] > div.heading .text.h4 {
+div[role='menuitem'].heading .text.h4 {
   padding-left: 3rem;
 }
 
-div[role='group'] > div.heading .text.h5 {
+div[role='menuitem'].heading .text.h5 {
   padding-left: 4rem;
 }
 
-div[role='group'] > div.heading .text.h6 {
+div[role='menuitem'].heading .text.h6 {
   padding-left: 5rem;
 }
