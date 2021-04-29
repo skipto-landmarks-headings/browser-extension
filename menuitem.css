@@ -1,0 +1,70 @@
+/* menuitem.css */
+
+div[role='group'] > div {
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+div[role='group'] > div:focus {
+  outline: 3px solid #aaa;
+  outline-offset: -3px;
+}
+
+div[role='group'] > div:nth-child(odd) {
+  background-color: #eee;
+}
+
+div[role='group'] > div.landmark .role {
+  text-transform: capitalize;
+}
+
+div[role='group'] > div.landmark .name::before {
+  content: ': ';
+}
+
+div[role='group'] > div.heading {
+  display: grid;
+  grid-template-columns: 1fr 1.33rem;
+  grid-column-gap: 0.5rem;
+}
+
+div[role='group'] > div.landmark.main,
+div[role='group'] > div.heading.h1 {
+  font-weight: bold;
+}
+
+div[role='group'] > div.heading:not(.h1) .name {
+  color: #999;
+}
+
+div[role='group'] > div.heading .text {
+  max-width: 20rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+div[role='group'] > div.heading .text.h2 {
+  padding-left: 1rem;
+}
+
+div[role='group'] > div.heading .text.h3 {
+  padding-left: 2rem;
+}
+
+div[role='group'] > div.heading .text.h4 {
+  padding-left: 3rem;
+}
+
+div[role='group'] > div.heading .text.h5 {
+  padding-left: 4rem;
+}
+
+div[role='group'] > div.heading .text.h6 {
+  padding-left: 5rem;
+}
