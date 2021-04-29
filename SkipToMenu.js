@@ -1,5 +1,6 @@
 /* SkipToMenu.js */
 
+import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
 import KbdEventMgr from './KbdEventMgr.js';
 
 const template = document.createElement('template');
@@ -8,13 +9,11 @@ template.innerHTML = `
     <div role="separator" id="landmarks-label">
       <slot name="landmarks-label">group label</slot>
     </div>
-    <div role="group" id="landmarks-group" aria-labelledby="landmarks-label">
-    </div>
+    <landmarks-group></landmarks-group>
     <div role="separator" id="headings-label">
       <slot name="headings-label">group label</slot>
     </div>
-    <div role="group" id="headings-group" aria-labelledby="headings-label">
-    </div>
+    <headings-group></headings-group>
   </div>
 `;
 
@@ -32,7 +31,11 @@ class SkipToMenu extends HTMLElement {
     this.shadowRoot.appendChild(link);
 
     // Add menu container
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.menuContainer = this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+    // Init group references
+    this.landmarksGroup = this.shadowRoot.querySelector('landmarks-group');
+    this.headingsGroup = this.shadowRoot.querySelector('headings-group');
 
     // Add default handler for click event
     this.onMenuItemClicked =
@@ -42,86 +45,13 @@ class SkipToMenu extends HTMLElement {
     this._showLandmarks = true;
   }
 
-  createMenuItem (className, dataId) {
-    const div = document.createElement('div');
-    div.role = 'menuitem';
-    div.tabindex = '-1';
-    div.className = className;
-    div.setAttribute('data-skipto', dataId);
-    div.addEventListener('click', this.onMenuItemClicked);
-    return div;
-  }
-
-  populateLandmarksGroup (landmarks) {
-    const group = this.shadowRoot.querySelector('div[id="landmarks-group"]');
-
-    landmarks.forEach(item => {
-      const div = this.createMenuItem('landmark', item.dataId);
-      if (item.ariaRole === 'main') { div.classList.add('main') }
-      const a = document.createElement('a');
-      a.href = '#';
-
-      const role = document.createElement('span');
-      role.className = 'role';
-      role.textContent = item.ariaRole;
-      a.appendChild(role);
-
-      if (item.accessibleName) {
-        const name = document.createElement('span');
-        name.className = 'name';
-        name.textContent = item.accessibleName;
-        a.appendChild(name);
-      }
-
-      div.appendChild(a);
-      group.appendChild(div);
-    });
-  }
-
-  populateHeadingsGroup (headings) {
-    const group = this.shadowRoot.querySelector('div[id="headings-group"]');
-    const emptyContentMsg = '[empty text content]';
-
-    headings.forEach(item => {
-      const div = this.createMenuItem('heading', item.dataId);
-      if (item.tagName === 'h1') { div.classList.add('h1') }
-      const a = document.createElement('a');
-      a.href = '#';
-
-      const text = document.createElement('span');
-      text.className = 'text';
-      text.classList.add(item.tagName);
-      text.textContent = item.content ? item.content : emptyContentMsg;
-      a.appendChild(text);
-
-      const name = document.createElement('span');
-      name.className = 'name';
-      name.textContent = item.tagName;
-      a.appendChild(name);
-
-      div.appendChild(a);
-      group.appendChild(div);
-    });
-  }
-
   // Use this setter to pass in menu data from external module
-  set menuItems (data) {
-    if (this._showLandmarks) {
-      this.populateLandmarksGroup(data.landmarks);
-    }
-    else {
-      this.shadowRoot.querySelector('div[id="landmarks-label"]').style = "display: none";
-    }
-    this.populateHeadingsGroup(data.headings);
-
-    // Instantiate KbdEventMgr object to manage keyboard events
-    const menuNode = this.shadowRoot.querySelector('div[role="menu"]');
-    this.kbdEventMgr = new KbdEventMgr(menuNode, this.onMenuItemClicked);
-    this.kbdEventMgr.setFocusFirstItem();
+  set kbdEventHandlers (func) {
+    this.kbdEventMgr = new KbdEventMgr(this.menuContainer, this.onMenuItemClicked);
   }
 
   // Note: This property must be set *before* setting menuItems
-  set menuItemClickHandler (func) {
+  set menuitemClickHandler (func) {
     this.onMenuItemClicked = func;
   }
 

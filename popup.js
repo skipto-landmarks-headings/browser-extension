@@ -36,8 +36,13 @@ browser.tabs.executeScript( { file: 'content.js' } );
 function displayMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
   skipToMenu.showLandmarks = true;
-  skipToMenu.menuItemClickHandler = sendSkipToData;
-  skipToMenu.menuItems = data;
+  // skipToMenu.menuitemClickHandler = sendSkipToData;
+
+  skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
+  skipToMenu.landmarksGroup.menuitems = data.landmarks;
+
+  skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
+  skipToMenu.headingsGroup.menuitems = data.headings;
 }
 
 /*
