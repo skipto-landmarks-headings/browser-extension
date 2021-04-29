@@ -30,34 +30,22 @@ class SkipToMenu extends HTMLElement {
     link.setAttribute('href', 'menu.css');
     this.shadowRoot.appendChild(link);
 
-    // Add menu container
-    this.menuContainer = this.shadowRoot.appendChild(template.content.cloneNode(true));
+    // Add menu container from template
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    // Init group references
+    // Init references
+    this.menuNode       = this.shadowRoot.querySelector('div[role="menu"]');
     this.landmarksGroup = this.shadowRoot.querySelector('landmarks-group');
-    this.headingsGroup = this.shadowRoot.querySelector('headings-group');
-
-    // Add default handler for click event
-    this.onMenuItemClicked =
-      evt => console.log(evt.target.getAttribute('data-skipto'));
-
-    // Initialize showLandmarks setting
-    this._showLandmarks = true;
+    this.headingsGroup  = this.shadowRoot.querySelector('headings-group');
   }
 
-  // Use this setter to pass in menu data from external module
-  set kbdEventHandlers (func) {
-    this.kbdEventMgr = new KbdEventMgr(this.menuContainer, this.onMenuItemClicked);
+  set menuitems (data) {
+    this.landmarksGroup.menuitems = data.landmarks;
+    this.headingsGroup.menuitems = data.headings;
   }
 
-  // Note: This property must be set *before* setting menuItems
-  set menuitemClickHandler (func) {
-    this.onMenuItemClicked = func;
-  }
-
-  // Note: This property must be set *before* setting menuItems
-  set showLandmarks (value) {
-    this._showLandmarks = value;
+  set kbdEventClickHandler (func) {
+    this.kbdEventMgr = new KbdEventMgr(this.menuNode, func);
   }
 }
 

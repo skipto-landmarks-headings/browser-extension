@@ -17,7 +17,7 @@ class KbdEventMgr {
     this.lastMenuitem = null;
     this.pageIncrement = 8;
 
-    const menuitemNodes = this.menuNode.querySelectorAll('div[role="group"] > div');
+    const menuitemNodes = this.menuNode.querySelectorAll('div[role="menuitem"]');
     menuitemNodes.forEach((menuitem) => {
       menuitem.addEventListener('keydown', this.onMenuitemKeydown.bind(this));
       this.menuitems.push(menuitem);

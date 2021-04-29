@@ -1,26 +1,23 @@
 /* MenuGroup.js */
 
-const template = document.createElement('template');
-template.innerHTML = `<div role="group"></div>`;
+const landmarksGrp = document.createElement('template');
+landmarksGrp.innerHTML = `
+    <div role="group" id="landmarks-group" aria-labelledby="landmarks-label">
+    </div>
+`;
 
-class MenuGroup extends HTMLElement {
+class LandmarksGroup extends HTMLElement {
   constructor () {
     super();
-    this.attachShadow({mode: 'open'});
+    this.attachShadow({ mode: 'open' });
 
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', 'menu.css');
     this.shadowRoot.appendChild(link);
 
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.group = this.shadowRoot.querySelector('div');
+    this.shadowRoot.appendChild(landmarksGrp.content.cloneNode(true));
     this.onMenuitemClicked = defaultClickHandler;
-  }
-
-  set attributes (obj) {
-    this.setAttribute('id', obj.elemId);
-    this.setAttribute('aria-labelledby', obj.labelId);
   }
 
   createMenuitem (className, dataId) {
@@ -30,35 +27,22 @@ class MenuGroup extends HTMLElement {
     div.className = className;
     div.setAttribute('data-skipto', dataId);
     div.addEventListener('click', this.onMenuitemClicked);
-    const a = document.createElement('a');
-    a.href = '#';
-    div.appendChild(a);
     return div;
-  }
-
-  // Note: This property must be set *before* creating menuitems
-  set menuitemClickHandler (func) {
-    this.onMenuitemClicked = func;
-  }
-}
-
-class LandmarksGroup extends MenuGroup {
-  constructor () {
-    super();
-    this.attributes = { elemId: 'landmarks-group', labelId: 'landmarks-label'};
   }
 
   // Use this setter to pass in menu data from external module
   set menuitems (landmarksInfo) {
     console.log('in landmarksGroup');
-    // const group = this.shadowRoot.querySelector('div[role="group"]')
+    const group = this.shadowRoot.querySelector('div[role="group"]')
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
-      const a = div.querySelector('a');
 
       if (info.ariaRole === 'main') {
         div.classList.add('main');
       }
+
+      const a = document.createElement('a');
+      a.href = '#';
 
       const roleSpan = document.createElement('span');
       roleSpan.className = 'role';
@@ -72,25 +56,58 @@ class LandmarksGroup extends MenuGroup {
         a.appendChild(nameSpan);
       }
 
-      this.group.appendChild(div);
+      div.appendChild(a);
+      group.appendChild(div);
     }
+  }
+
+  // Note: This property must be set *before* setting menuitems
+  set menuitemClickHandler (func) {
+    this.onMenuitemClicked = func;
   }
 }
 
-class HeadingsGroup extends MenuGroup {
+const headingsGrp = document.createElement('template');
+headingsGrp.innerHTML = `
+    <div role="group" id="headings-group" aria-labelledby="headings-label">
+    </div>
+`;
+
+class HeadingsGroup extends HTMLElement {
   constructor () {
     super();
-    this.attributes = { elemId: 'headings-group', labelId: 'headings-label'};
+    this.attachShadow({ mode: 'open' });
+
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', 'menu.css');
+    this.shadowRoot.appendChild(link);
+
+    this.shadowRoot.appendChild(headingsGrp.content.cloneNode(true));
+    this.onMenuitemClicked = defaultClickHandler;
+  }
+
+  createMenuitem (className, dataId) {
+    const div = document.createElement('div');
+    div.role = 'menuitem';
+    div.tabindex = '-1';
+    div.className = className;
+    div.setAttribute('data-skipto', dataId);
+    div.addEventListener('click', this.onMenuitemClicked);
+    return div;
   }
 
   // Use this setter to pass in menu data from external module
   set menuitems (headingsInfo) {
     console.log('in headingsGroup');
+    const group = this.shadowRoot.querySelector('div[role="group"]');
     const emptyContentMsg = '[empty text content]';
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }
-      const a = div.querySelector('a');
+
+      const a = document.createElement('a');
+      a.href = '#';
 
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
@@ -103,8 +120,14 @@ class HeadingsGroup extends MenuGroup {
       nameSpan.textContent = info.tagName;
       a.appendChild(nameSpan);
 
-      this.group.appendChild(div);
+      div.appendChild(a);
+      group.appendChild(div);
     }
+  }
+
+  // Note: This property must be set *before* setting menuitems
+  set menuitemClickHandler (func) {
+    this.onMenuitemClicked = func;
   }
 }
 
