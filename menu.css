@@ -20,7 +20,8 @@ div[role='separator']:not(:first-child) {
 }
 
 div[role='group'] > div {
-  padding: 8px 6px;
+  border-bottom: 1px solid #ddd;
+  padding: 6px;
 }
 
 div[role='group'] > div:focus {
