@@ -1,11 +1,4 @@
-/*
- *   This content is licensed according to the W3C Software License at
- *   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
- *
- *   File:   KbdEventMgr.js
- *
- *   Desc:   Creates an object that manages keyboard navigation of menuitems
- */
+/* KbdEventMgr.js */
 
 class KbdEventMgr {
   constructor (menuNode, onClick) {
@@ -125,14 +118,12 @@ class KbdEventMgr {
           this.onClick(event);
           break;
 
-        case 'Up':
         case 'ArrowUp':
           this.setFocusPrevItem(tgt);
           flag = true;
           break;
 
         case 'ArrowDown':
-        case 'Down':
           this.setFocusNextItem(tgt);
           flag = true;
           break;
