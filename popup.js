@@ -1,6 +1,14 @@
 /* popup.js */
 
 import SkipToMenu from './SkipToMenu.js';
+customElements.define('skipto-menu', SkipToMenu);
+
+import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
+customElements.define('landmarks-group', LandmarksGroup);
+customElements.define('headings-group', HeadingsGroup);
+
+import { KbdEventMgr } from './KbdEventMgr.js';
+var kbdEventMgr;
 
 /*
 **  Set up listener/handler for message containing menu data
@@ -11,7 +19,7 @@ browser.runtime.onMessage.addListener(messageHandler);
 function messageHandler (message, sender) {
   switch (message.id) {
     case 'content':
-      displayMenu({
+      constructMenu({
         landmarks: message.landmarks,
         headings: message.headings
       });
@@ -25,20 +33,32 @@ function messageHandler (message, sender) {
 browser.tabs.executeScript( { file: 'domUtils.js' } );
 browser.tabs.executeScript( { file: 'content.js' } );
 
+function constructMenu (data) {
+  const skipToMenu = document.querySelector('skipto-menu');
+
+  skipToMenu.landmarksGroup.addEventListener(
+    'landmarks', evt => console.log('landmarks event: ' + evt.detail));
+  skipToMenu.headingsGroup.addEventListener(
+    'headings', evt => {
+      console.log('headings event: ' + evt.detail);
+      displayMenu(skipToMenu);
+    });
+
+  skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
+  skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
+  skipToMenu.landmarksGroup.menuitems = data.landmarks;
+  skipToMenu.headingsGroup.menuitems = data.headings;
+}
+
 /*
 **  Once menu data is available, display SkipTo menu
 */
-function displayMenu (data) {
+function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
-  customElements.define('skipto-menu', SkipToMenu);
-
-  skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
-  skipToMenu.landmarksGroup.menuitems = data.landmarks;
-
-  skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
-  skipToMenu.headingsGroup.menuitems = data.headings;
-
-  skipToMenu.kbdEventClickHandler = sendSkipToData;
+  // const landmarks = skipToMenu.landmarksGroup.menuitems;
+  // const headings = skipToMenu.headingsGroup.menuitems;
+  kbdEventMgr = new KbdEventMgr(skipToMenu.menuitems, sendSkipToData);
+  kbdEventMgr.setFocusFirstItem();
 }
 
 /*

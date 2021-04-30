@@ -1,25 +1,17 @@
 /* KbdEventMgr.js */
 
-class KbdEventMgr {
-  constructor (menuNode, onClick) {
-    this.menuNode = menuNode;
+export class KbdEventMgr {
+  constructor (menuitems, onClick) {
+    this.menuitems = menuitems;
     this.onClick = onClick;
 
-    this.menuitems = [];
-    this.firstMenuitem = null;
-    this.lastMenuitem = null;
+    this.firstMenuitem = menuitems[0];
+    this.lastMenuitem  = menuitems[menuitems.length - 1];
     this.pageIncrement = 8;
 
-    const menuitemNodes = this.menuNode.querySelectorAll('div[role="menuitem"]');
-    menuitemNodes.forEach((menuitem) => {
+    for (let menuitem of menuitems) {
       menuitem.addEventListener('keydown', this.onMenuitemKeydown.bind(this));
-      this.menuitems.push(menuitem);
-
-      if (!this.firstMenuitem) {
-        this.firstMenuitem = menuitem;
-      }
-      this.lastMenuitem = menuitem;
-    });
+    }
   }
 
   setFocusToMenuitem (menuitem) {
@@ -46,6 +38,7 @@ class KbdEventMgr {
 
   setFocusPrevItem (currentMenuitem) {
     if (currentMenuitem === this.firstMenuitem) {
+      this.setFocusLastItem();
       return;
     }
 
@@ -60,6 +53,7 @@ class KbdEventMgr {
 
   setFocusNextItem (currentMenuitem) {
     if (currentMenuitem === this.lastMenuitem) {
+      this.setFocusFirstItem();
       return;
     }
 
@@ -107,55 +101,50 @@ class KbdEventMgr {
       return;
     }
 
-    if (event.shiftKey && event.key === 'Tab') {
-      this.setFocusPrevItem(tgt);
-      flag = true;
-    }
-    else {
-      switch (key) {
-        case ' ':
-        case 'Enter':
-          this.onClick(event);
-          break;
+    switch (key) {
+      case ' ':
+      case 'Enter':
+        this.onClick(event);
+        break;
 
-        case 'ArrowUp':
-          this.setFocusPrevItem(tgt);
-          flag = true;
-          break;
+      case 'ArrowUp':
+        this.setFocusPrevItem(tgt);
+        flag = true;
+        break;
 
-        case 'ArrowDown':
-          this.setFocusNextItem(tgt);
-          flag = true;
-          break;
+      case 'ArrowDown':
+        this.setFocusNextItem(tgt);
+        flag = true;
+        break;
 
-        case 'PageUp':
-          this.setFocusPrevPage(tgt);
-          flag = true;
-          break;
+      case 'PageUp':
+        this.setFocusPrevPage(tgt);
+        flag = true;
+        break;
 
-        case 'PageDown':
-          this.setFocusNextPage(tgt);
-          flag = true;
-          break;
+      case 'PageDown':
+        this.setFocusNextPage(tgt);
+        flag = true;
+        break;
 
-        case 'Home':
-          this.setFocusFirstItem();
-          flag = true;
-          break;
+      case 'Home':
+        this.setFocusFirstItem();
+        flag = true;
+        break;
 
-        case 'End':
-          this.setFocusLastItem();
-          flag = true;
-          break;
+      case 'End':
+        this.setFocusLastItem();
+        flag = true;
+        break;
 
-        case 'Tab':
-          this.setFocusNextItem(tgt);
-          flag = true;
-          break;
+      case 'Tab':
+        // this.setFocusNextItem(tgt);
+        window.close();
+        flag = true;
+        break;
 
-        default:
-          break;
-      }
+      default:
+        break;
     }
 
     if (flag) {
@@ -164,5 +153,3 @@ class KbdEventMgr {
     }
   }
 }
-
-export { KbdEventMgr as default };

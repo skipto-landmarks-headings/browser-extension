@@ -47,9 +47,12 @@ class LandmarksGroup extends MenuGroup {
     this.attributes = { elemId: 'landmarks-group', labelId: 'landmarks-label'};
   }
 
+  get menuitems () {
+    return this.shadowRoot.querySelectorAll('div[role="menuitem"]');
+  }
+
   // Use this setter to pass in menu data from external module
   set menuitems (landmarksInfo) {
-    console.log('in landmarksGroup');
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
       if (info.ariaRole === 'main') {
@@ -70,6 +73,9 @@ class LandmarksGroup extends MenuGroup {
 
       this.group.appendChild(div);
     }
+
+    let count = this.group.querySelectorAll('div[role="menuitem"]').length;
+    this.dispatchEvent(new CustomEvent('landmarks', { detail: count }));
   }
 }
 
@@ -79,9 +85,12 @@ class HeadingsGroup extends MenuGroup {
     this.attributes = { elemId: 'headings-group', labelId: 'headings-label'};
   }
 
+  get menuitems () {
+    return this.shadowRoot.querySelectorAll('div[role="menuitem"]');
+  }
+
   // Use this setter to pass in menu data from external module
   set menuitems (headingsInfo) {
-    console.log('in headingsGroup');
     const emptyContentMsg = '[empty text content]';
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
@@ -100,9 +109,10 @@ class HeadingsGroup extends MenuGroup {
 
       this.group.appendChild(div);
     }
+
+    let count = this.group.querySelectorAll('div[role="menuitem"]').length;
+    this.dispatchEvent(new CustomEvent('headings', { detail: count }));
   }
 }
 
-customElements.define('landmarks-group', LandmarksGroup);
-customElements.define('headings-group', HeadingsGroup);
 export { LandmarksGroup, HeadingsGroup };

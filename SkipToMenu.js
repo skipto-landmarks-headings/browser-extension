@@ -1,8 +1,5 @@
 /* SkipToMenu.js */
 
-import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
-import KbdEventMgr from './KbdEventMgr.js';
-
 const template = document.createElement('template');
 template.innerHTML = `
   <div role="menu">
@@ -39,13 +36,16 @@ class SkipToMenu extends HTMLElement {
     this.headingsGroup  = this.shadowRoot.querySelector('headings-group');
   }
 
+  get menuitems () {
+    let menuitems = [];
+    menuitems.push.apply(menuitems, this.landmarksGroup.menuitems);
+    menuitems.push.apply(menuitems, this.headingsGroup.menuitems);
+    return menuitems;
+  }
+
   set menuitems (data) {
     this.landmarksGroup.menuitems = data.landmarks;
     this.headingsGroup.menuitems = data.headings;
-  }
-
-  set kbdEventClickHandler (func) {
-    this.kbdEventMgr = new KbdEventMgr(this.menuNode, func);
   }
 }
 
