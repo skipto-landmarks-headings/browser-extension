@@ -37,10 +37,10 @@ function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
   skipToMenu.landmarksGroup.addEventListener(
-    'landmarks', evt => console.log('landmarks event: ' + evt.detail));
+    'landmarks', evt => console.log('landmarks: ' + evt.detail));
   skipToMenu.headingsGroup.addEventListener(
     'headings', evt => {
-      console.log('headings event: ' + evt.detail);
+      console.log('headings: ' + evt.detail);
       displayMenu(skipToMenu);
     });
 
@@ -55,8 +55,6 @@ function constructMenu (data) {
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
-  // const landmarks = skipToMenu.landmarksGroup.menuitems;
-  // const headings = skipToMenu.headingsGroup.menuitems;
   kbdEventMgr = new KbdEventMgr(skipToMenu.menuitems, sendSkipToData);
   kbdEventMgr.setFocusFirstItem();
 }
