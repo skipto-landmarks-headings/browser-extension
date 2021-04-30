@@ -83,6 +83,7 @@ class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
     this.attributes = { elemId: 'headings-group', labelId: 'headings-label'};
+    this.emptyContentMsg = '[empty text content]';
   }
 
   get menuitems () {
@@ -91,7 +92,6 @@ class HeadingsGroup extends MenuGroup {
 
   // Use this setter to pass in menu data from external module
   set menuitems (headingsInfo) {
-    const emptyContentMsg = '[empty text content]';
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }
@@ -99,7 +99,7 @@ class HeadingsGroup extends MenuGroup {
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : emptyContentMsg;
+      textSpan.textContent = info.content ? info.content : this.emptyContentMsg;
       div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');

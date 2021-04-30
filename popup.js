@@ -36,10 +36,11 @@ browser.tabs.executeScript( { file: 'content.js' } );
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
-  skipToMenu.landmarksGroup.addEventListener(
-    'landmarks', evt => console.log('landmarks: ' + evt.detail));
-  skipToMenu.headingsGroup.addEventListener(
-    'headings', evt => {
+  skipToMenu.landmarksGroup.addEventListener('landmarks',
+    evt => console.log('landmarks: ' + evt.detail));
+
+  skipToMenu.headingsGroup.addEventListener('headings',
+    evt => {
       console.log('headings: ' + evt.detail);
       displayMenu(skipToMenu);
     });
