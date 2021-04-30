@@ -16,7 +16,7 @@ div[role='menuitem']:hover {
   background-color: #D6EAF8 !important;
 }
 
-div[role='menuitem']:nth-child(even) {
+div[role='menuitem']:nth-child(odd) {
   background-color: #eee;
 }
 
@@ -44,6 +44,7 @@ div[role='menuitem'].heading:not(.h1) .name {
 }
 
 div[role='menuitem'].heading .text {
+  min-width: 12rem;
   max-width: 20rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
