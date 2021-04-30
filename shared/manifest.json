@@ -18,7 +18,7 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "Ctrl+Shift+0"
+        "default": "Ctrl+Shift+K"
       }
     }
   }
