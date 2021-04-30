@@ -95,10 +95,9 @@ function sendSkipToData (evt) {
 #endif
 #ifdef CHROME
     for (let tab of tabs) {
-      chrome.tabs.sendMessage(tab.id, message, function () {
-        if (notLastError()) { window.close() }
-      });
+      chrome.tabs.sendMessage(tab.id, message);
     }
+    window.close();
 #endif
   }
 
