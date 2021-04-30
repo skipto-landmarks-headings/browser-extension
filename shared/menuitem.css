@@ -4,13 +4,16 @@ div[role='menuitem'] {
   color: inherit;
   cursor: pointer;
   display: block;
-  text-decoration: none;
   padding: 6px;
 }
 
 div[role='menuitem']:focus {
   outline: 2px solid #aaa;
   outline-offset: -2px;
+}
+
+div[role='menuitem']:hover {
+  background-color: #D6EAF8 !important;
 }
 
 div[role='menuitem']:nth-child(even) {

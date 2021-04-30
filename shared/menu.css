@@ -10,7 +10,8 @@ div[role='menu'] {
 
 div[role='separator'] {
   color: #fff;
-  background-color: #0060df;
+  /* background-color: #0060df; */
+  background-color: #1565C0;
   padding: 8px 6px 6px;
   font-weight: bold;
   text-transform: uppercase;
