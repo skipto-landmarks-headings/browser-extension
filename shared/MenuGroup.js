@@ -21,7 +21,6 @@ class MenuGroup extends HTMLElement {
   }
 
   set attributes (obj) {
-    this.setAttribute('id', obj.elemId);
     this.setAttribute('aria-labelledby', obj.labelId);
   }
 
@@ -44,7 +43,7 @@ class MenuGroup extends HTMLElement {
 class LandmarksGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = { elemId: 'landmarks-group', labelId: 'landmarks-label'};
+    this.attributes = { labelId: 'landmarks-label' };
   }
 
   get menuitems () {
@@ -82,7 +81,7 @@ class LandmarksGroup extends MenuGroup {
 class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = { elemId: 'headings-group', labelId: 'headings-label'};
+    this.attributes = { labelId: 'headings-label' };
     this.emptyContentMsg = '[empty text content]';
   }
 
