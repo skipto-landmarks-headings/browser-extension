@@ -1,0 +1,20 @@
+/* menu.css */
+
+div[role='menu'] {
+  padding: 1rem;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  scroll-behavior: smooth;
+}
+
+div[role='separator'] {
+  color: #fff;
+  background-color: #1565C0;
+  padding: 8px 6px 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+div[role='separator']:not(:first-child) {
+  margin-top: 0.25rem;
+}

@@ -1,0 +1,73 @@
+/* menuitem.css */
+
+div[role='menuitem'] {
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  padding: 6px;
+}
+
+div[role='menuitem']:focus {
+  outline: 2px solid #aaa;
+  outline-offset: -2px;
+}
+
+div[role='menuitem']:hover {
+  background-color: #D6EAF8 !important;
+}
+
+div[role='menuitem']:nth-child(odd) {
+  background-color: #eee;
+}
+
+div[role='menuitem'].landmark .role {
+  text-transform: capitalize;
+}
+
+div[role='menuitem'].landmark .name::before {
+  content: ': ';
+}
+
+div[role='menuitem'].heading {
+  display: grid;
+  grid-template-columns: 1fr 1.33rem;
+  grid-column-gap: 0.5rem;
+}
+
+div[role='menuitem'].landmark.main,
+div[role='menuitem'].heading.h1 {
+  font-weight: bold;
+}
+
+div[role='menuitem'].heading:not(.h1) .name {
+  color: #999;
+}
+
+div[role='menuitem'].heading .text {
+  min-width: 12rem;
+  max-width: 20rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+div[role='menuitem'].heading .text.h2 {
+  padding-left: 1rem;
+}
+
+div[role='menuitem'].heading .text.h3 {
+  padding-left: 2rem;
+}
+
+div[role='menuitem'].heading .text.h4 {
+  padding-left: 3rem;
+}
+
+div[role='menuitem'].heading .text.h5 {
+  padding-left: 4rem;
+}
+
+div[role='menuitem'].heading .text.h6 {
+  padding-left: 5rem;
+}
