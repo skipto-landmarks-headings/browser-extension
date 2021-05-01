@@ -60,8 +60,7 @@ content is subsequently displayed.
 
 ### Menu Activation Phase
 
-When the user activates a menuitem, its `click` event handler initiates the
-following sequence:
+When the user activates a menuitem in `SkipToMenu`, firing its `click` event:
 
 1. The `click` event handler `sendSkipToData`, located in the `popup` script:
     1. Sends the `popup` message to the `content` script, which contains the
