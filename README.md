@@ -15,8 +15,11 @@ Each menuitem in the menu contains a `dataId` corresponding to one of the
 When a menuitem is activated, the `popup` window is closed and the extension
 sets focus to the selected element and scrolls it into view.
 
-Once installed, the keyboard shortcut for activating the SkipTo extension is
-`Ctrl/Cmd + Shift + K`.
+### Keyboard Shortcut
+
+`Ctrl/Cmd + Shift + K`
+
+Once you have installed SkipTo, use this shortcut to activate it.
 
 ## How it works
 
