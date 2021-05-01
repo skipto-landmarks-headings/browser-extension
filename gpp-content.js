@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
-    case 'popup':
+    case 'skipto':
       skipToContent(message.data);
       break;
   }
@@ -176,7 +176,7 @@ function getHeadingElements () {
   });
 
   const message = {
-    id: 'content',
+    id: 'menudata',
     landmarks: landmarksArray,
     headings: headingsArray
   };

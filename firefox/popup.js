@@ -18,7 +18,7 @@ browser.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
-    case 'content':
+    case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
         headings: message.headings
@@ -65,7 +65,7 @@ function displayMenu () {
 ** value of its 'data-skipto' attribute to the content script
 */
 function sendSkipToData (evt) {
-  let data = evt.currentTarget.getAttribute('data-skipto');
+  let dataId = evt.currentTarget.getAttribute('data-skipto');
   evt.stopPropagation();
   evt.preventDefault();
 
@@ -77,8 +77,8 @@ function sendSkipToData (evt) {
 
   function sendMessageToTabs (tabs) {
     const message = {
-      id: 'popup',
-      data: data
+      id: 'skipto',
+      data: dataId
     };
 
     for (let tab of tabs) {

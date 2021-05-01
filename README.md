@@ -43,21 +43,21 @@ toolbar or pressing its keyboard shortcut), which displays the `SkipTo` popup.
 
 1. When the `popup` script loads, it:
     1. Registers the three custom elements;
-    1. Creates a message listener for the `content` message from the
+    1. Creates a message listener for the `menudata` message from the
       `content` script;
     1. Executes the `domUtils` and `content` scripts.
 
 1. When the `content` script runs, it:
-    1. Creates a message listener for the `popup` message from the `popup`
+    1. Creates a message listener for the `skipto` message from the `popup`
        script;
     1. Collects the data from the page loaded into the active tab, based on
        the extension's configuration;
-    1. Sends the `content` message containing the data to the `popup` script.
+    1. Sends the `menudata` message containing the data to the `popup` script.
 
-1. When `popup` receives the `content` message containing the page data, it:
-    1. Creates event listeners for the `LandmarksGroup` and `HeadingsGroup`
-       elements;
-    1. Sets the `menuitems` properties on the `LandmarksGroup` and
+1. When `popup` receives the `menudata` message containing the page data, it:
+    1. Creates event listeners for the `landmarks` and `headings` events
+       dispatched by the `LandmarksGroup` and `HeadingsGroup` elements;
+    1. Sets the `menuitems` property on the `LandmarksGroup` and
       `HeadingsGroup` elements.
 
 1. When the setters on the `LandmarksGroup` and `HeadingsGroup` elements are
@@ -90,7 +90,7 @@ When the user activates a menuitem in `SkipToMenu`, firing its `click` event:
        the `SkipToMenu` element, to free memory no longer needed;
     1. Closes the `popup` window.
 
-1. When the `content` script receives the `popup` message, it calls its
+1. When the `content` script receives the `skipto` message, it calls its
    `skipToContent` function, which:
     1. Gets a `target` element from the web page loaded into the active tab,
        used for setting focus and scrolling to the appropriate element;
@@ -111,4 +111,3 @@ two separately installable extensions, one for Chrome and one for Firefox.
 Thus, even though the files in the `chrome` and `firefox` folders are tracked
 by Git, they should not be manually modified, as the `build.sh` script will
 overwrite all of these files when it is run.
-
