@@ -80,6 +80,12 @@ function sendSkipToData (evt) {
   evt.stopPropagation();
   evt.preventDefault();
 
+  function closeUpShop () {
+    const skipToMenu = document.querySelector('skipto-menu');
+    skipToMenu.removeGroups();
+    window.close();
+  }
+
   function sendMessageToTabs (tabs) {
     const message = {
       id: 'popup',
@@ -89,7 +95,7 @@ function sendSkipToData (evt) {
 #ifdef FIREFOX
     for (let tab of tabs) {
       browser.tabs.sendMessage(tab.id, message)
-      .then(response => window.close())
+      .then(response => closeUpShop())
       .catch(onError);
     }
 #endif
@@ -97,7 +103,7 @@ function sendSkipToData (evt) {
     for (let tab of tabs) {
       chrome.tabs.sendMessage(tab.id, message);
     }
-    window.close();
+    closeUpShop();
 #endif
   }
 

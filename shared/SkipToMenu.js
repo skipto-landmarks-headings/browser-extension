@@ -47,6 +47,11 @@ class SkipToMenu extends HTMLElement {
     this.landmarksGroup.menuitems = data.landmarks;
     this.headingsGroup.menuitems = data.headings;
   }
+
+  removeGroups () {
+    this.landmarksGroup.remove();
+    this.headingsGroup.remove();
+  }
 }
 
 export { SkipToMenu as default };
