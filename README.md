@@ -2,7 +2,7 @@
 
 ## Description
 
-The SkipTo browser extension collects data from the web page loaded in the
+The `SkipTo` browser extension collects data from the web page loaded in the
 active tab that corresponds to a select list of ARIA `landmark` regions and
 HTML `heading` elements contained in the page.
 
@@ -13,7 +13,8 @@ Each menuitem in the menu contains a `dataId` corresponding to one of the
 `landmark` or `heading` elements in the active tab web page.
 
 When a menuitem is activated, the `popup` window is closed and the extension
-sets focus to the selected element and scrolls it into view.
+sets focus to the selected element and scrolls it into view, in effect,
+allowing you to "skip to" the selected content.
 
 ### Keyboard Shortcut
 
@@ -32,7 +33,7 @@ Along side these scripts and custom elements, there are three CSS files:
 
 The following sequence describes how the scripts and custom elements work
 together after the user invokes the extension (by clicking its button in the
-toolbar or pressing its keyboard shortcut), which displays the SkipTo popup.
+toolbar or pressing its keyboard shortcut), which displays the `SkipTo` popup.
 
 ### Setup Phase
 
