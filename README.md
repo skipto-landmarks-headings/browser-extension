@@ -72,8 +72,8 @@ toolbar or pressing its keyboard shortcut), which displays the `SkipTo` popup.
    menuitems corresponding to the data they have been sent, it:
     1. Gets a list of all `menuitems` from `SkipToMenu`;
     1. Creates an instance of `KbdEventMgr`, passing in the `menuitems`. This
-       script handles keyboard navigation of the `SkipToMenu` element's
-       `menuitems`.
+       script handles keyboard navigation of all the `menuitems` contained by
+       the `SkipToMenu` element.
 
 At this point, the `SkipToMenu` element is fully initialized and its DOM
 content is subsequently displayed.
@@ -83,7 +83,7 @@ content is subsequently displayed.
 When the user activates a menuitem in `SkipToMenu`, firing its `click` event:
 
 1. The `click` event handler `sendSkipToData`, located in the `popup` script:
-    1. Sends the `popup` message to the `content` script, which contains the
+    1. Sends the `skipto` message to the `content` script, which contains the
       `dataId` of the element in the page corresponding to the activated
        menuitem;
     1. Removes the `LandmarksGroup` and `HeadingsGroup` element contents from
