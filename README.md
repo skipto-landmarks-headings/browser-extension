@@ -1,5 +1,23 @@
 # SkipTo Extension
 
+## Description
+
+The SkipTo browser extension collects data from the web page loaded in the
+active tab corresponding to a select list of ARIA `landmark` regions and HTML
+`heading` elements contained in the page.
+
+The `SkipToMenu` element, which is displayed in a `popup` window, organizes
+this data into a menu system that is keyboard navigable.
+
+Each menuitem in the menu contains a `dataId` corresponding to one of the
+`landmark` or `heading` elements in the active tab web page.
+
+When a menuitem is activated, the `popup` window is closed and the extension
+sets focus to the selected element and scrolls it into view.
+
+Once installed, the keyboard shortcut for activating the SkipTo extension is
+`Ctrl/Cmd + Shift + K`.
+
 ## How it works
 
 ### Overview
