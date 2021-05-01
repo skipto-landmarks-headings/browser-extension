@@ -86,15 +86,16 @@ When the user activates a menuitem in `SkipToMenu`, firing its `click` event:
     1. Sends the `skipto` message to the `content` script, which contains the
       `dataId` of the element in the page corresponding to the activated
        menuitem;
-    1. Removes the `LandmarksGroup` and `HeadingsGroup` element contents from
-       the `SkipToMenu` element, to free memory no longer needed;
+    1. Removes the `LandmarksGroup` and `HeadingsGroup` elements from the
+       `SkipToMenu` element, to free memory no longer needed;
     1. Closes the `popup` window.
 
 1. When the `content` script receives the `skipto` message, it calls its
    `skipToContent` function, which:
-    1. Gets a `target` element from the web page loaded into the active tab,
-       used for setting focus and scrolling to the appropriate element;
-    1. Sets focus on the `target` element and scrolls it into view.
+    1. Gets an appropriate `target` element from the web page loaded into the
+       active tab, used for setting focus and scrolling to the selected
+       element;
+    1. Sets window focus on the `target` element and scrolls it into view.
 
 ## Development Notes
 
