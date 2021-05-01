@@ -17,11 +17,9 @@ sets focus to the selected element and scrolls it into view.
 
 ### Keyboard Shortcut
 
-`Ctrl/Cmd + Shift + K`
+To activate `SkipTo` via the keyboard, use `Ctrl/Cmd + Shift + K`.
 
-Once you have installed SkipTo, use this shortcut to activate it.
-
-## How it works
+## How the Code Works
 
 ### Overview
 
