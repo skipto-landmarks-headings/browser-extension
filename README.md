@@ -93,3 +93,20 @@ When the user activates a menuitem in `SkipToMenu`, firing its `click` event:
     1. Gets a `target` element from the web page loaded into the active tab,
        used for setting focus and scrolling to the appropriate element;
     1. Sets focus on the `target` element and scrolls it into view.
+
+## Development Notes
+
+_Important:_ The files used in developing the `SkipTo` extension are located
+in the top-most directory and in the `shared` folder. The top-most directory
+contains files with a `gpp-` prefix, which are processed by a utility called
+the `generic preprocessor`, which is freely available as an `npm` package.
+
+The files in the `chrome` and `firefox` folders are either copies of files in
+the `shared` folder, or files that result from processing `gpp-` prefixed
+files. The `build.sh` script handles processing and copying files to produce
+two separately installable extensions, one for Chrome and one for Firefox.
+
+Thus, even though the files in the `chrome` and `firefox` folders are tracked
+by Git, they should not be manually modified, as the `build.sh` script will
+overwrite all of these files when it is run.
+
