@@ -3,8 +3,8 @@
 ## Description
 
 The SkipTo browser extension collects data from the web page loaded in the
-active tab corresponding to a select list of ARIA `landmark` regions and HTML
-`heading` elements contained in the page.
+active tab that corresponds to a select list of ARIA `landmark` regions and
+HTML `heading` elements contained in the page.
 
 The `SkipToMenu` element, which is displayed in a `popup` window, organizes
 this data into a menu system that is keyboard navigable.
