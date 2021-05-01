@@ -24,6 +24,11 @@ class MenuGroup extends HTMLElement {
     this.setAttribute('aria-labelledby', obj.labelId);
   }
 
+  // Note: This property must be set *before* creating menuitems
+  set menuitemClickHandler (func) {
+    this.onMenuitemClicked = func;
+  }
+
   createMenuitem (className, dataId) {
     const div = document.createElement('div');
     div.className = className;
@@ -32,11 +37,6 @@ class MenuGroup extends HTMLElement {
     div.tabindex = '-1';
     div.addEventListener('click', this.onMenuitemClicked);
     return div;
-  }
-
-  // Note: This property must be set *before* creating menuitems
-  set menuitemClickHandler (func) {
-    this.onMenuitemClicked = func;
   }
 
   dispatchCustomEvent (eventName) {
