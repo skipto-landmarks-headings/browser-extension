@@ -58,8 +58,8 @@ function constructMenu (data) {
 
   skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
   skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
-  skipToMenu.landmarksGroup.menuitems = data.landmarks;
-  skipToMenu.headingsGroup.menuitems = data.headings;
+  skipToMenu.landmarksGroup.menuData = data.landmarks;
+  skipToMenu.headingsGroup.menuData = data.headings;
 }
 
 /*

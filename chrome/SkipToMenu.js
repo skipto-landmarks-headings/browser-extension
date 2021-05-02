@@ -38,14 +38,9 @@ class SkipToMenu extends HTMLElement {
 
   get menuitems () {
     let menuitems = [];
-    menuitems.push.apply(menuitems, this.landmarksGroup.menuitems);
-    menuitems.push.apply(menuitems, this.headingsGroup.menuitems);
+    menuitems.push(...this.landmarksGroup.menuitems);
+    menuitems.push(...this.headingsGroup.menuitems);
     return menuitems;
-  }
-
-  set menuitems (data) {
-    this.landmarksGroup.menuitems = data.landmarks;
-    this.headingsGroup.menuitems = data.headings;
   }
 
   removeGroups () {
