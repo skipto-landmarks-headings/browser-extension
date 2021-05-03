@@ -1,5 +1,12 @@
 /* menuitem.css */
 
+div {
+  --dark-gray:         #999;
+  --dark-red:       #C90951;
+  --light-blue:     #D6EAF8;
+  --light-gray:        #EEE;
+}
+
 div[role='menuitem'] {
   color: inherit;
   cursor: pointer;
@@ -8,16 +15,16 @@ div[role='menuitem'] {
 }
 
 div[role='menuitem']:focus {
-  outline: 2px solid #aaa;
+  outline: 2px solid var(--dark-red);
   outline-offset: -2px;
 }
 
 div[role='menuitem']:hover {
-  background-color: #D6EAF8 !important;
+  background-color: var(--light-blue) !important;
 }
 
 div[role='menuitem']:nth-child(odd) {
-  background-color: #eee;
+  background-color: var(--light-gray);
 }
 
 div[role='menuitem'].landmark .role {
@@ -40,7 +47,7 @@ div[role='menuitem'].heading.h1 {
 }
 
 div[role='menuitem'].heading:not(.h1) .name {
-  color: #999;
+  color: var(--dark-gray);
 }
 
 div[role='menuitem'].heading .text {
