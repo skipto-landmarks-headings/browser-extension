@@ -9,13 +9,13 @@ export class KbdEventMgr {
     this.lastMenuitem  = menuitems[menuitems.length - 1];
     this.pageIncrement = 8;
 
-    for (let menuitem of menuitems) {
+    for (const menuitem of menuitems) {
       menuitem.addEventListener('keydown', this.onMenuitemKeydown.bind(this));
     }
   }
 
   setFocusToMenuitem (menuitem) {
-    this.menuitems.forEach(function (item) {
+    for (const item of this.menuitems) {
       if (item === menuitem) {
         item.tabIndex = 0;
         menuitem.focus();
@@ -23,7 +23,7 @@ export class KbdEventMgr {
       else {
         item.tabIndex = -1;
       }
-    });
+    }
   }
 
   setFocusFirstItem () {
