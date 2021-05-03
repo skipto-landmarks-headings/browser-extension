@@ -12,6 +12,8 @@ export class KbdEventMgr {
     for (const menuitem of menuitems) {
       menuitem.addEventListener('keydown', this.onMenuitemKeydown.bind(this));
     }
+
+    this.currentMenuitem = null;
   }
 
   setFocusToMenuitem (menuitem) {
@@ -19,10 +21,17 @@ export class KbdEventMgr {
       if (item === menuitem) {
         item.tabIndex = 0;
         menuitem.focus();
+        this.currentMenuitem = menuitem;
       }
       else {
         item.tabIndex = -1;
       }
+    }
+  }
+
+  setFocusCurrentItem () {
+    if (this.currentMenuitem) {
+      this.setFocusToMenuitem(this.currentMenuitem);
     }
   }
 

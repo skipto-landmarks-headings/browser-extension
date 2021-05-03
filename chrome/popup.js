@@ -62,6 +62,9 @@ function displayMenu () {
   if (menuitems.length) {
     kbdEventMgr = new KbdEventMgr(menuitems, sendSkipToData);
     kbdEventMgr.setFocusFirstItem();
+
+    const menuNode = skipToMenu.shadowRoot.querySelector('div[role="menu"]');
+    menuNode.addEventListener('focus', evt => kbdEventMgr.setFocusCurrentItem());
   }
 }
 

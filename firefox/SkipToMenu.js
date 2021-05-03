@@ -2,7 +2,7 @@
 
 const template = document.createElement('template');
 template.innerHTML = `
-  <div role="menu">
+  <div role="menu" tabindex="-1">
     <div role="separator" id="landmarks-label">
       <slot name="landmarks-label">group label</slot>
     </div>
