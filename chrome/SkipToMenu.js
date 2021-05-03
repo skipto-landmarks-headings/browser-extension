@@ -33,23 +33,23 @@ class SkipToMenu extends HTMLElement {
     link.setAttribute('href', 'menu.css');
     this.shadowRoot.appendChild(link);
 
-    // Add menu container from template
+    // Add DOM tree from template
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    // Init references
-    this.landmarksGroup   = this.shadowRoot.querySelector('landmarks-group');
-    this.landmarksMessage = this.shadowRoot.querySelector('#landmarks-empty');
+    // Initialize child element references
+    this.landmarksGroup = this.shadowRoot.querySelector('landmarks-group');
+    this.landmarksEmpty = this.shadowRoot.querySelector('#landmarks-empty');
 
-    this.headingsGroup    = this.shadowRoot.querySelector('headings-group');
-    this.headingsMessage  = this.shadowRoot.querySelector('#headings-empty');
+    this.headingsGroup  = this.shadowRoot.querySelector('headings-group');
+    this.headingsEmpty  = this.shadowRoot.querySelector('#headings-empty');
   }
 
   checkGroupCounts () {
     if (this.landmarksGroup.infoCount === 0) {
-      this.landmarksMessage.style.display = 'block';
+      this.landmarksEmpty.style.display = 'block';
     }
     if (this.headingsGroup.infoCount === 0) {
-      this.headingsMessage.style.display = 'block';
+      this.headingsEmpty.style.display = 'block';
     }
   }
 
