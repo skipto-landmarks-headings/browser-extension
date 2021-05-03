@@ -18,3 +18,10 @@ div[role='separator'] {
 div[role='separator']:not(:first-child) {
   margin-top: 0.25rem;
 }
+
+div.message {
+  display: none;
+  background-color: #eee;
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+}

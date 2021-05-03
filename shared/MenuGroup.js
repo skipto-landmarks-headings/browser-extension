@@ -83,6 +83,7 @@ class LandmarksGroup extends MenuGroup {
       this.group.appendChild(div);
     }
 
+    this.infoCount = landmarksInfo.length;
     this.dispatchCustomEvent('landmarks');
   }
 }
@@ -117,6 +118,7 @@ class HeadingsGroup extends MenuGroup {
       this.group.appendChild(div);
     }
 
+    this.infoCount = headingsInfo.length;
     this.dispatchCustomEvent('headings');
   }
 }

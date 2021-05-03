@@ -67,8 +67,13 @@ function constructMenu (data) {
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
-  kbdEventMgr = new KbdEventMgr(skipToMenu.menuitems, sendSkipToData);
-  kbdEventMgr.setFocusFirstItem();
+  skipToMenu.checkGroupCounts();
+
+  const menuitems = skipToMenu.menuitems;
+  if (menuitems.length) {
+    kbdEventMgr = new KbdEventMgr(menuitems, sendSkipToData);
+    kbdEventMgr.setFocusFirstItem();
+  }
 }
 
 /*
