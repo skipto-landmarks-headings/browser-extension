@@ -57,7 +57,7 @@ toolbar or pressing its keyboard shortcut), which displays the `SkipTo` popup.
 1. When `popup` receives the `menudata` message containing the page data, it:
     1. Creates event listeners for the `landmarks` and `headings` events
        dispatched by the `LandmarksGroup` and `HeadingsGroup` elements;
-    1. Sets the `menuitems` property on the `LandmarksGroup` and
+    1. Sets the `menudata` property on the `LandmarksGroup` and
       `HeadingsGroup` elements.
 
 1. When the setters on the `LandmarksGroup` and `HeadingsGroup` elements are

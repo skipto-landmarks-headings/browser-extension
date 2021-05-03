@@ -1,5 +1,6 @@
 /* MenuGroup.js */
 
+const emptyContentMsg = '[empty text content]';
 const template = document.createElement('template');
 template.innerHTML = `<div role="group"></div>`;
 
@@ -60,7 +61,7 @@ class LandmarksGroup extends MenuGroup {
   }
 
   // Use this setter to pass in menu data from external module
-  set menuData (landmarksInfo) {
+  set menudata (landmarksInfo) {
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
       if (info.ariaRole === 'main') {
@@ -90,7 +91,6 @@ class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
     this.attributes = { labelId: 'headings-label' };
-    this.emptyContentMsg = '[empty text content]';
   }
 
   get menuitems () {
@@ -98,7 +98,7 @@ class HeadingsGroup extends MenuGroup {
   }
 
   // Use this setter to pass in menu data from external module
-  set menuData (headingsInfo) {
+  set menudata (headingsInfo) {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }
@@ -106,7 +106,7 @@ class HeadingsGroup extends MenuGroup {
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : this.emptyContentMsg;
+      textSpan.textContent = info.content ? info.content : emptyContentMsg;
       div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');
