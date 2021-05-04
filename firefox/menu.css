@@ -26,6 +26,5 @@ div[role='separator']:not(:first-child) {
 div.message {
   display: none;
   background-color: #eee;
-  font-weight: bold;
   padding: 1rem 1.5rem;
 }
