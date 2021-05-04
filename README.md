@@ -16,9 +16,32 @@ When a menuitem is activated, the `popup` window is closed and the extension
 sets focus to the selected element and scrolls it into view, in effect,
 allowing you to "skip to" the selected content.
 
-### Keyboard Shortcut
+### Keyboard Shortcuts
 
-To activate `SkipTo` via the keyboard, use `Ctrl/Cmd + Shift + K`.
+To open the `SkipTo` menu via the keyboard, use `Ctrl/Cmd + Shift + K`. Focus
+is set to the first menuitem.
+
+Once the menu is displayed and has focus, you can move through the menuitems
+via the following keystrokes:
+
+* `arrow down`, `arrow up`: step through the items one at a time
+* `page down`, `page up`: move eight items forward or backward
+* `home`, `end`: move to first or last item
+* `m`: next `main` landmark
+* `n`: next `navigation` landmark
+* `s`: next `search` landmark
+* `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level (e.g. h2, h3, etc.)
+
+#### Notes:
+
+To activate a menuitem:
+* If the menuitem has focus, press `enter` or `space`, or
+* `click` any menuitem with the mouse.
+
+To close the `SkipTo` menu without activating a menuitem:
+* Press `tab` or `escape`, or
+* `click` the `SkipTo` toolbar button, or
+* `click` somewhere outside of the popup window.
 
 ## Installation
 
