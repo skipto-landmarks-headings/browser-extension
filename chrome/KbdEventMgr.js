@@ -45,13 +45,13 @@ export class KbdEventMgr {
     this.lastMenuitem.scrollIntoView({block: 'start'});
   }
 
-  setFocusPrevItem (currentMenuitem) {
-    if (currentMenuitem === this.firstMenuitem) {
+  setFocusPrevItem (menuitem) {
+    if (menuitem === this.firstMenuitem) {
       this.setFocusLastItem();
       return;
     }
 
-    const index = this.menuitems.indexOf(currentMenuitem);
+    const index = this.menuitems.indexOf(menuitem);
     const newMenuitem = this.menuitems[index - 1];
     this.setFocusToMenuitem(newMenuitem);
 
@@ -60,13 +60,13 @@ export class KbdEventMgr {
     }
   }
 
-  setFocusNextItem (currentMenuitem) {
-    if (currentMenuitem === this.lastMenuitem) {
+  setFocusNextItem (menuitem) {
+    if (menuitem === this.lastMenuitem) {
       this.setFocusFirstItem();
       return;
     }
 
-    const index = this.menuitems.indexOf(currentMenuitem);
+    const index = this.menuitems.indexOf(menuitem);
     const newMenuitem = this.menuitems[index + 1];
     this.setFocusToMenuitem(newMenuitem);
 
@@ -75,8 +75,8 @@ export class KbdEventMgr {
     }
   }
 
-  setFocusPrevPage (currentMenuitem) {
-    const index = this.menuitems.indexOf(currentMenuitem);
+  setFocusPrevPage (menuitem) {
+    const index = this.menuitems.indexOf(menuitem);
 
     if (index < this.pageIncrement) {
       this.setFocusFirstItem();
@@ -87,8 +87,8 @@ export class KbdEventMgr {
     }
   }
 
-  setFocusNextPage (currentMenuitem) {
-    const index = this.menuitems.indexOf(currentMenuitem);
+  setFocusNextPage (menuitem) {
+    const index = this.menuitems.indexOf(menuitem);
 
     if (this.menuitems.length - index <= this.pageIncrement) {
       this.setFocusLastItem();
@@ -96,6 +96,29 @@ export class KbdEventMgr {
     else {
       const newMenuitem = this.menuitems[index + this.pageIncrement];
       this.setFocusToMenuitem(newMenuitem);
+    }
+  }
+
+  setFocusNextNavId (menuitem, navId) {
+    let newMenuitem;
+    const start = this.menuitems.indexOf(menuitem);
+
+    // Start search at next index (loop condition may fail)
+    for (let i = start + 1; i < this.menuitems.length; i++) {
+      newMenuitem = this.menuitems[i];
+      if (newMenuitem.nav === navId) {
+        this.setFocusToMenuitem(newMenuitem);
+        return;
+      }
+    }
+
+    // Still looking, start at beginning
+    for (let i = 0; i < start; i++) {
+      newMenuitem = this.menuitems[i];
+      if (newMenuitem.nav === navId) {
+        this.setFocusToMenuitem(newMenuitem);
+        break;
+      }
     }
   }
 
@@ -150,6 +173,18 @@ export class KbdEventMgr {
         // this.setFocusNextItem(tgt);
         window.close();
         flag = true;
+        break;
+
+      case 'm':
+      case 'n':
+      case 's':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+        this.setFocusNextNavId(tgt, key);
         break;
 
       default:

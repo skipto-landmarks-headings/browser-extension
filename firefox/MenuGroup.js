@@ -67,6 +67,7 @@ class LandmarksGroup extends MenuGroup {
       if (info.ariaRole === 'main') {
         div.classList.add('main');
       }
+      div.nav = info.ariaRole.substring(0, 1); // m, n or s
 
       const roleSpan = document.createElement('span');
       roleSpan.className = 'role';
@@ -103,6 +104,7 @@ class HeadingsGroup extends MenuGroup {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }
+      div.nav = info.tagName.substring(1); // heading level
 
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
