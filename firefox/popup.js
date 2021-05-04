@@ -30,8 +30,22 @@ function messageHandler (message, sender) {
 /*
 **  Run content script to extract menu data from active tab
 */
-browser.tabs.executeScript( { file: 'domUtils.js' } );
-browser.tabs.executeScript( { file: 'content.js' } );
+browser.tabs.query({
+  currentWindow: true,
+  active: true
+}).then(checkProtocol).catch(onError);
+
+function checkProtocol (tabs) {
+  for (const tab of tabs) {
+    if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
+      browser.tabs.executeScript( { file: 'domUtils.js' } );
+      browser.tabs.executeScript( { file: 'content.js' } );
+    }
+    else {
+      console.log('Invalid protocol: ', tab.url);
+    }
+  }
+}
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -96,10 +110,8 @@ function sendSkipToData (evt) {
     }
   }
 
-  browser.tabs.query({
-    currentWindow: true,
-    active: true
-  }).then(sendMessageToTabs).catch(onError);
+  browser.tabs.query({ currentWindow: true, active: true })
+  .then(sendMessageToTabs).catch(onError);
 }
 
 function onError (error) {

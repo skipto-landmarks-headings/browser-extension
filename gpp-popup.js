@@ -36,13 +36,35 @@ function messageHandler (message, sender) {
 **  Run content script to extract menu data from active tab
 */
 #ifdef FIREFOX
-browser.tabs.executeScript( { file: 'domUtils.js' } );
-browser.tabs.executeScript( { file: 'content.js' } );
+browser.tabs.query({
+  currentWindow: true,
+  active: true
+}).then(checkProtocol).catch(onError);
 #endif
 #ifdef CHROME
-chrome.tabs.executeScript( { file: 'domUtils.js' } );
-chrome.tabs.executeScript( { file: 'content.js' } );
+chrome.tabs.query({ currentWindow: true, active: true },
+  function (tabs) {
+    if (notLastError()) { checkProtocol(tabs) }
+  });
 #endif
+
+function checkProtocol (tabs) {
+  for (const tab of tabs) {
+    if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
+#ifdef FIREFOX
+      browser.tabs.executeScript( { file: 'domUtils.js' } );
+      browser.tabs.executeScript( { file: 'content.js' } );
+#endif
+#ifdef CHROME
+      chrome.tabs.executeScript( { file: 'domUtils.js' } );
+      chrome.tabs.executeScript( { file: 'content.js' } );
+#endif
+    }
+    else {
+      console.log('Invalid protocol: ', tab.url);
+    }
+  }
+}
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -116,18 +138,15 @@ function sendSkipToData (evt) {
   }
 
 #ifdef FIREFOX
-  browser.tabs.query({
-    currentWindow: true,
-    active: true
-  }).then(sendMessageToTabs).catch(onError);
+  browser.tabs.query({ currentWindow: true, active: true })
+  .then(sendMessageToTabs).catch(onError);
 #endif
 #ifdef CHROME
-  chrome.tabs.query({
-    currentWindow: true,
-    active: true
-  }, function (tabs) {
-    if (notLastError()) { sendMessageToTabs(tabs) }
-  });
+  chrome.tabs.query({ currentWindow: true, active: true },
+    function (tabs) {
+      if (notLastError()) { sendMessageToTabs(tabs) }
+    }
+  );
 #endif
 }
 
@@ -137,9 +156,6 @@ function onError (error) {
 }
 #endif
 #ifdef CHROME
-// Redefine console for Chrome extension
-// var console = chrome.extension.getBackgroundPage().console;
-
 // Generic error handler
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }

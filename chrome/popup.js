@@ -30,8 +30,22 @@ function messageHandler (message, sender) {
 /*
 **  Run content script to extract menu data from active tab
 */
-chrome.tabs.executeScript( { file: 'domUtils.js' } );
-chrome.tabs.executeScript( { file: 'content.js' } );
+chrome.tabs.query({ currentWindow: true, active: true },
+  function (tabs) {
+    if (notLastError()) { checkProtocol(tabs) }
+  });
+
+function checkProtocol (tabs) {
+  for (const tab of tabs) {
+    if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
+      chrome.tabs.executeScript( { file: 'domUtils.js' } );
+      chrome.tabs.executeScript( { file: 'content.js' } );
+    }
+    else {
+      console.log('Invalid protocol: ', tab.url);
+    }
+  }
+}
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -95,16 +109,12 @@ function sendSkipToData (evt) {
     closeUpShop();
   }
 
-  chrome.tabs.query({
-    currentWindow: true,
-    active: true
-  }, function (tabs) {
-    if (notLastError()) { sendMessageToTabs(tabs) }
-  });
+  chrome.tabs.query({ currentWindow: true, active: true },
+    function (tabs) {
+      if (notLastError()) { sendMessageToTabs(tabs) }
+    }
+  );
 }
-
-// Redefine console for Chrome extension
-// var console = chrome.extension.getBackgroundPage().console;
 
 // Generic error handler
 function notLastError () {
