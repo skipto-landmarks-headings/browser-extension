@@ -1,8 +1,7 @@
 /* menu.css */
 
 div {
-  --dark-blue:      #1565C0;
-  --very-dark-blue: #1E57A3;
+  --industrial-blue:  #1D58A7;
 }
 
 div[role='menu'] {
@@ -17,7 +16,7 @@ div[role='menu'] {
 
 div[role='separator'] {
   color: #fff;
-  background-color: var(--dark-blue);
+  background-color: var(--industrial-blue);
   padding: 8px 6px 6px;
   font-weight: bold;
   text-transform: uppercase;
