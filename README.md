@@ -3,7 +3,7 @@
 ## Description
 
 The `SkipTo` browser extension for Firefox and Chrome provides keyboard
-access to the landmark regions and headings (H1-H6) on a web page.
+access to the landmark regions and headings (H1–H6) on a web page.
 
 When the `SkipTo` menu is opened, it displays a list of landmark regions and
 headings based on the content of the page currently loaded in the active tab
@@ -31,7 +31,8 @@ via the following keystrokes:
 * `m`: next `main` landmark
 * `n`: next `navigation` landmark
 * `s`: next `search` landmark
-* `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level (e.g. h2, h3, etc.)
+* `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level
+  (e.g. `2` -> go to next `H2`)
 
 #### Notes:
 
