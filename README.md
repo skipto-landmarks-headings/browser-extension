@@ -2,19 +2,20 @@
 
 ## Description
 
-The `SkipTo` browser extension collects data from the web page loaded in the
-active tab that corresponds to a select list of ARIA `landmark` regions and
-HTML `heading` elements contained in the page.
+The `SkipTo` browser extension for Firefox and Chrome provides keyboard
+access to the landmark regions and headings (H1-H6) on a web page.
 
-The `SkipToMenu` element, which is displayed in a `popup` window, organizes
-this data into a menu system that is keyboard navigable.
-
-Each menuitem in the menu contains a `dataId` corresponding to one of the
-`landmark` or `heading` elements in the active tab web page.
+When the `SkipTo` menu is opened, it displays a list of landmark regions and
+headings based on the content of the page currently loaded in the active tab
+of the browser and on the extension's configuration settings.
 
 When a menuitem is activated, the `popup` window is closed and the extension
 sets focus to the selected element and scrolls it into view, in effect,
 allowing you to "skip to" the selected content.
+
+The `SkipTo` menu, which is keyboard navigable, also provides an outline of
+the major sections and topics on a web page, making it easier for people to
+understand and find content on well-structured pages.
 
 ### Keyboard Shortcuts
 
