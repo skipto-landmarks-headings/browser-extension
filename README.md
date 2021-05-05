@@ -9,7 +9,7 @@ When the `SkipTo` menu is opened, it displays a list of landmark regions and
 headings based on the content of the page currently loaded in the active tab
 of the browser and on the extension's configuration settings.
 
-When a menuitem is activated, the `popup` window is closed and the extension
+When a menu item is activated, the `popup` window is closed and the extension
 sets focus to the selected element and scrolls it into view, in effect,
 allowing you to "skip to" the selected content.
 
@@ -20,9 +20,9 @@ understand and find content on well-structured pages.
 ### Keyboard Shortcuts
 
 To open the `SkipTo` menu via the keyboard, use `Ctrl/Cmd + Shift + K`. Focus
-is set to the first menuitem.
+is set to the first menu item.
 
-Once the menu is displayed and has focus, you can move through the menuitems
+Once the menu is displayed and has focus, you can move through the menu items
 via the following keystrokes:
 
 * `arrow down`, `arrow up`: step through the items one at a time
@@ -34,13 +34,11 @@ via the following keystrokes:
 * `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level
   (e.g. `2` -> go to next `H2`)
 
-#### Notes:
+#### To activate a menu item
+* If the menu item has focus, press `enter` or `space`, or
+* `click` any menu item with the mouse.
 
-To activate a menuitem:
-* If the menuitem has focus, press `enter` or `space`, or
-* `click` any menuitem with the mouse.
-
-To close the `SkipTo` menu without activating a menuitem:
+#### To close the menu without activating a menu item
 * Press `tab` or `escape`, or
 * `click` the `SkipTo` toolbar button, or
 * `click` somewhere outside of the popup window.
