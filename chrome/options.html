@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="options.css"/>
+  </head>
+
+  <body>
+    <form>
+      <fieldset>
+        <legend>Show headings through level:</legend>
+        <div class="levels-radio">
+          <div>
+            <input type="radio" name="level" value="2" id="h2">
+            <label for="h2">h2</label>
+          </div>
+          <div>
+            <input type="radio" name="level" value="3" id="h3">
+            <label for="h3">h3</label>
+          </div>
+          <div>
+            <input type="radio" name="level" value="4" id="h4">
+            <label for="h4">h4</label>
+          </div>
+          <div>
+            <input type="radio" name="level" value="5" id="h5">
+            <label for="h5">h5</label>
+          </div>
+          <div>
+            <input type="radio" name="level" value="6" id="h6">
+            <label for="h6">h6</label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="main-only-checkbox">
+        <input type="checkbox" id="main-only"/>
+        <label>Only show headings found in main landmark</label>
+      </div>
+      <div class="save-button">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+    <script src="options.js"></script>
+  </body>
+</html>
