@@ -3,6 +3,7 @@
 GPPFILES=(
   content.js
   menu.css
+  options.js
   popup.js
 )
 
@@ -17,6 +18,10 @@ for FNAME in ${GPPFILES[@]}
 do
   gpp -DFIREFOX=1 -o firefox/${FNAME} gpp-${FNAME}
 done
+
+# Process manifest.json
+gpp -o chrome/manifest.json manifest.json
+gpp -DFIREFOX=1 -o firefox/manifest.json manifest.json
 
 # Copy shared extension files to browser folders
 

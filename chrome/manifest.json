@@ -1,24 +1,31 @@
 {
   "manifest_version": 2,
   "name": "SkipTo",
-  "version": "0.5",
+  "version": "0.6",
 
   "description" : "",
   "homepage_url": "https://github.com/skipto/extension",
   "author": "Nicholas Hoyt",
 
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
 
   "browser_action": {
     "default_popup": "popup.html"
   },
 
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true,
+    "chrome_style": true
+  },
+
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "Ctrl+Shift+K"
+        "default": "Ctrl+Shift+U"
       }
     }
   }
