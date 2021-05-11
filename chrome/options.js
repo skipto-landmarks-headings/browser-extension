@@ -7,7 +7,7 @@ const mainOnly = document.querySelector('input[id="main-only"]');
 const defaultOptions = {
   maxLevelIndex: 1,
   mainOnly: false
-}
+};
 
 function notifySaved () {}
 
