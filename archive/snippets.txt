@@ -38,3 +38,81 @@ function logHeadings () {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* from gpp-content.js */
+
+var storageCache = {};
+var initStorageCache = getAllStorageSyncData().then(items => {
+  Object.assign(storageCache, items);
+  console.log('storageCache: ', storageCache);
+});
+
+/*
+(async function tryMe () {
+  try {
+    await initStorageCache;
+  } catch (e) {
+    // Handle error that occurred during storage initialization.
+  }
+})();
+*/
+
+function getAllStorageSyncData() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(null, (items) => {
+      if (chrome.runtime.lastError) {
+        return reject(chrome.runtime.lastError);
+      }
+      resolve(items);
+    });
+  });
+}
+
+/* from gpp-popup.js */
+
+/*
+**  Handle port messages from content script
+*/
+var portFromStorage;
+
+function connected (port) {
+  portFromStorage = port;
+  sendOptionsData();
+  // portFromStorage.onMessage.addListener(handlePortMessage);
+}
+
+#ifdef FIREFOX
+browser.runtime.onConnect.addListener(connected);
+#endif
+#ifdef CHROME
+chrome.runtime.onConnect.addListener(connected);
+#endif
+
+function handlePortMessage (message) {
+  switch (message.id) {
+    case 'options': sendOptionsData();
+    break;
+  }
+}
+
+function sendOptionsData () {
+  function sendOptions (options) {
+    portFromStorage.postMessage({ data: options });
+  }
+
+#ifdef FIREFOX
+  browser.storage.sync.get().then(sendOptions, onError);
+#endif
+#ifdef CHROME
+  chrome.storage.sync.get(function (options) {
+    if (notLastError()) { sendOptions(options); }
+  });
+#endif
+}
+
+#ifdef FIREFOX
+browser.tabs.executeScript( { file: 'storage.js' } );
+#endif
+#ifdef CHROME
+chrome.tabs.executeScript( { file: 'storage.js' } );
+#endif

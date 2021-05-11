@@ -114,6 +114,7 @@ function sendSkipToData (evt) {
   .then(sendMessageToTabs).catch(onError);
 }
 
+// Generic error handler
 function onError (error) {
   console.log(`Error: ${error}`);
 }

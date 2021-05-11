@@ -1,10 +1,8 @@
 /* content.js */
 
-var options = {
-  headings: {
-    maxLevel: 3,
-    mainOnly: false
-  }
+var defaultOptions = {
+  maxLevelIndex: 1,
+  mainOnly: false
 };
 
 /*
@@ -86,9 +84,9 @@ function skipToContent (dataId) {
 **  through 'maxLevel'. If 'mainOnly' is true, select headings only
 **  if they are contained within a 'main' landmark.
 */
-function getHeadingSelector () {
-  let maxLevel = options.headings.maxLevel;
-  let mainOnly = options.headings.mainOnly;
+function getHeadingSelector (options) {
+  let maxLevel = options.maxLevelIndex + 2;
+  let mainOnly = options.mainOnly;
   let selectors = [];
   for (let i = 1; i <= maxLevel; i++) {
     let tagName = `h${i}`;
@@ -107,7 +105,7 @@ function getHeadingSelector () {
 **  document based on the specified and constructed CSS selector.
 */
 function getHeadingElements () {
-  let selector = getHeadingSelector();
+  let selector = getHeadingSelector(defaultOptions);
   console.log(selector);
   return document.querySelectorAll(selector);
 }

@@ -150,13 +150,13 @@ function sendSkipToData (evt) {
 #endif
 }
 
+// Generic error handler
 #ifdef FIREFOX
 function onError (error) {
   console.log(`Error: ${error}`);
 }
 #endif
 #ifdef CHROME
-// Generic error handler
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }
   else {
