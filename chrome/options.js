@@ -47,6 +47,7 @@ function saveFormOptions (e) {
 
   if (debug) console.log(options);
   saveOptions(options);
+  window.close();
 }
 
 // Update HTML form values based on user options saved in storage.sync

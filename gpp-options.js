@@ -58,6 +58,9 @@ function saveFormOptions (e) {
 
   if (debug) console.log(options);
   saveOptions(options);
+#ifdef CHROME
+  window.close();
+#endif
 }
 
 // Update HTML form values based on user options saved in storage.sync
