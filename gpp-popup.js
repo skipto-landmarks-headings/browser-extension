@@ -49,11 +49,8 @@ chrome.runtime.sendMessage({ id: 'getStorage' });
 #endif
 
 /*
-**  Run content script
+**  Initiate processing in content script
 */
-function runContentScript () {
-}
-
 function initProcessing (options) {
   console.log('initProcessing: ', options);
 
@@ -69,8 +66,8 @@ function initProcessing (options) {
 #endif
 #ifdef CHROME
   chrome.tabs.executeScript( { file: 'domUtils.js' },
-  () => chrome.tabs.executeScript( { file: 'content.js' } ,
-  () => sendToContentScript(message)));
+    () => chrome.tabs.executeScript( { file: 'content.js' },
+      () => sendToContentScript(message)));
 #endif
 }
 
@@ -107,6 +104,9 @@ function checkProtocol (tabs) {
 }
 */
 
+/*
+**  Consume menudata sent by content script
+*/
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
@@ -126,7 +126,7 @@ function constructMenu (data) {
 }
 
 /*
-**  Once menu data is available, display SkipTo menu
+**  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -157,38 +157,56 @@ function sendSkipToData (evt) {
     window.close();
   }
 
-  function sendMessageToTabs (tabs) {
+  function sendMessageToTab (tab) {
     const message = {
       id: 'skipto',
       data: dataId
     };
 
 #ifdef FIREFOX
-    for (let tab of tabs) {
-      browser.tabs.sendMessage(tab.id, message)
-      .then(response => closeUpShop())
-      .catch(onError);
-    }
+    browser.tabs.sendMessage(tab.id, message)
+    .then(response => closeUpShop())
+    .catch(onError);
 #endif
 #ifdef CHROME
-    for (let tab of tabs) {
-      chrome.tabs.sendMessage(tab.id, message);
-    }
+    chrome.tabs.sendMessage(tab.id, message);
     closeUpShop();
 #endif
   }
 
+  getActiveTab().then(sendMessageToTab);
+}
+
+/*
+**  Helper Functions
+*/
+function sendToContentScript (message) {
+  getActiveTab()
 #ifdef FIREFOX
-  browser.tabs.query({ currentWindow: true, active: true })
-  .then(sendMessageToTabs).catch(onError);
+  .then((tab) => browser.tabs.sendMessage(tab.id, message))
+  .catch(onError);
 #endif
 #ifdef CHROME
-  chrome.tabs.query({ currentWindow: true, active: true },
-    function (tabs) {
-      if (notLastError()) { sendMessageToTabs(tabs) }
-    }
-  );
+  .then((tab) => chrome.tabs.sendMessage(tab.id, message));
 #endif
+}
+
+function getActiveTab () {
+  return new Promise (function (resolve, reject) {
+#ifdef FIREFOX
+    let promise = browser.tabs.query({ currentWindow: true, active: true });
+    promise.then(
+      tabs => { resolve(tabs[0]) },
+      msg => { reject(new Error(`getActiveTab: ${msg}`)); }
+    )
+#endif
+#ifdef CHROME
+    chrome.tabs.query({ currentWindow: true, active: true },
+      function (tabs) {
+        if (notLastError()) { resolve(tabs[0]) }
+      });
+#endif
+  });
 }
 
 // Generic error handler
@@ -207,20 +225,3 @@ function notLastError () {
   }
 }
 #endif
-
-function sendToContentScript (message) {
-#ifdef FIREFOX
-  browser.tabs.query({ currentWindow: true, active: true })
-  .then((tabs) => browser.tabs.sendMessage(tabs[0].id, message))
-  .catch(onError);
-#endif
-#ifdef CHROME
-  chrome.tabs.query({ active: true, currentWindow: true },
-    function (tabs) {
-      if (notLastError()) {
-        chrome.tabs.sendMessage(tabs[0].id, message);
-      }
-    }
-  );
-#endif
-}

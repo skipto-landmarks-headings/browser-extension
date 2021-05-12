@@ -39,11 +39,8 @@ function messageHandler (message, sender) {
 browser.runtime.sendMessage({ id: 'getStorage' });
 
 /*
-**  Run content script
+**  Initiate processing in content script
 */
-function runContentScript () {
-}
-
 function initProcessing (options) {
   console.log('initProcessing: ', options);
 
@@ -76,6 +73,9 @@ function checkProtocol (tabs) {
 }
 */
 
+/*
+**  Consume menudata sent by content script
+*/
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
@@ -95,7 +95,7 @@ function constructMenu (data) {
 }
 
 /*
-**  Once menu data is available, display SkipTo menu
+**  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -126,30 +126,40 @@ function sendSkipToData (evt) {
     window.close();
   }
 
-  function sendMessageToTabs (tabs) {
+  function sendMessageToTab (tab) {
     const message = {
       id: 'skipto',
       data: dataId
     };
 
-    for (let tab of tabs) {
-      browser.tabs.sendMessage(tab.id, message)
-      .then(response => closeUpShop())
-      .catch(onError);
-    }
+    browser.tabs.sendMessage(tab.id, message)
+    .then(response => closeUpShop())
+    .catch(onError);
   }
 
-  browser.tabs.query({ currentWindow: true, active: true })
-  .then(sendMessageToTabs).catch(onError);
+  getActiveTab().then(sendMessageToTab);
+}
+
+/*
+**  Helper Functions
+*/
+function sendToContentScript (message) {
+  getActiveTab()
+  .then((tab) => browser.tabs.sendMessage(tab.id, message))
+  .catch(onError);
+}
+
+function getActiveTab () {
+  return new Promise (function (resolve, reject) {
+    let promise = browser.tabs.query({ currentWindow: true, active: true });
+    promise.then(
+      tabs => { resolve(tabs[0]) },
+      msg => { reject(new Error(`getActiveTab: ${msg}`)); }
+    )
+  });
 }
 
 // Generic error handler
 function onError (error) {
   console.log(`Error: ${error}`);
-}
-
-function sendToContentScript (message) {
-  browser.tabs.query({ currentWindow: true, active: true })
-  .then((tabs) => browser.tabs.sendMessage(tabs[0].id, message))
-  .catch(onError);
 }

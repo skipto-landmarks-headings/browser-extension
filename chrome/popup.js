@@ -39,11 +39,8 @@ function messageHandler (message, sender) {
 chrome.runtime.sendMessage({ id: 'getStorage' });
 
 /*
-**  Run content script
+**  Initiate processing in content script
 */
-function runContentScript () {
-}
-
 function initProcessing (options) {
   console.log('initProcessing: ', options);
 
@@ -53,8 +50,8 @@ function initProcessing (options) {
   };
 
   chrome.tabs.executeScript( { file: 'domUtils.js' },
-  () => chrome.tabs.executeScript( { file: 'content.js' } ,
-  () => sendToContentScript(message)));
+    () => chrome.tabs.executeScript( { file: 'content.js' },
+      () => sendToContentScript(message)));
 }
 
 /*
@@ -76,6 +73,9 @@ function checkProtocol (tabs) {
 }
 */
 
+/*
+**  Consume menudata sent by content script
+*/
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
@@ -95,7 +95,7 @@ function constructMenu (data) {
 }
 
 /*
-**  Once menu data is available, display SkipTo menu
+**  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -126,23 +126,34 @@ function sendSkipToData (evt) {
     window.close();
   }
 
-  function sendMessageToTabs (tabs) {
+  function sendMessageToTab (tab) {
     const message = {
       id: 'skipto',
       data: dataId
     };
 
-    for (let tab of tabs) {
-      chrome.tabs.sendMessage(tab.id, message);
-    }
+    chrome.tabs.sendMessage(tab.id, message);
     closeUpShop();
   }
 
-  chrome.tabs.query({ currentWindow: true, active: true },
-    function (tabs) {
-      if (notLastError()) { sendMessageToTabs(tabs) }
-    }
-  );
+  getActiveTab().then(sendMessageToTab);
+}
+
+/*
+**  Helper Functions
+*/
+function sendToContentScript (message) {
+  getActiveTab()
+  .then((tab) => chrome.tabs.sendMessage(tab.id, message));
+}
+
+function getActiveTab () {
+  return new Promise (function (resolve, reject) {
+    chrome.tabs.query({ currentWindow: true, active: true },
+      function (tabs) {
+        if (notLastError()) { resolve(tabs[0]) }
+      });
+  });
 }
 
 // Generic error handler
@@ -153,14 +164,4 @@ function notLastError () {
     console.log(chrome.runtime.lastError.message);
     return false;
   }
-}
-
-function sendToContentScript (message) {
-  chrome.tabs.query({ active: true, currentWindow: true },
-    function (tabs) {
-      if (notLastError()) {
-        chrome.tabs.sendMessage(tabs[0].id, message);
-      }
-    }
-  );
 }
