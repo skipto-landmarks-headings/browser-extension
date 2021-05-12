@@ -49,8 +49,8 @@ function initProcessing (options) {
     data: options
   };
 
-  chrome.tabs.executeScript( { file: 'domUtils.js' },
-    () => chrome.tabs.executeScript( { file: 'content.js' },
+  chrome.tabs.executeScript({ file: 'domUtils.js' },
+    () => chrome.tabs.executeScript({ file: 'content.js' },
       () => sendToContentScript(message)));
 }
 

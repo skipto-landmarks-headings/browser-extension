@@ -49,8 +49,8 @@ function initProcessing (options) {
     data: options
   };
 
-  browser.tabs.executeScript( { file: 'domUtils.js' } )
-  .then(browser.tabs.executeScript( { file: 'content.js' } ))
+  browser.tabs.executeScript({ file: 'domUtils.js' })
+  .then(browser.tabs.executeScript({ file: 'content.js' }))
   .then(sendToContentScript(message));
 }
 

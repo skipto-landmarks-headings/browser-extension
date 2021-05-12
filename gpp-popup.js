@@ -60,13 +60,13 @@ function initProcessing (options) {
   };
 
 #ifdef FIREFOX
-  browser.tabs.executeScript( { file: 'domUtils.js' } )
-  .then(browser.tabs.executeScript( { file: 'content.js' } ))
+  browser.tabs.executeScript({ file: 'domUtils.js' })
+  .then(browser.tabs.executeScript({ file: 'content.js' }))
   .then(sendToContentScript(message));
 #endif
 #ifdef CHROME
-  chrome.tabs.executeScript( { file: 'domUtils.js' },
-    () => chrome.tabs.executeScript( { file: 'content.js' },
+  chrome.tabs.executeScript({ file: 'domUtils.js' },
+    () => chrome.tabs.executeScript({ file: 'content.js' },
       () => sendToContentScript(message)));
 #endif
 }
