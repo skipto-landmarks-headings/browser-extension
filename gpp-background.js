@@ -23,7 +23,6 @@ function sendStorage () {
 function getStorageHandler (message, sender, sendResponse) {
   if (message.id === 'getStorage') {
     sendStorage();
-    console.log('getStorageHandler');
   }
 }
 
