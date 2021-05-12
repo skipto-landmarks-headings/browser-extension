@@ -11,13 +11,19 @@ import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
 
 /*
-**  Set up listener/handler for message containing menu data
-**  sent from content script
+**  Set up listener/handler for messages
 */
 browser.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
+    case 'content':
+      console.log(`popup: 'content' message`);
+      break;
+    case 'storage':
+      console.log(`popup: 'storage' message`);
+      initProcessing(message.data);
+      break;
     case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
@@ -28,8 +34,30 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Run content script to extract menu data from active tab
+**  Request storage options from background script
 */
+browser.runtime.sendMessage({ id: 'getStorage' });
+
+/*
+**  Run content script
+*/
+function runContentScript () {
+}
+
+function initProcessing (options) {
+  console.log('initProcessing: ', options);
+
+  const message = {
+    id: 'procpage',
+    data: options
+  };
+
+  browser.tabs.executeScript( { file: 'domUtils.js' } )
+  .then(browser.tabs.executeScript( { file: 'content.js' } ))
+  .then(sendToContentScript(message));
+}
+
+/*
 browser.tabs.query({
   currentWindow: true,
   active: true
@@ -46,6 +74,7 @@ function checkProtocol (tabs) {
     }
   }
 }
+*/
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -117,4 +146,10 @@ function sendSkipToData (evt) {
 // Generic error handler
 function onError (error) {
   console.log(`Error: ${error}`);
+}
+
+function sendToContentScript (message) {
+  browser.tabs.query({ currentWindow: true, active: true })
+  .then((tabs) => browser.tabs.sendMessage(tabs[0].id, message))
+  .catch(onError);
 }

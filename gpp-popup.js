@@ -11,8 +11,7 @@ import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
 
 /*
-**  Set up listener/handler for message containing menu data
-**  sent from content script
+**  Set up listener/handler for messages
 */
 #ifdef FIREFOX
 browser.runtime.onMessage.addListener(messageHandler);
@@ -23,6 +22,13 @@ chrome.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
+    case 'content':
+      console.log(`popup: 'content' message`);
+      break;
+    case 'storage':
+      console.log(`popup: 'storage' message`);
+      initProcessing(message.data);
+      break;
     case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
@@ -33,8 +39,42 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Run content script to extract menu data from active tab
+**  Request storage options from background script
 */
+#ifdef FIREFOX
+browser.runtime.sendMessage({ id: 'getStorage' });
+#endif
+#ifdef CHROME
+chrome.runtime.sendMessage({ id: 'getStorage' });
+#endif
+
+/*
+**  Run content script
+*/
+function runContentScript () {
+}
+
+function initProcessing (options) {
+  console.log('initProcessing: ', options);
+
+  const message = {
+    id: 'procpage',
+    data: options
+  };
+
+#ifdef FIREFOX
+  browser.tabs.executeScript( { file: 'domUtils.js' } )
+  .then(browser.tabs.executeScript( { file: 'content.js' } ))
+  .then(sendToContentScript(message));
+#endif
+#ifdef CHROME
+  chrome.tabs.executeScript( { file: 'domUtils.js' },
+  () => chrome.tabs.executeScript( { file: 'content.js' } ,
+  () => sendToContentScript(message)));
+#endif
+}
+
+/*
 #ifdef FIREFOX
 browser.tabs.query({
   currentWindow: true,
@@ -65,6 +105,7 @@ function checkProtocol (tabs) {
     }
   }
 }
+*/
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -157,6 +198,7 @@ function onError (error) {
 }
 #endif
 #ifdef CHROME
+var console = chrome.extension.getBackgroundPage().console;
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }
   else {
@@ -165,3 +207,20 @@ function notLastError () {
   }
 }
 #endif
+
+function sendToContentScript (message) {
+#ifdef FIREFOX
+  browser.tabs.query({ currentWindow: true, active: true })
+  .then((tabs) => browser.tabs.sendMessage(tabs[0].id, message))
+  .catch(onError);
+#endif
+#ifdef CHROME
+  chrome.tabs.query({ active: true, currentWindow: true },
+    function (tabs) {
+      if (notLastError()) {
+        chrome.tabs.sendMessage(tabs[0].id, message);
+      }
+    }
+  );
+#endif
+}

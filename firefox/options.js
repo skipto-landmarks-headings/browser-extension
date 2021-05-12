@@ -18,7 +18,7 @@ function saveOptions (options) {
   if (debug) console.log('saveOptions: ', options);
 
   if (clearStorage) {
-    browser.storage.sync.clear();
+//    browser.storage.sync.clear();
     return;
   }
   browser.storage.sync.set(options)

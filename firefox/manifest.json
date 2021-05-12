@@ -7,6 +7,11 @@
   "homepage_url": "https://github.com/skipto/extension",
   "author": "Nicholas Hoyt",
 
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+
   "permissions": [
     "activeTab",
     "storage"

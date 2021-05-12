@@ -62,6 +62,8 @@ class LandmarksGroup extends MenuGroup {
 
   // Use this setter to pass in menu data from external module
   set menudata (landmarksInfo) {
+    if (this.menuitems.length) return;
+
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
       if (info.ariaRole === 'main') {
@@ -101,6 +103,8 @@ class HeadingsGroup extends MenuGroup {
 
   // Use this setter to pass in menu data from external module
   set menudata (headingsInfo) {
+    if (this.menuitems.length) return;
+
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       if (info.tagName === 'h1') { div.classList.add('h1') }

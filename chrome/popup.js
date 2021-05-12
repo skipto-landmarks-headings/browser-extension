@@ -11,13 +11,19 @@ import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
 
 /*
-**  Set up listener/handler for message containing menu data
-**  sent from content script
+**  Set up listener/handler for messages
 */
 chrome.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
+    case 'content':
+      console.log(`popup: 'content' message`);
+      break;
+    case 'storage':
+      console.log(`popup: 'storage' message`);
+      initProcessing(message.data);
+      break;
     case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
@@ -28,8 +34,30 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Run content script to extract menu data from active tab
+**  Request storage options from background script
 */
+chrome.runtime.sendMessage({ id: 'getStorage' });
+
+/*
+**  Run content script
+*/
+function runContentScript () {
+}
+
+function initProcessing (options) {
+  console.log('initProcessing: ', options);
+
+  const message = {
+    id: 'procpage',
+    data: options
+  };
+
+  chrome.tabs.executeScript( { file: 'domUtils.js' },
+  () => chrome.tabs.executeScript( { file: 'content.js' } ,
+  () => sendToContentScript(message)));
+}
+
+/*
 chrome.tabs.query({ currentWindow: true, active: true },
   function (tabs) {
     if (notLastError()) { checkProtocol(tabs) }
@@ -46,6 +74,7 @@ function checkProtocol (tabs) {
     }
   }
 }
+*/
 
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
@@ -117,10 +146,21 @@ function sendSkipToData (evt) {
 }
 
 // Generic error handler
+var console = chrome.extension.getBackgroundPage().console;
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }
   else {
     console.log(chrome.runtime.lastError.message);
     return false;
   }
+}
+
+function sendToContentScript (message) {
+  chrome.tabs.query({ active: true, currentWindow: true },
+    function (tabs) {
+      if (notLastError()) {
+        chrome.tabs.sendMessage(tabs[0].id, message);
+      }
+    }
+  );
 }

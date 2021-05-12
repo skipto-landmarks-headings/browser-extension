@@ -19,10 +19,10 @@ function saveOptions (options) {
 
   if (clearStorage) {
 #ifdef FIREFOX
-    browser.storage.sync.clear();
+//    browser.storage.sync.clear();
 #endif
 #ifdef CHROME
-    chrome.storage.sync.clear();
+//    chrome.storage.sync.clear();
 #endif
     return;
   }
@@ -106,6 +106,9 @@ function onError (error) {
 }
 #endif
 #ifdef CHROME
+// Redefine console for Chrome extension
+// var console = chrome.extension.getBackgroundPage().console;
+
 // Generic error handler
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }

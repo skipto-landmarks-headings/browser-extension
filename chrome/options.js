@@ -18,7 +18,7 @@ function saveOptions (options) {
   if (debug) console.log('saveOptions: ', options);
 
   if (clearStorage) {
-    chrome.storage.sync.clear();
+//    chrome.storage.sync.clear();
     return;
   }
   chrome.storage.sync.set(options, function () {
@@ -81,6 +81,9 @@ function updateOptionsForm() {
     if (notLastError()) { updateForm(options); }
   });
 }
+
+// Redefine console for Chrome extension
+// var console = chrome.extension.getBackgroundPage().console;
 
 // Generic error handler
 function notLastError () {

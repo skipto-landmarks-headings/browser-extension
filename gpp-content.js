@@ -5,8 +5,15 @@ var defaultOptions = {
   mainOnly: false
 };
 
+#ifdef FIREFOX
+browser.runtime.sendMessage({ id: 'content' });
+#endif
+#ifdef CHROME
+chrome.runtime.sendMessage({ id: 'content' });
+#endif
+
 /*
-**  Set up listener/handler for message from popup script
+**  Set up listener/handler for messages from other scripts
 */
 #ifdef FIREFOX
 browser.runtime.onMessage.addListener(messageHandler);
@@ -17,6 +24,10 @@ chrome.runtime.onMessage.addListener(messageHandler);
 
 function messageHandler (message, sender) {
   switch (message.id) {
+    case 'procpage':
+      console.log(`content: 'procpage' message`);
+      processPage(message.data);
+      break;
     case 'skipto':
       skipToContent(message.data);
       break;
@@ -104,8 +115,9 @@ function getHeadingSelector (options) {
 **  getHeadingElements: Return a nodelist of all headings in the
 **  document based on the specified and constructed CSS selector.
 */
-function getHeadingElements () {
-  let selector = getHeadingSelector(defaultOptions);
+function getHeadingElements (options) {
+  console.log(options);
+  let selector = getHeadingSelector(options);
   console.log(selector);
   return document.querySelectorAll(selector);
 }
@@ -114,7 +126,7 @@ function getHeadingElements () {
 **  When this script is executed directly, extract the skipto menu
 **  data and send it to the popup script.
 */
-(function () {
+function processPage (options) {
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
@@ -159,7 +171,7 @@ function getHeadingElements () {
   });
 
   // Process the heading elements
-  let headingElements = getHeadingElements();
+  let headingElements = getHeadingElements(options);
 
   headingElements.forEach(function (elem) {
     if (isVisible(elem)) {
@@ -184,4 +196,4 @@ function getHeadingElements () {
 #ifdef CHROME
   chrome.runtime.sendMessage(message);
 #endif
-})();
+}
