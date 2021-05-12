@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "SkipTo",
-  "version": "0.6",
+  "version": "0.7",
 
   "description" : "",
   "homepage_url": "https://github.com/skipto/extension",
@@ -38,7 +38,7 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "Ctrl+Shift+U"
+        "default": "Ctrl+Shift+Comma"
       }
     }
   }

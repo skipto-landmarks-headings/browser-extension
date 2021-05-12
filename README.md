@@ -19,8 +19,8 @@ understand and find content on well-structured pages.
 
 ### Keyboard Shortcuts
 
-To open the `SkipTo` menu via the keyboard, use `Ctrl/Cmd + Shift + K`. Focus
-is set to the first menu item.
+To open the `SkipTo` menu via the keyboard, use `Ctrl/Cmd + Shift + Comma`.
+Focus is set to the first menu item.
 
 Once the menu is displayed and has focus, you can move through the menu items
 via the following keystrokes:
