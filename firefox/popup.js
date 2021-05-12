@@ -9,6 +9,7 @@ customElements.define('headings-group', HeadingsGroup);
 
 import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
+var debug = false;
 
 /*
 **  Set up listener/handler for messages
@@ -18,10 +19,10 @@ browser.runtime.onMessage.addListener(messageHandler);
 function messageHandler (message, sender) {
   switch (message.id) {
     case 'content':
-      console.log(`popup: 'content' message`);
+      if (debug) console.log(`popup: 'content' message`);
       break;
     case 'storage':
-      console.log(`popup: 'storage' message`);
+      if (debug) console.log(`popup: 'storage' message`);
       initProcessing(message.data);
       break;
     case 'menudata':
@@ -49,9 +50,9 @@ function initProcessing (options) {
     data: options
   };
 
-  browser.tabs.executeScript({ file: 'domUtils.js' })
-  .then(browser.tabs.executeScript({ file: 'content.js' }))
-  .then(sendToContentScript(message));
+  let promise1 = browser.tabs.executeScript({ file: 'domUtils.js' });
+  let promise2 = browser.tabs.executeScript({ file: 'content.js' });
+  Promise.all([promise1, promise2]).then(sendToContentScript(message));
 }
 
 /*
@@ -73,20 +74,23 @@ function checkProtocol (tabs) {
 }
 */
 
+function landmarksEventHandler (evt) {
+  if (debug) console.log('landmarks: ' + evt.detail);
+}
+
+function headingsEventHandler (evt) {
+  if (debug) console.log('headings: ' + evt.detail);
+  displayMenu();
+}
+
 /*
 **  Consume menudata sent by content script
 */
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
 
-  skipToMenu.landmarksGroup.addEventListener('landmarks',
-    evt => console.log('landmarks: ' + evt.detail));
-
-  skipToMenu.headingsGroup.addEventListener('headings',
-    evt => {
-      console.log('headings: ' + evt.detail);
-      displayMenu(skipToMenu);
-    });
+  skipToMenu.landmarksGroup.addEventListener('landmarks', landmarksEventHandler);
+  skipToMenu.headingsGroup.addEventListener('headings', headingsEventHandler);
 
   skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
   skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
@@ -99,6 +103,8 @@ function constructMenu (data) {
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
+  skipToMenu.landmarksGroup.removeEventListener('landmarks', landmarksEventHandler);
+  skipToMenu.headingsGroup.removeEventListener('headings', headingsEventHandler);
   skipToMenu.checkGroupCounts();
 
   const menuitems = skipToMenu.menuitems;
