@@ -1,9 +1,7 @@
 /* content.js */
 
-var defaultOptions = {
-  maxLevelIndex: 1,
-  mainOnly: false
-};
+var debug = false;
+var firstRun = true;
 
 browser.runtime.sendMessage({ id: 'content' });
 
@@ -15,7 +13,7 @@ browser.runtime.onMessage.addListener(messageHandler);
 function messageHandler (message, sender) {
   switch (message.id) {
     case 'procpage':
-      console.log(`content: 'procpage' message`);
+      if (debug) console.log(`content: 'procpage' message`);
       processPage(message.data);
       break;
     case 'skipto':
@@ -49,7 +47,7 @@ function getTargetElement (dataId, element) {
   for (const selector of selectorsArray) {
     let elem = element.querySelector(selector);
     if (elem && isVisible(elem)) {
-      console.log(`target for main: ${elem.tagName.toLowerCase()}`);
+      if (debug) console.log(`target for main: ${elem.tagName.toLowerCase()}`);
       return elem;
     }
   }
@@ -75,7 +73,7 @@ function skipToContent (dataId) {
     }
     else {
       let status = (target === null) ? 'null' : !isVisible(target) ? 'not visible' : 'unknown';
-      console.log(`target: ${target.tagName.toLowerCase()} - status: ${status}`);
+      if (debug) console.log(`target: ${target.tagName.toLowerCase()} - status: ${status}`);
     }
   }
 }
@@ -106,7 +104,7 @@ function getHeadingSelector (options) {
 **  document based on the specified and constructed CSS selector.
 */
 function getHeadingElements (options) {
-  console.log(options);
+  if (debug) console.log(options);
   let selector = getHeadingSelector(options);
   console.log(selector);
   return document.querySelectorAll(selector);
@@ -117,6 +115,7 @@ function getHeadingElements (options) {
 **  data and send it to the popup script.
 */
 function processPage (options) {
+  if (firstRun) firstRun = false; else return;
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
