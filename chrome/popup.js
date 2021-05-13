@@ -74,12 +74,8 @@ function checkProtocol (tabs) {
 }
 */
 
-function landmarksEventHandler (evt) {
-  if (debug) console.log('landmarks: ' + evt.detail);
-}
-
-function headingsEventHandler (evt) {
-  if (debug) console.log('headings: ' + evt.detail);
+function skipToMenuEventHandler (evt) {
+  console.log(`${evt.type}: ${evt.detail}`);
   displayMenu();
 }
 
@@ -88,9 +84,7 @@ function headingsEventHandler (evt) {
 */
 function constructMenu (data) {
   const skipToMenu = document.querySelector('skipto-menu');
-
-  skipToMenu.landmarksGroup.addEventListener('landmarks', landmarksEventHandler);
-  skipToMenu.headingsGroup.addEventListener('headings', headingsEventHandler);
+  skipToMenu.addEventListener('skipto-menu', skipToMenuEventHandler);
 
   skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
   skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
@@ -103,8 +97,7 @@ function constructMenu (data) {
 */
 function displayMenu () {
   const skipToMenu = document.querySelector('skipto-menu');
-  skipToMenu.landmarksGroup.removeEventListener('landmarks', landmarksEventHandler);
-  skipToMenu.headingsGroup.removeEventListener('headings', headingsEventHandler);
+  skipToMenu.removeEventListener('skipto-menu', skipToMenuEventHandler);
   skipToMenu.checkGroupCounts();
 
   const menuitems = skipToMenu.menuitems;

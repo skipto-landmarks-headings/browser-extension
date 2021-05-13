@@ -40,11 +40,6 @@ class MenuGroup extends HTMLElement {
     return div;
   }
 
-  dispatchCustomEvent (eventName) {
-    let count = this.group.querySelectorAll('div[role="menuitem"]').length;
-    this.dispatchEvent(new CustomEvent(eventName, { detail: count }));
-  }
-
   disconnectedCallback () {
     console.log(`${this.constructor.name} disconnected`);
   }
@@ -87,7 +82,7 @@ class LandmarksGroup extends MenuGroup {
     }
 
     this.infoCount = landmarksInfo.length;
-    this.dispatchCustomEvent('landmarks');
+    this.menuParent.completed = true;
   }
 }
 
@@ -125,7 +120,7 @@ class HeadingsGroup extends MenuGroup {
     }
 
     this.infoCount = headingsInfo.length;
-    this.dispatchCustomEvent('headings');
+    this.menuParent.completed = true;
   }
 }
 
