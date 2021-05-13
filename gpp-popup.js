@@ -24,7 +24,7 @@ chrome.runtime.onConnect.addListener(connectionHandler);
 #endif
 
 function connectionHandler (port) {
-  console.log(`port.name: ${port.name}`);
+  if (debug) console.log(`port.name: ${port.name}`);
   contentPort = port;
   contentPort.onMessage.addListener(portMessageHandler);
 
@@ -106,7 +106,7 @@ function initProcessing (options) {
 **  Set up event handler indicating SkipToMenu is ready
 */
 function skipToMenuEventHandler (evt) {
-  console.log(`${evt.type}: ${evt.detail}`);
+  if (debug) console.log(`${evt.type}: ${evt.detail}`);
   displayMenu();
 }
 

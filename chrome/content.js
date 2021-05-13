@@ -120,6 +120,15 @@ function processPage (options) {
   let counter = 0;
   let dataAttribName = 'data-skipto';
 
+  function removeDataAttributes () {
+    const dataElements = document.querySelectorAll(`[${dataAttribName}]`);
+    if (debug) console.log(`dataElements: ${dataElements.length}`);
+    dataElements.forEach(elem => {
+      elem.removeAttribute(dataAttribName);
+    })
+  }
+  removeDataAttributes();
+
   // Process the landmark elements
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');
   let searchLandmarks = document.querySelectorAll('[role="search"]');
