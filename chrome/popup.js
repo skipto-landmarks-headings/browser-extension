@@ -9,22 +9,35 @@ customElements.define('headings-group', HeadingsGroup);
 
 import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
+
+var contentPort;
 var debug = false;
 
 /*
-**  Set up listener/handler for messages
+**  Set up listener/handler for contentPort
 */
-chrome.runtime.onMessage.addListener(messageHandler);
+chrome.runtime.onConnect.addListener(connectionHandler);
 
-function messageHandler (message, sender) {
-  switch (message.id) {
-    case 'content':
-      if (debug) console.log(`popup: 'content' message`);
-      break;
-    case 'storage':
+function connectionHandler (port) {
+  console.log(`port.name: ${port.name}`);
+  contentPort = port;
+  contentPort.onMessage.addListener(portMessageHandler);
+
+  // Set up listener/handler for message from background
+  chrome.runtime.onMessage.addListener(messageHandler);
+  function messageHandler (message, sender) {
+    if (message.id === 'storage') {
       if (debug) console.log(`popup: 'storage' message`);
       initProcessing(message.data);
-      break;
+    }
+  }
+
+  // Request storage options from background script
+  chrome.runtime.sendMessage({ id: 'getStorage' });
+}
+
+function portMessageHandler (message) {
+  switch (message.id) {
     case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
@@ -35,9 +48,19 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Request storage options from background script
+** Run content scripts if active tab protocol allows
 */
-chrome.runtime.sendMessage({ id: 'getStorage' });
+getActiveTab().then(tab => checkProtocol(tab));
+
+function checkProtocol (tab) {
+  if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
+    chrome.tabs.executeScript( { file: 'domUtils.js' } );
+    chrome.tabs.executeScript( { file: 'content.js' } );
+  }
+  else {
+    console.log('Invalid protocol: ', tab.url);
+  }
+}
 
 /*
 **  Initiate processing in content script
@@ -50,30 +73,12 @@ function initProcessing (options) {
     data: options
   };
 
-  let promise1 = chrome.tabs.executeScript({ file: 'domUtils.js' });
-  let promise2 = chrome.tabs.executeScript({ file: 'content.js' });
-  Promise.all([promise1, promise2]).then(sendToContentScript(message));
+  contentPort.postMessage(message);
 }
 
 /*
-chrome.tabs.query({ currentWindow: true, active: true },
-  function (tabs) {
-    if (notLastError()) { checkProtocol(tabs) }
-  });
-
-function checkProtocol (tabs) {
-  for (const tab of tabs) {
-    if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
-      chrome.tabs.executeScript( { file: 'domUtils.js' } );
-      chrome.tabs.executeScript( { file: 'content.js' } );
-    }
-    else {
-      console.log('Invalid protocol: ', tab.url);
-    }
-  }
-}
+**  Set up event handler indicating SkipToMenu is ready
 */
-
 function skipToMenuEventHandler (evt) {
   console.log(`${evt.type}: ${evt.detail}`);
   displayMenu();
@@ -119,33 +124,24 @@ function sendSkipToData (evt) {
   evt.stopPropagation();
   evt.preventDefault();
 
+  const message = {
+    id: 'skipto',
+    data: dataId
+  };
+
   function closeUpShop () {
     const skipToMenu = document.querySelector('skipto-menu');
     skipToMenu.removeGroups();
     window.close();
   }
 
-  function sendMessageToTab (tab) {
-    const message = {
-      id: 'skipto',
-      data: dataId
-    };
-
-    chrome.tabs.sendMessage(tab.id, message);
-    closeUpShop();
-  }
-
-  getActiveTab().then(sendMessageToTab);
+  portToContent.postMessage(message);
+  closeUpShop();
 }
 
 /*
 **  Helper Functions
 */
-function sendToContentScript (message) {
-  getActiveTab()
-  .then((tab) => chrome.tabs.sendMessage(tab.id, message));
-}
-
 function getActiveTab () {
   return new Promise (function (resolve, reject) {
     chrome.tabs.query({ currentWindow: true, active: true },

@@ -1,26 +1,21 @@
 /* content.js */
 
 var debug = false;
-var firstRun = true;
-
-#ifdef FIREFOX
-browser.runtime.sendMessage({ id: 'content' });
-#endif
-#ifdef CHROME
-chrome.runtime.sendMessage({ id: 'content' });
-#endif
+var popupPort;
 
 /*
-**  Set up listener/handler for messages from other scripts
+**  Connect to popup script and set up listener/handler
 */
 #ifdef FIREFOX
-browser.runtime.onMessage.addListener(messageHandler);
+popupPort = browser.runtime.connect({ name: 'content' });
 #endif
 #ifdef CHROME
-chrome.runtime.onMessage.addListener(messageHandler);
+popupPort = chrome.runtime.connect({ name: 'content' });
 #endif
 
-function messageHandler (message, sender) {
+popupPort.onMessage.addListener(messageHandler);
+
+function messageHandler (message) {
   switch (message.id) {
     case 'procpage':
       if (debug) console.log(`content: 'procpage' message`);
@@ -125,7 +120,6 @@ function getHeadingElements (options) {
 **  data and send it to the popup script.
 */
 function processPage (options) {
-  if (firstRun) firstRun = false; else return;
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
@@ -189,10 +183,6 @@ function processPage (options) {
     landmarks: landmarksArray,
     headings: headingsArray
   };
-#ifdef FIREFOX
-  browser.runtime.sendMessage(message);
-#endif
-#ifdef CHROME
-  chrome.runtime.sendMessage(message);
-#endif
+
+  popupPort.postMessage(message);
 }

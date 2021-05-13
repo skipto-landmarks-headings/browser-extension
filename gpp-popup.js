@@ -9,27 +9,50 @@ customElements.define('headings-group', HeadingsGroup);
 
 import { KbdEventMgr } from './KbdEventMgr.js';
 var kbdEventMgr;
+
+var contentPort;
 var debug = false;
 
 /*
-**  Set up listener/handler for messages
+**  Set up listener/handler for contentPort
 */
 #ifdef FIREFOX
-browser.runtime.onMessage.addListener(messageHandler);
+browser.runtime.onConnect.addListener(connectionHandler);
 #endif
 #ifdef CHROME
-chrome.runtime.onMessage.addListener(messageHandler);
+chrome.runtime.onConnect.addListener(connectionHandler);
 #endif
 
-function messageHandler (message, sender) {
-  switch (message.id) {
-    case 'content':
-      if (debug) console.log(`popup: 'content' message`);
-      break;
-    case 'storage':
+function connectionHandler (port) {
+  console.log(`port.name: ${port.name}`);
+  contentPort = port;
+  contentPort.onMessage.addListener(portMessageHandler);
+
+  // Set up listener/handler for message from background
+#ifdef FIREFOX
+  browser.runtime.onMessage.addListener(messageHandler);
+#endif
+#ifdef CHROME
+  chrome.runtime.onMessage.addListener(messageHandler);
+#endif
+  function messageHandler (message, sender) {
+    if (message.id === 'storage') {
       if (debug) console.log(`popup: 'storage' message`);
       initProcessing(message.data);
-      break;
+    }
+  }
+
+  // Request storage options from background script
+#ifdef FIREFOX
+  browser.runtime.sendMessage({ id: 'getStorage' });
+#endif
+#ifdef CHROME
+  chrome.runtime.sendMessage({ id: 'getStorage' });
+#endif
+}
+
+function portMessageHandler (message) {
+  switch (message.id) {
     case 'menudata':
       constructMenu({
         landmarks: message.landmarks,
@@ -40,14 +63,30 @@ function messageHandler (message, sender) {
 }
 
 /*
-**  Request storage options from background script
+** Run content scripts if active tab protocol allows
 */
 #ifdef FIREFOX
-browser.runtime.sendMessage({ id: 'getStorage' });
+getActiveTab().then(checkProtocol).catch(onError);
 #endif
 #ifdef CHROME
-chrome.runtime.sendMessage({ id: 'getStorage' });
+getActiveTab().then(tab => checkProtocol(tab));
 #endif
+
+function checkProtocol (tab) {
+  if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
+#ifdef FIREFOX
+    browser.tabs.executeScript( { file: 'domUtils.js' } );
+    browser.tabs.executeScript( { file: 'content.js' } );
+#endif
+#ifdef CHROME
+    chrome.tabs.executeScript( { file: 'domUtils.js' } );
+    chrome.tabs.executeScript( { file: 'content.js' } );
+#endif
+  }
+  else {
+    console.log('Invalid protocol: ', tab.url);
+  }
+}
 
 /*
 **  Initiate processing in content script
@@ -60,50 +99,12 @@ function initProcessing (options) {
     data: options
   };
 
-#ifdef FIREFOX
-  let promise1 = browser.tabs.executeScript({ file: 'domUtils.js' });
-  let promise2 = browser.tabs.executeScript({ file: 'content.js' });
-#endif
-#ifdef CHROME
-  let promise1 = chrome.tabs.executeScript({ file: 'domUtils.js' });
-  let promise2 = chrome.tabs.executeScript({ file: 'content.js' });
-#endif
-  Promise.all([promise1, promise2]).then(sendToContentScript(message));
+  contentPort.postMessage(message);
 }
 
 /*
-#ifdef FIREFOX
-browser.tabs.query({
-  currentWindow: true,
-  active: true
-}).then(checkProtocol).catch(onError);
-#endif
-#ifdef CHROME
-chrome.tabs.query({ currentWindow: true, active: true },
-  function (tabs) {
-    if (notLastError()) { checkProtocol(tabs) }
-  });
-#endif
-
-function checkProtocol (tabs) {
-  for (const tab of tabs) {
-    if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
-#ifdef FIREFOX
-      browser.tabs.executeScript( { file: 'domUtils.js' } );
-      browser.tabs.executeScript( { file: 'content.js' } );
-#endif
-#ifdef CHROME
-      chrome.tabs.executeScript( { file: 'domUtils.js' } );
-      chrome.tabs.executeScript( { file: 'content.js' } );
-#endif
-    }
-    else {
-      console.log('Invalid protocol: ', tab.url);
-    }
-  }
-}
+**  Set up event handler indicating SkipToMenu is ready
 */
-
 function skipToMenuEventHandler (evt) {
   console.log(`${evt.type}: ${evt.detail}`);
   displayMenu();
@@ -149,46 +150,24 @@ function sendSkipToData (evt) {
   evt.stopPropagation();
   evt.preventDefault();
 
+  const message = {
+    id: 'skipto',
+    data: dataId
+  };
+
   function closeUpShop () {
     const skipToMenu = document.querySelector('skipto-menu');
     skipToMenu.removeGroups();
     window.close();
   }
 
-  function sendMessageToTab (tab) {
-    const message = {
-      id: 'skipto',
-      data: dataId
-    };
-
-#ifdef FIREFOX
-    browser.tabs.sendMessage(tab.id, message)
-    .then(response => closeUpShop())
-    .catch(onError);
-#endif
-#ifdef CHROME
-    chrome.tabs.sendMessage(tab.id, message);
-    closeUpShop();
-#endif
-  }
-
-  getActiveTab().then(sendMessageToTab);
+  portToContent.postMessage(message);
+  closeUpShop();
 }
 
 /*
 **  Helper Functions
 */
-function sendToContentScript (message) {
-  getActiveTab()
-#ifdef FIREFOX
-  .then((tab) => browser.tabs.sendMessage(tab.id, message))
-  .catch(onError);
-#endif
-#ifdef CHROME
-  .then((tab) => chrome.tabs.sendMessage(tab.id, message));
-#endif
-}
-
 function getActiveTab () {
   return new Promise (function (resolve, reject) {
 #ifdef FIREFOX
