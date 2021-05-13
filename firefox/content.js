@@ -114,8 +114,8 @@ function getHeadingElements (options) {
 }
 
 /*
-**  When this script is executed directly, extract the skipto menu
-**  data and send it to the popup script.
+**  Process the page by (1) setting the data attribute on the selected elements
+**  and (2) collecting the skipTo menu data and sending it to the popup script.
 */
 function processPage (options) {
   let landmarksArray = [];
@@ -184,6 +184,10 @@ function processPage (options) {
   popupPort.postMessage(message);
 }
 
+/*
+**  removeDataAttributes: Prevent skipTo links from being out-of-sync
+**  when user preferences/options are changed.
+*/
 function removeDataAttributes () {
   const dataElements = document.querySelectorAll(`[${dataAttribName}]`);
   console.log(`dataElements: ${dataElements.length}`);
