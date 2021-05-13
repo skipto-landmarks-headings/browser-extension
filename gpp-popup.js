@@ -161,7 +161,7 @@ function sendSkipToData (evt) {
     window.close();
   }
 
-  portToContent.postMessage(message);
+  contentPort.postMessage(message);
   closeUpShop();
 }
 
