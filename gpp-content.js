@@ -17,9 +17,9 @@ popupPort.onMessage.addListener(messageHandler);
 
 function messageHandler (message) {
   switch (message.id) {
-    case 'procpage':
-      if (debug) console.log(`content: 'procpage' message`);
-      processPage(message.data);
+    case 'storage':
+      if (debug) console.log(`content: 'storage' message`);
+      processPage(message);
       break;
     case 'skipto':
       skipToContent(message.data);
@@ -119,7 +119,8 @@ function getHeadingElements (options) {
 **  When this script is executed directly, extract the skipto menu
 **  data and send it to the popup script.
 */
-function processPage (options) {
+function processPage (storageMessage) {
+  let options = storageMessage.options;
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
@@ -132,7 +133,7 @@ function processPage (options) {
       elem.removeAttribute(dataAttribName);
     })
   }
-  removeDataAttributes();
+  if (storageMessage.changed) removeDataAttributes();
 
   // Process the landmark elements
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');

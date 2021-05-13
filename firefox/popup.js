@@ -28,7 +28,7 @@ function connectionHandler (port) {
   function messageHandler (message, sender) {
     if (message.id === 'storage') {
       if (debug) console.log(`popup: 'storage' message`);
-      initProcessing(message.data);
+      initProcessing(message);
     }
   }
 
@@ -65,14 +65,8 @@ function checkProtocol (tab) {
 /*
 **  Initiate processing in content script
 */
-function initProcessing (options) {
-  console.log('initProcessing: ', options);
-
-  const message = {
-    id: 'procpage',
-    data: options
-  };
-
+function initProcessing (message) {
+  console.log('initProcessing: ', message);
   contentPort.postMessage(message);
 }
 

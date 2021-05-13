@@ -7,10 +7,13 @@ const defaultOptions = {
   mainOnly: false
 };
 
+var storageChanged = false;
+
 function sendStorage () {
   const message = {
     id: 'storage',
-    data: storageCache
+    options: storageCache,
+    changed: storageChanged
   };
 #ifdef FIREFOX
   browser.runtime.sendMessage(message);
@@ -18,9 +21,10 @@ function sendStorage () {
 #ifdef CHROME
   chrome.runtime.sendMessage(message);
 #endif
+  storageChanged = false;
 }
 
-function getStorageHandler (message, sender, sendResponse) {
+function getStorageHandler (message, sender) {
   if (message.id === 'getStorage') {
     sendStorage();
   }
@@ -66,7 +70,8 @@ function onChangedHandler (changes, namespace) {
     );
     storageCache[key] = newValue;
   }
-  console.log('onChangedHandler: ', storageCache);
+  storageChanged = true;
+  console.log('onChangedHandler: ', storageChanged);
 }
 
 #ifdef FIREFOX

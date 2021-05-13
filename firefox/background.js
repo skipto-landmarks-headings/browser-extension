@@ -7,15 +7,19 @@ const defaultOptions = {
   mainOnly: false
 };
 
+var storageChanged = false;
+
 function sendStorage () {
   const message = {
     id: 'storage',
-    data: storageCache
+    options: storageCache,
+    changed: storageChanged
   };
   browser.runtime.sendMessage(message);
+  storageChanged = false;
 }
 
-function getStorageHandler (message, sender, sendResponse) {
+function getStorageHandler (message, sender) {
   if (message.id === 'getStorage') {
     sendStorage();
   }
@@ -49,7 +53,8 @@ function onChangedHandler (changes, namespace) {
     );
     storageCache[key] = newValue;
   }
-  console.log('onChangedHandler: ', storageCache);
+  storageChanged = true;
+  console.log('onChangedHandler: ', storageChanged);
 }
 
 browser.storage.onChanged.addListener(onChangedHandler);
