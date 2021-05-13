@@ -126,6 +126,7 @@ function displayMenu () {
   skipToMenu.checkGroupCounts();
 
   const menuitems = skipToMenu.menuitems;
+  console.log(`menuitems count: ${menuitems.length}`);
   if (menuitems.length) {
     kbdEventMgr = new KbdEventMgr(menuitems, sendSkipToData);
     kbdEventMgr.setFocusFirstItem();
