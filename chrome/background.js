@@ -7,16 +7,12 @@ const defaultOptions = {
   mainOnly: false
 };
 
-var storageChanged = false;
-
 function sendStorage () {
   const message = {
     id: 'storage',
-    options: storageCache,
-    changed: storageChanged
+    options: storageCache
   };
   chrome.runtime.sendMessage(message);
-  storageChanged = false;
 }
 
 function getStorageHandler (message, sender) {
@@ -54,8 +50,6 @@ function onChangedHandler (changes, namespace) {
     );
     storageCache[key] = newValue;
   }
-  storageChanged = true;
-  console.log('onChangedHandler: ', storageChanged);
 }
 
 chrome.storage.onChanged.addListener(onChangedHandler)

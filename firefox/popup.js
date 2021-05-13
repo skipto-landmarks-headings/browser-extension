@@ -121,7 +121,7 @@ function sendSkipToData (evt) {
 
   const message = {
     id: 'skipto',
-    data: dataId
+    dataId: dataId
   };
 
   function closeUpShop () {
@@ -151,3 +151,8 @@ function getActiveTab () {
 function onError (error) {
   console.log(`Error: ${error}`);
 }
+
+window.addEventListener('unload', evt => {
+  if (debug) console.log('popup unloaded');
+  contentPort.postMessage({ id: 'cleanup' });
+});

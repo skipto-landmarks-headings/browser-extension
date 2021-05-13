@@ -1,12 +1,12 @@
 /* content.js */
 
+var dataAttribName = 'data-skipto';
 var debug = false;
-var popupPort;
 
 /*
 **  Connect to popup script and set up listener/handler
 */
-popupPort = chrome.runtime.connect({ name: 'content' });
+var popupPort = chrome.runtime.connect({ name: 'content' });
 
 popupPort.onMessage.addListener(messageHandler);
 
@@ -14,11 +14,14 @@ function messageHandler (message) {
   switch (message.id) {
     case 'storage':
       if (debug) console.log(`content: 'storage' message`);
-      processPage(message);
+      processPage(message.options);
       break;
     case 'skipto':
-      skipToContent(message.data);
+      skipToContent(message.dataId);
       break;
+    case 'cleanup':
+      removeDataAttributes();
+    break;
   }
 }
 
@@ -58,7 +61,7 @@ function getTargetElement (dataId, element) {
 **  Perform the action specified by activated menu item
 */
 function skipToContent (dataId) {
-  let selector = `[data-skipto="${dataId}"]`;
+  let selector = `[${dataAttribName}="${dataId}"]`;
   let isHeading = dataId.startsWith('h-');
   let target = null;
 
@@ -114,21 +117,10 @@ function getHeadingElements (options) {
 **  When this script is executed directly, extract the skipto menu
 **  data and send it to the popup script.
 */
-function processPage (storageMessage) {
-  let options = storageMessage.options;
+function processPage (options) {
   let landmarksArray = [];
   let headingsArray = [];
   let counter = 0;
-  let dataAttribName = 'data-skipto';
-
-  function removeDataAttributes () {
-    const dataElements = document.querySelectorAll(`[${dataAttribName}]`);
-    if (debug) console.log(`dataElements: ${dataElements.length}`);
-    dataElements.forEach(elem => {
-      elem.removeAttribute(dataAttribName);
-    })
-  }
-  if (storageMessage.changed) removeDataAttributes();
 
   // Process the landmark elements
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');
@@ -190,4 +182,12 @@ function processPage (storageMessage) {
   };
 
   popupPort.postMessage(message);
+}
+
+function removeDataAttributes () {
+  const dataElements = document.querySelectorAll(`[${dataAttribName}]`);
+  console.log(`dataElements: ${dataElements.length}`);
+  dataElements.forEach(elem => {
+    elem.removeAttribute(dataAttribName);
+  })
 }
