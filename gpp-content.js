@@ -26,7 +26,7 @@ function messageHandler (message) {
       break;
     case 'cleanup':
       removeDataAttributes();
-    break;
+      break;
   }
 }
 

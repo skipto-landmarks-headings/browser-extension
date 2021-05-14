@@ -1,15 +1,19 @@
 /* popup.js */
 
 import SkipToMenu from './SkipToMenu.js';
-customElements.define('skipto-menu', SkipToMenu);
-
 import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
-customElements.define('landmarks-group', LandmarksGroup);
-customElements.define('headings-group', HeadingsGroup);
-
 import { KbdEventMgr } from './KbdEventMgr.js';
-var kbdEventMgr;
 
+customElements.define('skipto-menu', SkipToMenu);
+const skipToMenu = document.querySelector('skipto-menu');
+
+customElements.define('landmarks-group', LandmarksGroup);
+const landmarksGroup = skipToMenu.landmarksGroup;
+
+customElements.define('headings-group', HeadingsGroup);
+const headingsGroup = skipToMenu.headingsGroup;
+
+var kbdEventMgr;
 var contentPort;
 var debug = false;
 
@@ -54,10 +58,7 @@ function connectionHandler (port) {
 function portMessageHandler (message) {
   switch (message.id) {
     case 'menudata':
-      constructMenu({
-        landmarks: message.landmarks,
-        headings: message.headings
-      });
+      constructMenu(message);
       break;
   }
 }
@@ -107,21 +108,19 @@ function skipToMenuEventHandler (evt) {
 /*
 **  Consume menudata sent by content script
 */
-function constructMenu (data) {
-  const skipToMenu = document.querySelector('skipto-menu');
+function constructMenu (message) {
   skipToMenu.addEventListener('skipto-menu', skipToMenuEventHandler);
 
-  skipToMenu.landmarksGroup.menuitemClickHandler = sendSkipToData;
-  skipToMenu.headingsGroup.menuitemClickHandler = sendSkipToData;
-  skipToMenu.landmarksGroup.menudata = data.landmarks;
-  skipToMenu.headingsGroup.menudata = data.headings;
+  landmarksGroup.menuitemClickHandler = sendSkipToData;
+  headingsGroup.menuitemClickHandler = sendSkipToData;
+  landmarksGroup.menudata = message.landmarks;
+  headingsGroup.menudata = message.headings;
 }
 
 /*
 **  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
-  const skipToMenu = document.querySelector('skipto-menu');
   skipToMenu.removeEventListener('skipto-menu', skipToMenuEventHandler);
   skipToMenu.checkGroupCounts();
 
