@@ -7,6 +7,24 @@ div {
   --light-gray:        #EEE;
 }
 
+div[role='separator'] {
+  color: #fff;
+  background-color: var(--industrial-blue);
+  padding: 8px 6px 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+div[role='separator']:not(:first-child) {
+  margin-top: 0.25rem;
+}
+
+div.message {
+  display: none;
+  background-color: #eee;
+  padding: 1rem 1.5rem;
+}
+
 div[role='menuitem'] {
   color: inherit;
   cursor: pointer;

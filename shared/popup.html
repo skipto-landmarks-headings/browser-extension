@@ -7,10 +7,14 @@
 
   <body>
     <skipto-menu>
-      <span slot="landmarks-label">Landmarks</span>
-      <span slot="landmarks-empty">No landmarks found!</span>
-      <span slot="headings-label">Headings</span>
-      <span slot="headings-empty">No headings found!</span>
+      <landmarks-group slot="group-one">
+        <span slot="label">Landmarks</span>
+        <span slot="empty">No landmarks found!</span>
+      </landmarks-group>
+      <headings-group slot="group-two">
+        <span slot="label">Headings</span>
+        <span slot="empty">No headings found!</span>
+      </headings-group>
     </skipto-menu>
 
     <script type="module" src="popup.js"></script>

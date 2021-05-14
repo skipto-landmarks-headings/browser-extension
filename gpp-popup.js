@@ -8,10 +8,10 @@ customElements.define('skipto-menu', SkipToMenu);
 const skipToMenu = document.querySelector('skipto-menu');
 
 customElements.define('landmarks-group', LandmarksGroup);
-const landmarksGroup = skipToMenu.landmarksGroup;
+const landmarksGroup = document.querySelector('landmarks-group');
 
 customElements.define('headings-group', HeadingsGroup);
-const headingsGroup = skipToMenu.headingsGroup;
+const headingsGroup = document.querySelector('headings-group');
 
 var kbdEventMgr;
 var contentPort;
@@ -113,6 +113,7 @@ function constructMenu (message) {
 
   landmarksGroup.menuitemClickHandler = sendSkipToData;
   headingsGroup.menuitemClickHandler = sendSkipToData;
+
   landmarksGroup.menudata = message.landmarks;
   headingsGroup.menudata = message.headings;
 }

@@ -2,7 +2,15 @@
 
 const emptyContentMsg = '[empty text content]';
 const template = document.createElement('template');
-template.innerHTML = `<div role="group"></div>`;
+template.innerHTML = `
+    <div role="separator">
+      <slot name="label">group label</slot>
+    </div>
+    <div role="group"></div>
+    <div class="message">
+      <slot name="empty">empty message</slot>
+    </div>
+`;
 
 class MenuGroup extends HTMLElement {
   constructor () {
@@ -11,18 +19,24 @@ class MenuGroup extends HTMLElement {
 
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', 'menuitem.css');
+    link.setAttribute('href', 'menugroup.css');
     this.shadowRoot.appendChild(link);
 
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.group = this.shadowRoot.querySelector('div[role="group"]');
+    this.label = this.shadowRoot.querySelector('div[role="separator"]');
 
     this.onMenuitemClicked =
       evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
   }
 
-  set attributes (obj) {
-    this.setAttribute('aria-labelledby', obj.labelId);
+  connectedCallback () {
+    this.message = this.shadowRoot.querySelector('div[class="message"]');
+  }
+
+  set attributes (labelId) {
+    this.label.setAttribute('id', labelId)
+    this.group.setAttribute('aria-labelledby', labelId);
   }
 
   // Note: This property must be set *before* creating menuitems
@@ -48,7 +62,7 @@ class MenuGroup extends HTMLElement {
 class LandmarksGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = { labelId: 'landmarks-label' };
+    this.attributes = 'landmarks-label';
   }
 
   get menuitems () {
@@ -87,7 +101,7 @@ class LandmarksGroup extends MenuGroup {
 class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = { labelId: 'headings-label' };
+    this.attributes = 'headings-label';
   }
 
   get menuitems () {

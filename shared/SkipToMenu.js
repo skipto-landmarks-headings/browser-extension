@@ -3,20 +3,8 @@
 const template = document.createElement('template');
 template.innerHTML = `
   <div role="menu" tabindex="-1">
-    <div role="separator" id="landmarks-label">
-      <slot name="landmarks-label">group label</slot>
-    </div>
-    <div class="message" id="landmarks-empty">
-      <slot name="landmarks-empty">empty message</slot>
-    </div>
-    <landmarks-group></landmarks-group>
-    <div role="separator" id="headings-label">
-      <slot name="headings-label">group label</slot>
-    </div>
-    <div class="message" id="headings-empty">
-      <slot name="headings-empty">empty message</slot>
-    </div>
-    <headings-group></headings-group>
+    <slot name="group-one"></slot>
+    <slot name="group-two"></slot>
   </div>
 `;
 
@@ -41,22 +29,19 @@ class SkipToMenu extends HTMLElement {
 
   connectedCallback () {
     // Initialize child element references
-    this.landmarksGroup = this.shadowRoot.querySelector('landmarks-group');
-    this.headingsGroup  = this.shadowRoot.querySelector('headings-group');
+    this.landmarksGroup = this.querySelector('landmarks-group');
+    this.headingsGroup  = this.querySelector('headings-group');
 
     this.landmarksGroup.menuParent = this;
     this.headingsGroup.menuParent  = this;
-
-    this.landmarksEmpty = this.shadowRoot.querySelector('#landmarks-empty');
-    this.headingsEmpty  = this.shadowRoot.querySelector('#headings-empty');
   }
 
   checkGroupCounts () {
     if (this.landmarksGroup.infoCount === 0) {
-      this.landmarksEmpty.style.display = 'block';
+      this.landmarksGroup.message.style.display = 'block';
     }
     if (this.headingsGroup.infoCount === 0) {
-      this.headingsEmpty.style.display = 'block';
+      this.headingsGroup.message.style.display = 'block';
     }
   }
 
