@@ -17,21 +17,22 @@ class MenuGroup extends HTMLElement {
     super();
     this.attachShadow({mode: 'open'});
 
+    // Use external CSS stylesheet
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', 'menugroup.css');
     this.shadowRoot.appendChild(link);
 
+    // Add DOM tree from template
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.group = this.shadowRoot.querySelector('div[role="group"]');
-    this.label = this.shadowRoot.querySelector('div[role="separator"]');
+
+    // Initialize references
+    this.group   = this.shadowRoot.querySelector('div[role="group"]');
+    this.label   = this.shadowRoot.querySelector('div[role="separator"]');
+    this.message = this.shadowRoot.querySelector('div[class="message"]');
 
     this.onMenuitemClicked =
       evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
-  }
-
-  connectedCallback () {
-    this.message = this.shadowRoot.querySelector('div[class="message"]');
   }
 
   set attributes (labelId) {

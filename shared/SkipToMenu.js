@@ -15,7 +15,7 @@ class SkipToMenu extends HTMLElement {
     // element is retrievable as 'this.shadowRoot'
     this.attachShadow( { mode: "open" } );
 
-    // Use an external CSS stylesheet for the component
+    // Use external CSS stylesheet
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', 'menu.css');
