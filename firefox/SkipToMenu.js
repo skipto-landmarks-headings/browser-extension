@@ -23,6 +23,7 @@ class SkipToMenu extends HTMLElement {
 
     // Add DOM tree from template
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+
     this.menuDiv = this.shadowRoot.querySelector('div[role="menu"]');
     this.groupsCompleted = 0;
   }
@@ -32,25 +33,23 @@ class SkipToMenu extends HTMLElement {
     this.landmarksGroup = this.querySelector('landmarks-group');
     this.headingsGroup  = this.querySelector('headings-group');
 
-    this.landmarksGroup.menuParent = this;
-    this.headingsGroup.menuParent  = this;
-
-    const groups = this.querySelectorAll('landmarks-group, headings-group');
-    this.numGroups = groups.length;
+    this.groups = this.querySelectorAll('landmarks-group, headings-group');
+    for (const group of this.groups) {
+      group.menuParent = this;
+    }
   }
 
   checkGroupCounts () {
-    if (this.landmarksGroup.infoCount === 0) {
-      this.landmarksGroup.message.style.display = 'block';
-    }
-    if (this.headingsGroup.infoCount === 0) {
-      this.headingsGroup.message.style.display = 'block';
+    for (const group of this.groups) {
+      if (group.infoCount === 0) {
+        group.message.style.display = 'block';
+      }
     }
   }
 
   set completed (val) {
     if (val) this.groupsCompleted++;
-    if (this.groupsCompleted === this.numGroups) {
+    if (this.groupsCompleted === this.groups.length) {
       this.dispatchEvent(
         new CustomEvent('skipto-menu', { detail: 'ready' })
       );
@@ -58,7 +57,7 @@ class SkipToMenu extends HTMLElement {
   }
 
   get menuitems () {
-    let menuitems = [];
+    const menuitems = [];
     menuitems.push(...this.landmarksGroup.menuitems);
     menuitems.push(...this.headingsGroup.menuitems);
     return menuitems;
