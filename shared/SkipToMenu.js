@@ -23,8 +23,8 @@ class SkipToMenu extends HTMLElement {
 
     // Add DOM tree from template
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.menuDiv = this.shadowRoot.querySelector('div[role="menu"]');
     this.groupsCompleted = 0;
-    this.numGroups = 2;
   }
 
   connectedCallback () {
@@ -34,6 +34,9 @@ class SkipToMenu extends HTMLElement {
 
     this.landmarksGroup.menuParent = this;
     this.headingsGroup.menuParent  = this;
+
+    const groups = this.querySelectorAll('landmarks-group, headings-group');
+    this.numGroups = groups.length;
   }
 
   checkGroupCounts () {

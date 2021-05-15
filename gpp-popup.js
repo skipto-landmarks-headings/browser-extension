@@ -126,13 +126,13 @@ function displayMenu () {
   skipToMenu.checkGroupCounts();
 
   const menuitems = skipToMenu.menuitems;
-  console.log(`menuitems count: ${menuitems.length}`);
+  console.log(`menuitems: ${menuitems.length}`);
+
   if (menuitems.length) {
     kbdEventMgr = new KbdEventMgr(menuitems, sendSkipToData);
+    skipToMenu.menuDiv.addEventListener('focus', evt =>
+      kbdEventMgr.setFocusCurrentItem());
     kbdEventMgr.setFocusFirstItem();
-
-    const menuNode = skipToMenu.shadowRoot.querySelector('div[role="menu"]');
-    menuNode.addEventListener('focus', evt => kbdEventMgr.setFocusCurrentItem());
   }
 }
 
