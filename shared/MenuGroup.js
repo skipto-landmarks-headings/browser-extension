@@ -27,17 +27,17 @@ class MenuGroup extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     // Initialize references
-    this.group   = this.shadowRoot.querySelector('div[role="group"]');
-    this.label   = this.shadowRoot.querySelector('div[role="separator"]');
-    this.message = this.shadowRoot.querySelector('div[class="message"]');
+    this.groupDiv = this.shadowRoot.querySelector('div[role="group"]');
+    this.labelDiv = this.shadowRoot.querySelector('div[role="separator"]');
+    this.message  = this.shadowRoot.querySelector('div[class="message"]');
 
     this.onMenuitemClicked =
       evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
   }
 
   set attributes (labelId) {
-    this.label.setAttribute('id', labelId)
-    this.group.setAttribute('aria-labelledby', labelId);
+    this.labelDiv.setAttribute('id', labelId)
+    this.groupDiv.setAttribute('aria-labelledby', labelId);
   }
 
   // Note: This property must be set *before* creating menuitems
@@ -91,7 +91,7 @@ class LandmarksGroup extends MenuGroup {
         div.appendChild(nameSpan);
       }
 
-      this.group.appendChild(div);
+      this.groupDiv.appendChild(div);
     }
 
     this.infoCount = landmarksInfo.length;
@@ -127,7 +127,7 @@ class HeadingsGroup extends MenuGroup {
       nameSpan.textContent = info.tagName;
       div.appendChild(nameSpan);
 
-      this.group.appendChild(div);
+      this.groupDiv.appendChild(div);
     }
 
     this.infoCount = headingsInfo.length;
