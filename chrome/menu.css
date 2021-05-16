@@ -1,9 +1,5 @@
 /* menu.css */
 
-div {
-  --industrial-blue:  #1D58A7;
-}
-
 div[role='menu'] {
   padding: 1rem;
   font-family: sans-serif;

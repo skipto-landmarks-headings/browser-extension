@@ -1,10 +1,11 @@
-/* menuitem.css */
+/* menugroup.css */
 
 div {
-  --dark-gray:         #777;
-  --illini-orange:  #FF552E;
-  --light-blue:     #CAD9EF;
-  --light-gray:        #EEE;
+  --dark-gray:             #777;
+  --illini-orange:      #FF552E;
+  --industrial-blue:    #1D58A7;
+  --light-blue:         #CAD9EF;
+  --light-gray:            #EEE;
 }
 
 div[role='separator'] {
