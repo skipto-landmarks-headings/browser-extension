@@ -4,6 +4,7 @@ GPPFILES=(
   background.js
   content.js
   menu.css
+  options.css
   options.js
   popup.js
 )

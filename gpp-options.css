@@ -6,7 +6,12 @@ body {
 
 fieldset {
   margin: 0;
+#ifdef FIREFOX
   margin-top: 1.5rem;
+#endif
+#ifdef CHROME
+  margin-top: -0.5rem;
+#endif
 }
 
 div.levels-radio {
