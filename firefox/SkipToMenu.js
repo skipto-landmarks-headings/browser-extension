@@ -30,9 +30,6 @@ class SkipToMenu extends HTMLElement {
 
   connectedCallback () {
     // Initialize child element references
-    this.landmarksGroup = this.querySelector('landmarks-group');
-    this.headingsGroup  = this.querySelector('headings-group');
-
     this.groups = this.querySelectorAll('landmarks-group, headings-group');
     for (const group of this.groups) {
       group.menuParent = this;
@@ -58,14 +55,16 @@ class SkipToMenu extends HTMLElement {
 
   get menuitems () {
     const menuitems = [];
-    menuitems.push(...this.landmarksGroup.menuitems);
-    menuitems.push(...this.headingsGroup.menuitems);
+    for (const group of this.groups) {
+      menuitems.push(...group.menuitems);
+    }
     return menuitems;
   }
 
   removeGroups () {
-    this.landmarksGroup.remove();
-    this.headingsGroup.remove();
+    for (const group of this.groups) {
+      group.remove();
+    }
   }
 }
 
