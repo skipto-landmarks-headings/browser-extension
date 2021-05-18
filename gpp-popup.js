@@ -151,8 +151,6 @@ function sendSkipToData (evt) {
   };
 
   function closeUpShop () {
-    const skipToMenu = document.querySelector('skipto-menu');
-    skipToMenu.removeGroups();
     window.close();
   }
 
@@ -200,5 +198,6 @@ function notLastError () {
 
 window.addEventListener('unload', evt => {
   if (debug) console.log('popup unloaded');
+  skipToMenu.removeGroups();
   contentPort.postMessage({ id: 'cleanup' });
 });
