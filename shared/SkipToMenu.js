@@ -25,7 +25,6 @@ class SkipToMenu extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     this.menuDiv = this.shadowRoot.querySelector('div[role="menu"]');
-    this.groupsCompleted = 0;
   }
 
   connectedCallback () {
