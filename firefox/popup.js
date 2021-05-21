@@ -4,14 +4,12 @@ import SkipToMenu from './SkipToMenu.js';
 import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
 import { KbdEventMgr } from './KbdEventMgr.js';
 
-customElements.define('skipto-menu', SkipToMenu);
-const skipToMenu = document.querySelector('skipto-menu');
+const skipToMenu     = document.querySelector('skipto-menu');
+const landmarksGroup = document.querySelector('landmarks-group');
+const headingsGroup  = document.querySelector('headings-group');
 
 customElements.define('landmarks-group', LandmarksGroup);
-const landmarksGroup = document.querySelector('landmarks-group');
-
 customElements.define('headings-group', HeadingsGroup);
-const headingsGroup = document.querySelector('headings-group');
 
 var kbdEventMgr;
 var contentPort;
@@ -72,31 +70,22 @@ function initProcessing (message) {
 }
 
 /*
-**  Set up event handler indicating SkipToMenu is ready
-*/
-function skipToMenuEventHandler (evt) {
-  if (debug) console.log(`${evt.type}: ${evt.detail}`);
-  displayMenu();
-}
-
-/*
 **  Consume menudata sent by content script
 */
 function constructMenu (message) {
-  skipToMenu.addEventListener('skipto-menu', skipToMenuEventHandler);
-
   landmarksGroup.menuitemClickHandler = sendSkipToData;
   headingsGroup.menuitemClickHandler = sendSkipToData;
 
   landmarksGroup.menudata = message.landmarks;
   headingsGroup.menudata = message.headings;
+  displayMenu();
 }
 
 /*
 **  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
-  skipToMenu.removeEventListener('skipto-menu', skipToMenuEventHandler);
+  customElements.define('skipto-menu', SkipToMenu);
   skipToMenu.checkGroupCounts();
 
   const menuitems = skipToMenu.menuitems;
@@ -108,6 +97,7 @@ function displayMenu () {
       kbdEventMgr.setFocusCurrentItem());
     kbdEventMgr.setFocusFirstItem();
   }
+  window.scroll(0, 0);
 }
 
 /*

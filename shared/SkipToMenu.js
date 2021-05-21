@@ -31,9 +31,6 @@ class SkipToMenu extends HTMLElement {
   connectedCallback () {
     // Initialize child element references
     this.groups = this.querySelectorAll('landmarks-group, headings-group');
-    for (const group of this.groups) {
-      group.menuParent = this;
-    }
   }
 
   checkGroupCounts () {
@@ -41,15 +38,6 @@ class SkipToMenu extends HTMLElement {
       if (group.infoCount === 0) {
         group.message.style.display = 'block';
       }
-    }
-  }
-
-  set completed (val) {
-    if (val) this.groupsCompleted++;
-    if (this.groupsCompleted === this.groups.length) {
-      this.dispatchEvent(
-        new CustomEvent('skipto-menu', { detail: 'ready' })
-      );
     }
   }
 

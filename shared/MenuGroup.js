@@ -95,7 +95,6 @@ class LandmarksGroup extends MenuGroup {
     }
 
     this.infoCount = landmarksInfo.length;
-    this.menuParent.completed = true;
   }
 }
 
@@ -131,7 +130,6 @@ class HeadingsGroup extends MenuGroup {
     }
 
     this.infoCount = headingsInfo.length;
-    this.menuParent.completed = true;
   }
 }
 

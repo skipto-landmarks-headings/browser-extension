@@ -8,3 +8,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+skipto-menu:not(:defined) {
+  display: none;
+}
+
+skipto-menu:defined {
+  display: block;
+}
