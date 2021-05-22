@@ -11,26 +11,41 @@
 
   "landmarksLabel": {
     "message": "Landmarks",
-    "description": "label for landmarks group separator"
+    "description": "menu: label for landmarks group separator"
   },
 
   "headingsLabel": {
     "message": "Headings",
-    "description": "label for headings group separator"
+    "description": "menu: label for headings group separator"
   },
 
   "emptyContent": {
     "message": "[empty text content]",
-    "description": "replacement text for heading with empty text content"
+    "description": "menu: replacement text for heading with empty text content"
   },
 
   "noLandmarks": {
     "message": "No landmarks found!",
-    "description": "message displayed when there are no landmark menu items"
+    "description": "menu: displayed when there are no landmark menu items"
   },
 
   "noHeadings": {
     "message": "No headings found!",
-    "description": "message displayed when there are no heading menu items"
+    "description": "menu: displayed when there are no heading menu items"
+  },
+
+  "maxLevel": {
+    "message": "Show headings through level",
+    "description": "options form: label for headings level fieldset legend"
+  },
+
+  "mainOnly": {
+    "message": "Only show headings found in main landmark",
+    "description": "options form: label for main only checkbox"
+  },
+
+  "saveButton": {
+    "message": "Save Options",
+    "description": "options form: save button label"
   }
 }

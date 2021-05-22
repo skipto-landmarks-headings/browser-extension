@@ -4,10 +4,28 @@ const debug = true;
 const maxLevelItems = document.querySelectorAll('[name="level"]');
 const mainOnly = document.querySelector('input[id="main-only"]');
 
+// Get locale-specific message strings
+#ifdef FIREFOX
+const getMessage = browser.i18n.getMessage;
+#endif
+#ifdef CHROME
+const getMessage = chrome.i18n.getMessage;
+#endif
+
 const defaultOptions = {
   maxLevelIndex: 1,
   mainOnly: false
 };
+
+function setFormLabels () {
+  const maxLevelLegend = document.querySelector('fieldset > legend');
+  const mainOnlyLabel = document.querySelector('label[for="main-only"]');
+  const saveButton = document.querySelector('button');
+
+  maxLevelLegend.textContent = getMessage('maxLevel');
+  mainOnlyLabel.textContent = getMessage('mainOnly');
+  saveButton.textContent = getMessage('saveButton');
+}
 
 function notifySaved () {}
 
@@ -66,6 +84,7 @@ function saveFormOptions (e) {
 // Update HTML form values based on user options saved in storage.sync
 
 function updateOptionsForm() {
+  setFormLabels();
 
   function updateForm (options) {
     console.log('updateForm: ', options);
