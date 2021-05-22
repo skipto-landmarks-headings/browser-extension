@@ -3,6 +3,7 @@
 GPPFILES=(
   background.js
   content.js
+  i18n.js
   menu.css
   options.css
   options.js
@@ -20,10 +21,6 @@ for FNAME in ${GPPFILES[@]}
 do
   gpp -DFIREFOX=1 -o firefox/${FNAME} gpp-${FNAME}
 done
-
-# Process MenuGroup.js
-gpp -DCHROME=1 -o chrome/MenuGroup.js MenuGroup.js
-gpp -DFIREFOX=1 -o firefox/MenuGroup.js MenuGroup.js
 
 # Process manifest.json
 gpp -o chrome/manifest.json manifest.json

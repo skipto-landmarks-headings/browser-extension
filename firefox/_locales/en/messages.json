@@ -24,27 +24,27 @@
     "description": "menu: replacement text for heading with empty text content"
   },
 
-  "noLandmarks": {
+  "noLandmarksMsg": {
     "message": "No landmarks found!",
     "description": "menu: displayed when there are no landmark menu items"
   },
 
-  "noHeadings": {
+  "noHeadingsMsg": {
     "message": "No headings found!",
     "description": "menu: displayed when there are no heading menu items"
   },
 
-  "maxLevel": {
+  "maxLevelLabel": {
     "message": "Show headings through level",
     "description": "options form: label for headings level fieldset legend"
   },
 
-  "mainOnly": {
+  "mainOnlyLabel": {
     "message": "Only show headings found in main landmark",
     "description": "options form: label for main only checkbox"
   },
 
-  "saveButton": {
+  "buttonLabel": {
     "message": "Save Options",
     "description": "options form: save button label"
   }

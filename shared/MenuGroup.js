@@ -1,13 +1,6 @@
 /* MenuGroup.js */
 
-// Get locale-specific message strings
-#ifdef FIREFOX
-const getMessage = browser.i18n.getMessage;
-#endif
-#ifdef CHROME
-const getMessage = chrome.i18n.getMessage;
-#endif
-const emptyContent = getMessage('emptyContent');
+import * as i18n from './i18n.js';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -79,9 +72,9 @@ class MenuGroup extends HTMLElement {
 class LandmarksGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = 'landmarks-label';
-    this.labelText = getMessage('landmarksLabel');
-    this.messageText = getMessage('noLandmarks');
+    this.attributes  = 'landmarks-label';
+    this.labelText   = i18n.landmarksLabel;
+    this.messageText = i18n.noLandmarksMsg;
   }
 
   get menuitems () {
@@ -119,9 +112,9 @@ class LandmarksGroup extends MenuGroup {
 class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
-    this.attributes = 'headings-label';
-    this.labelText = getMessage('headingsLabel');
-    this.messageText = getMessage('noHeadings');
+    this.attributes  = 'headings-label';
+    this.labelText   = i18n.headingsLabel;
+    this.messageText = i18n.noHeadingsMsg;
   }
 
   get menuitems () {
@@ -138,7 +131,7 @@ class HeadingsGroup extends MenuGroup {
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : emptyContent;
+      textSpan.textContent = info.content ? info.content : i18n.emptyContent;
       div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');
