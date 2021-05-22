@@ -8,6 +8,8 @@ const getMessage = browser.i18n.getMessage;
 const getMessage = chrome.i18n.getMessage;
 #endif
 
+const emptyContent = getMessage('emptyContent');
+
 const template = document.createElement('template');
 template.innerHTML = `
     <div role="separator">
@@ -121,7 +123,6 @@ class HeadingsGroup extends MenuGroup {
     this.attributes = 'headings-label';
     this.labelText = getMessage('headingsLabel');
     this.messageText = getMessage('noHeadings');
-    this.emptyContent = getMessage('emptyContent');
   }
 
   get menuitems () {
@@ -138,7 +139,7 @@ class HeadingsGroup extends MenuGroup {
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : this.emptyContent;
+      textSpan.textContent = info.content ? info.content : emptyContent;
       div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');
