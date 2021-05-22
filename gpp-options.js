@@ -1,16 +1,10 @@
 /* options.js */
 
-const debug = true;
+import getMessage from './i18n.js';
+
+const debug = false;
 const maxLevelItems = document.querySelectorAll('[name="level"]');
 const mainOnly = document.querySelector('input[id="main-only"]');
-
-// Get locale-specific message strings
-#ifdef FIREFOX
-const getMessage = browser.i18n.getMessage;
-#endif
-#ifdef CHROME
-const getMessage = chrome.i18n.getMessage;
-#endif
 
 const defaultOptions = {
   maxLevelIndex: 1,
@@ -22,9 +16,9 @@ function setFormLabels () {
   const mainOnlyLabel = document.querySelector('label[for="main-only"]');
   const saveButton = document.querySelector('button');
 
-  maxLevelLegend.textContent = getMessage('maxLevel');
-  mainOnlyLabel.textContent = getMessage('mainOnly');
-  saveButton.textContent = getMessage('saveButton');
+  maxLevelLegend.textContent = getMessage('maxLevelLabel');
+  mainOnlyLabel.textContent  = getMessage('mainOnlyLabel');
+  saveButton.textContent     = getMessage('buttonLabel');
 }
 
 function notifySaved () {}
@@ -32,18 +26,8 @@ function notifySaved () {}
 // Save options object to storage.sync
 
 function saveOptions (options) {
-  const clearStorage = false;
   if (debug) console.log('saveOptions: ', options);
 
-  if (clearStorage) {
-#ifdef FIREFOX
-//    browser.storage.sync.clear();
-#endif
-#ifdef CHROME
-//    chrome.storage.sync.clear();
-#endif
-    return;
-  }
 #ifdef FIREFOX
   browser.storage.sync.set(options)
   .then(notifySaved, onError);
@@ -88,26 +72,21 @@ function updateOptionsForm() {
 
   function updateForm (options) {
     console.log('updateForm: ', options);
-    if (Object.keys(options).length === 0) {
-      console.log('options object is empty');
+
+    if (Object.entries(options).length === 0) {
+      console.log('options object is empty: saving defaultOptions');
       saveOptions(defaultOptions);
     }
 
-    // Set the form element states and values
+    const maxLevelIndex = (typeof options.maxLevelIndex === 'undefined') ?
+      defaultOptions.maxLevelIndex : options.maxLevelIndex;
 
-    if (typeof options.maxLevelIndex === 'undefined') {
-      maxLevelItems[defaultOptions.maxLevelIndex].checked = true;
-    }
-    else {
-      maxLevelItems[options.maxLevelIndex].checked = true;
-    }
+    const mainOnlyValue = (typeof options.mainOnly === 'undefined') ?
+      defaultOptions.mainOnly : options.mainOnly;
 
-    if (typeof options.mainOnly === 'undefined') {
-      mainOnly.checked = defaultOptions.mainOnly;
-    }
-    else {
-      mainOnly.checked = options.mainOnly;
-    }
+    // Set form element values and states
+    maxLevelItems[maxLevelIndex].checked = true;
+    mainOnly.checked = mainOnlyValue;
   }
 
 #ifdef FIREFOX
@@ -129,7 +108,7 @@ function onError (error) {
 #endif
 #ifdef CHROME
 // Redefine console for Chrome extension
-// var console = chrome.extension.getBackgroundPage().console;
+var console = chrome.extension.getBackgroundPage().console;
 
 // Generic error handler
 function notLastError () {
