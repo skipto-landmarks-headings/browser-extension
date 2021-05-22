@@ -1,36 +1,36 @@
 {
   "extName": {
     "message": "SkipTo",
-    "description": "Name of the extension"
+    "description": "extension name"
   },
 
   "extDesc": {
-    "message": "Provides keyboard access to landmark regions and headings on the web page loaded in the active tab.",
-    "description": "Description of the extension"
+    "message": "Provides keyboard access to landmark regions and headings (h1–h6) on a web page.",
+    "description": "extension description"
   },
 
   "landmarksLabel": {
     "message": "Landmarks",
-    "description": "Label for LandmarksGroup"
+    "description": "label for landmarks group separator"
   },
 
   "headingsLabel": {
     "message": "Headings",
-    "description": "Label for HeadingsGroup"
+    "description": "label for headings group separator"
   },
 
   "emptyContent": {
     "message": "[empty text content]",
-    "description": "Placeholder for heading with empty text content"
+    "description": "replacement text for heading with empty text content"
   },
 
   "noLandmarks": {
     "message": "No landmarks found!",
-    "description": "Message"
+    "description": "message displayed when there are no landmark menu items"
   },
 
   "noHeadings": {
     "message": "No headings found!",
-    "description": "Message"
+    "description": "message displayed when there are no heading menu items"
   }
 }

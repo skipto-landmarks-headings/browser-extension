@@ -5,7 +5,7 @@
   },
 
   "extDesc": {
-    "message": "Provides keyboard access to landmark regions and headings on the web page loaded in the active tab.",
+    "message": "Provides keyboard access to landmark regions and headings (h1–h6) on a web page.",
     "description": "extension description"
   },
 
