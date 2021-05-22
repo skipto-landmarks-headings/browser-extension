@@ -1,13 +1,12 @@
 /* MenuGroup.js */
 
-// Get message strings from locale-specific messages.json file
+// Get locale-specific message strings
 #ifdef FIREFOX
 const getMessage = browser.i18n.getMessage;
 #endif
 #ifdef CHROME
 const getMessage = chrome.i18n.getMessage;
 #endif
-
 const emptyContent = getMessage('emptyContent');
 
 const template = document.createElement('template');
