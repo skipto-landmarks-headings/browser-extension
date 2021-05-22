@@ -100,10 +100,10 @@ function initProcessing (message) {
 */
 function constructMenu (message) {
   landmarksGroup.menuitemClickHandler = sendSkipToData;
-  headingsGroup.menuitemClickHandler = sendSkipToData;
+  headingsGroup.menuitemClickHandler  = sendSkipToData;
 
   landmarksGroup.menudata = message.landmarks;
-  headingsGroup.menudata = message.headings;
+  headingsGroup.menudata  = message.headings;
   displayMenu();
 }
 
@@ -112,7 +112,7 @@ function constructMenu (message) {
 */
 function displayMenu () {
   customElements.define('skipto-menu', SkipToMenu);
-  skipToMenu.checkGroupCounts();
+  skipToMenu.checkForEmptyGroups();
 
   const menuitems = skipToMenu.menuitems;
   console.log(`menuitems: ${menuitems.length}`);

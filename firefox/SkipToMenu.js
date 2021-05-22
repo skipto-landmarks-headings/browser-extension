@@ -32,7 +32,7 @@ class SkipToMenu extends HTMLElement {
     this.groups = this.querySelectorAll('landmarks-group, headings-group');
   }
 
-  checkGroupCounts () {
+  checkForEmptyGroups () {
     for (const group of this.groups) {
       if (group.infoCount === 0) {
         group.message.style.display = 'block';
