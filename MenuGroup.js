@@ -1,6 +1,13 @@
 /* MenuGroup.js */
 
-const emptyContentMsg = '[empty text content]';
+// Get message strings from locale-specific messages.json file
+#ifdef FIREFOX
+const getMessage = browser.i18n.getMessage;
+#endif
+#ifdef CHROME
+const getMessage = chrome.i18n.getMessage;
+#endif
+
 const template = document.createElement('template');
 template.innerHTML = `
     <div role="separator">
@@ -35,6 +42,14 @@ class MenuGroup extends HTMLElement {
       evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
   }
 
+  set labelText (str) {
+    this.labelDiv.textContent = str;
+  }
+
+  set messageText (str) {
+    this.message.textContent = str;
+  }
+
   set attributes (labelId) {
     this.labelDiv.setAttribute('id', labelId)
     this.groupDiv.setAttribute('aria-labelledby', labelId);
@@ -64,6 +79,8 @@ class LandmarksGroup extends MenuGroup {
   constructor () {
     super();
     this.attributes = 'landmarks-label';
+    this.labelText = getMessage('landmarksLabel');
+    this.messageText = getMessage('noLandmarks');
   }
 
   get menuitems () {
@@ -102,6 +119,9 @@ class HeadingsGroup extends MenuGroup {
   constructor () {
     super();
     this.attributes = 'headings-label';
+    this.labelText = getMessage('headingsLabel');
+    this.messageText = getMessage('noHeadings');
+    this.emptyContent = getMessage('emptyContent');
   }
 
   get menuitems () {
@@ -118,7 +138,7 @@ class HeadingsGroup extends MenuGroup {
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : emptyContentMsg;
+      textSpan.textContent = info.content ? info.content : this.emptyContent;
       div.appendChild(textSpan);
 
       const nameSpan = document.createElement('span');
