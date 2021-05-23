@@ -36,6 +36,11 @@ class MenuGroup extends HTMLElement {
       evt => console.log(evt.currentTarget.getAttribute('data-skipto'));
   }
 
+  set attributes (labelId) {
+    this.labelDiv.setAttribute('id', labelId)
+    this.groupDiv.setAttribute('aria-labelledby', labelId);
+  }
+
   set labelText (str) {
     this.labelDiv.textContent = str;
   }
@@ -44,14 +49,15 @@ class MenuGroup extends HTMLElement {
     this.message.textContent = str;
   }
 
-  set attributes (labelId) {
-    this.labelDiv.setAttribute('id', labelId)
-    this.groupDiv.setAttribute('aria-labelledby', labelId);
-  }
-
   // Note: This property must be set *before* creating menuitems
   set menuitemClickHandler (func) {
     this.onMenuitemClicked = func;
+  }
+
+  set messageStatus (infoCount) {
+    if (infoCount === 0) {
+      this.message.style.display = 'block';
+    }
   }
 
   createMenuitem (className, dataId) {
@@ -64,10 +70,8 @@ class MenuGroup extends HTMLElement {
     return div;
   }
 
-  set messageStatus (infoCount) {
-    if (infoCount === 0) {
-      this.message.style.display = 'block';
-    }
+  get menuitems () {
+    return this.shadowRoot.querySelectorAll('div[role="menuitem"]');
   }
 
   disconnectedCallback () {
@@ -81,10 +85,6 @@ class LandmarksGroup extends MenuGroup {
     this.attributes  = 'landmarks-label';
     this.labelText   = i18n.landmarksLabel;
     this.messageText = i18n.noLandmarksMsg;
-  }
-
-  get menuitems () {
-    return this.shadowRoot.querySelectorAll('div[role="menuitem"]');
   }
 
   // Use this setter to pass in menu data from external module
@@ -121,10 +121,6 @@ class HeadingsGroup extends MenuGroup {
     this.attributes  = 'headings-label';
     this.labelText   = i18n.headingsLabel;
     this.messageText = i18n.noHeadingsMsg;
-  }
-
-  get menuitems () {
-    return this.shadowRoot.querySelectorAll('div[role="menuitem"]');
   }
 
   // Use this setter to pass in menu data from external module
