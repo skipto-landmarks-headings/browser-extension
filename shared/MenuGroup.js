@@ -64,6 +64,12 @@ class MenuGroup extends HTMLElement {
     return div;
   }
 
+  set messageStatus (infoCount) {
+    if (infoCount === 0) {
+      this.message.style.display = 'block';
+    }
+  }
+
   disconnectedCallback () {
     console.log(`${this.constructor.name} disconnected`);
   }
@@ -105,7 +111,7 @@ class LandmarksGroup extends MenuGroup {
       this.groupDiv.appendChild(div);
     }
 
-    this.infoCount = landmarksInfo.length;
+    this.messageStatus = landmarksInfo.length;
   }
 }
 
@@ -142,7 +148,7 @@ class HeadingsGroup extends MenuGroup {
       this.groupDiv.appendChild(div);
     }
 
-    this.infoCount = headingsInfo.length;
+    this.messageStatus = headingsInfo.length;
   }
 }
 

@@ -86,7 +86,6 @@ function constructMenu (message) {
 */
 function displayMenu () {
   customElements.define('skipto-menu', SkipToMenu);
-  skipToMenu.checkForEmptyGroups();
 
   const menuitems = skipToMenu.menuitems;
   console.log(`menuitems: ${menuitems.length}`);
