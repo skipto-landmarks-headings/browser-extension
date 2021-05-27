@@ -54,10 +54,14 @@ class MenuGroup extends HTMLElement {
     this.onMenuitemClicked = func;
   }
 
-  set messageStatus (infoCount) {
+  set statusComplete (infoCount) {
     if (infoCount === 0) {
       this.message.style.display = 'block';
     }
+    this.dispatchEvent(
+      new CustomEvent('status',
+        { detail: `${this.constructor.name} complete` })
+    );
   }
 
   createMenuitem (className, dataId) {
@@ -111,7 +115,7 @@ class LandmarksGroup extends MenuGroup {
       this.groupDiv.appendChild(div);
     }
 
-    this.messageStatus = landmarksInfo.length;
+    this.statusComplete = landmarksInfo.length;
   }
 }
 
@@ -144,7 +148,7 @@ class HeadingsGroup extends MenuGroup {
       this.groupDiv.appendChild(div);
     }
 
-    this.messageStatus = headingsInfo.length;
+    this.statusComplete = headingsInfo.length;
   }
 }
 

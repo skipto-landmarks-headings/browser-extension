@@ -11,6 +11,8 @@ const headingsGroup  = document.querySelector('headings-group');
 customElements.define('landmarks-group', LandmarksGroup);
 customElements.define('headings-group', HeadingsGroup);
 
+const numGroups = 2;
+var groupsCompleted = 0;
 var kbdEventMgr;
 var contentPort;
 var debug = false;
@@ -70,15 +72,28 @@ function initProcessing (message) {
 }
 
 /*
+**  groupStatus: listen for completion of MenuGroup components
+*/
+function groupStatus (evt) {
+  console.log(`${evt.type}: ${evt.detail}`);
+  groupsCompleted++;
+  if (groupsCompleted === numGroups) {
+    displayMenu();
+  }
+}
+
+/*
 **  Consume menudata sent by content script
 */
 function constructMenu (message) {
   landmarksGroup.menuitemClickHandler = sendSkipToData;
   headingsGroup.menuitemClickHandler  = sendSkipToData;
 
+  landmarksGroup.addEventListener('status', groupStatus);
+  headingsGroup.addEventListener('status', groupStatus);
+
   landmarksGroup.menudata = message.landmarks;
   headingsGroup.menudata  = message.headings;
-  displayMenu();
 }
 
 /*
