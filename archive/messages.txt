@@ -4,6 +4,8 @@ Only the phrases need to be translated. The description is there solely
 to aid you, the translator, by describing the purpose of the phrase and
 the context in which it is used.
 
+Please return this file as a plain text file.
+
 Thank you in advance! Your help is greatly appreciated.
 
 Phrase to translate: SkipTo
