@@ -1,0 +1,47 @@
+There are 10 phrases that need to be translated.
+
+Only the phrases need to be translated. The description is there solely
+to aid you, the translator, by describing the purpose of the phrase and
+the context in which it is used.
+
+Thank you in advance! Your help is greatly appreciated.
+
+Phrase to translate: SkipTo
+Translation:
+Description: extension name
+
+Phrase to translate: Provides keyboard access to landmark regions and headings (h1–h6) on a web page.
+Translation:
+Description: extension description
+
+Phrase to translate: Landmarks
+Translation:
+Description: menu: label for landmarks group separator
+
+Phrase to translate: Headings
+Translation:
+Description: menu: label for headings group separator
+
+Phrase to translate: [empty text content]
+Translation:
+Description: menu: replacement text for heading with empty text content
+
+Phrase to translate: No landmarks found!
+Translation:
+Description: menu: displayed when there are no landmark menu items
+
+Phrase to translate: No headings found!
+Translation:
+Description: menu: displayed when there are no heading menu items
+
+Phrase to translate: Show headings through level
+Translation:
+Description: options form: label for headings level fieldset legend
+
+Phrase to translate: Only show headings found in main landmark
+Translation:
+Description: options form: label for main only checkbox
+
+Phrase to translate: Save Options
+Translation:
+Description: options form: save button label
