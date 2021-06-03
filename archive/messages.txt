@@ -1,49 +1,50 @@
-There are 10 phrases that need to be translated.
+There are 10 words or phrases that need to be translated.
+Each grouping below consists of three lines:
 
-Only the phrases need to be translated. The description is there solely
-to aid you, the translator, by describing the purpose of the phrase and
-the context in which it is used.
+(1) Word/Phrase to translate
+(2) Translation -- please add your translation of word/phrase on this line
+(3) Description -- provides context re. how the word or phrase is used
 
 Please return this file as a plain text file.
 
 Thank you in advance! Your help is greatly appreciated.
 
-Phrase to translate: SkipTo
+Word/Phrase: SkipTo
 Translation:
 Description: extension name
 
-Phrase to translate: Provides keyboard access to landmark regions and headings (h1–h6) on a web page.
+Word/Phrase: Provides keyboard access to landmark regions and headings (h1–h6) on a web page.
 Translation:
 Description: extension description
 
-Phrase to translate: Landmarks
+Word/Phrase: Landmarks
 Translation:
-Description: menu: label for landmarks group separator
+Description: menu group label for landmarks
 
-Phrase to translate: Headings
+Word/Phrase: Headings
 Translation:
-Description: menu: label for headings group separator
+Description: menu group label for headings
 
-Phrase to translate: [empty text content]
+Word/Phrase: [empty text content]
 Translation:
-Description: menu: replacement text for heading with empty text content
+Description: menu item text for heading with empty text content
 
-Phrase to translate: No landmarks found!
+Word/Phrase: No landmarks found!
 Translation:
-Description: menu: displayed when there are no landmark menu items
+Description: menu group message: displayed when there are no 'main', 'search' or 'navigation' landmarks
 
-Phrase to translate: No headings found!
+Word/Phrase: No headings found!
 Translation:
-Description: menu: displayed when there are no heading menu items
+Description: menu group message: displayed when there are no headings that match the selected options
 
-Phrase to translate: Show headings through level
+Word/Phrase: Show headings through level
 Translation:
-Description: options form: label for headings level fieldset legend
+Description: options form: label for 'heading level' radio buttons
 
-Phrase to translate: Only show headings found in main landmark
+Word/Phrase: Only show headings found in main landmark
 Translation:
-Description: options form: label for main only checkbox
+Description: options form: label for 'main only' checkbox
 
-Phrase to translate: Save Options
+Word/Phrase: Save Options
 Translation:
-Description: options form: save button label
+Description: options form: label for 'save' button
