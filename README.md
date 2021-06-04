@@ -1,6 +1,6 @@
 # SkipTo Extension
 
-<img width="96" src="https://github.com/skipto/extension/blob/master/shared/skipto.png">
+<img width="96" src="https://github.com/skipto/extension/blob/master/images/skipto.png">
 
 ## Description
 
