@@ -34,6 +34,14 @@ do
   cp -p ${FNAME} ./firefox/
 done
 
+# Copy image files to browser folders
+
+for FNAME in ./images/*
+do
+  cp -p ${FNAME} ./chrome/images/
+  cp -p ${FNAME} ./firefox/images/
+done
+
 # Copy _locale directory to browser folders
 cp -Rp ./_locales ./chrome
 cp -Rp ./_locales ./firefox
