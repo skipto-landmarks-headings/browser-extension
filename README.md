@@ -1,5 +1,7 @@
 # SkipTo Extension
 
+<img width="96" src="https://github.com/skipto/extension/blob/master/shared/skipto.png">
+
 ## Description
 
 The `SkipTo` browser extension for Firefox and Chrome provides keyboard
