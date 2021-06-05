@@ -21,7 +21,7 @@
 
   "browser_action": {
     "default_popup": "popup.html",
-    "default_icon": "images/skipto.png"
+    "default_icon": "images/skipto-32.png"
   },
 
   "options_ui": {
@@ -39,9 +39,10 @@
   },
 
   "icons": {
+    "32": "images/skipto-32.png",
     "48": "images/skipto-48.png",
     "64": "images/skipto-64.png",
     "96": "images/skipto-96.png",
-    "128": "images/skipto-128.png"
+   "128": "images/skipto-128.png"
   }
 }
