@@ -153,6 +153,8 @@ content is subsequently displayed.
 
 ### Menu Interaction Phase
 
+#### popup script and SkipToMenu
+
 When the user activates a menuitem in `SkipToMenu`, firing its `click` event,
 the `click` event handler `sendSkipToData`, located in the `popup` script:
 
@@ -164,6 +166,8 @@ the `click` event handler `sendSkipToData`, located in the `popup` script:
 
 1. Closes the `popup` window.
 
+#### content script
+
 When the `content` script receives the `id: skipto` message, it calls its
 `skipToContent` function, which:
 
@@ -171,6 +175,8 @@ When the `content` script receives the `id: skipto` message, it calls its
    active tab, used for setting focus and scrolling to the selected element;
 
 1. Sets window focus on the `target` element and scrolls it into view.
+
+#### SkipToMenu, popup and content scripts
 
 Finally, after the `popup` script has sent of the `id: skipto` message and
 called the `window.close` function, its `window unload` event listener is
@@ -182,9 +188,13 @@ invoked, which does the following:
 1. Sends the message `id: cleanup` to the `content` script, which triggers
    the removal of all the `data-skipto` attributes from the web page DOM.
 
-The `id: cleanup` message prevents incorrect correlations of menuitems to
-DOM elements in the case where the user changes the headings level
-configuration while remaining on the same web page.
+The removal of all `data-skipto` attributes from the web page DOM is needed
+for the case when the user has opened the SkipTo menu and then changes the
+headings level configuration while remaining on the same web page. When the
+`SkipTo` button is reactivated, causing a new menu to be constructed, if
+`data-skipto` attributes with previously generated `dataId` values remain in
+the DOM, the correspondence between the `dataId` values in the menuitems
+for heading elements in the web page will no longer be correct.
 
 ## Build Notes
 
