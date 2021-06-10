@@ -122,24 +122,27 @@ When the `popup` script receives the message with `id: menudata`, it:
    each has completed the construction of its respective menu group;
 
 1. Sets the `menudata` property on the `LandmarksGroup` and `HeadingsGroup`
-   elements, which kicks of the process of by which the menu groups add
-   the menuitems corresponding to the data from the `content` script.
+   elements to the corresponding data from the `content` script.
 
 #### LandmarksGroup and HeadingsGroup
 
 When the setters on the `LandmarksGroup` and `HeadingsGroup` elements are
 activated, they:
 
-1. Process the landmarks and headings data collected by the `content` script;
+1. Process the landmarks and headings data collected by the `content` script
+   by adding the corresponding `menuitems` to their respective menu groups;
 
-1. Dispatch the `landmarks` and `headings` custom events, which are being
-   listened for by the `popup` script.
+1. Dispatch the `status` custom events, which are being listened for by the
+  `popup` script.
 
 #### popup script and SkipToMenu
 
 When the `popup` script receives the `status` events indicating that the
-custom elements have populated their shadow DOM trees with the menuitems
+`MenuGroup` elements have populated their shadow DOM trees with the menuitems
 corresponding to the data they have been sent, it:
+
+1. Defines the custom element `SkipToMenu`, indicating it is ready to be
+   displayed.
 
 1. Gets a list of all `menuitems` from `SkipToMenu`, which is a container
    for the menu group elements;
