@@ -145,7 +145,7 @@ corresponding to the data they have been sent, it:
    displayed.
 
 1. Gets a list of all `menuitems` from `SkipToMenu`, which is a container
-   for the menu group elements;
+   for the `MenuGroup` elements;
 
 1. Creates an instance of `KbdEventMgr`, passing in the `menuitems`. This
    script handles keyboard navigation of all the `menuitems` contained by
