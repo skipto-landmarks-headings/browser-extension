@@ -1,0 +1,51 @@
+{
+  "extName": {
+    "message": "건너뛰기",
+    "description": "extension name"
+  },
+
+  "extDesc": {
+    "message": "웹페이지에 있는 이정표(랜드마크)와 제목에 이용될 키보드를 제공하십시요",
+    "description": "extension description"
+  },
+
+  "landmarksLabel": {
+    "message": "이정표(랜드마크)",
+    "description": "menu group label for landmarks"
+  },
+
+  "headingsLabel": {
+    "message": "제목",
+    "description": "menu group label for headings"
+  },
+
+  "emptyContent": {
+    "message": "제목에 있는 텍스트를 제거하십시요",
+    "description": "menu item text for heading with empty text content"
+  },
+
+  "noLandmarksMsg": {
+    "message": "렌드마크가 존재하지 않습니다.",
+    "description": "menu group message: displayed when there are no 'main', 'search' or 'navigation' landmarks"
+  },
+
+  "noHeadingsMsg": {
+    "message": "제목이 존재하지 않습니다.",
+    "description": "menu group message: displayed when there are no headings that match the selected options"
+  },
+
+  "maxLevelLabel": {
+    "message": "순차에 제목을 따라 표시합니다.",
+    "description": "options form: label for 'heading level' radio buttons"
+  },
+
+  "mainOnlyLabel": {
+    "message": "주요 이정표(렌트마크)에 있는 제목만 보여줍니다.",
+    "description": "options form: label for 'main only' checkbox"
+  },
+
+  "buttonLabel": {
+    "message": "선택을 저장합니다.",
+    "description": "options form: label for 'save' button"
+  }
+}
