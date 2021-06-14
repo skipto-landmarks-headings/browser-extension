@@ -1,0 +1,51 @@
+{
+  "extName": {
+    "message": "SkipTo",
+    "description": "extension name"
+  },
+
+  "extDesc": {
+    "message": "Proporciona acceso por teclado a regiones y encabezados emblemáticos (h1-h6) en una página web.",
+    "description": "extension description"
+  },
+
+  "landmarksLabel": {
+    "message": "Puntos de referencia",
+    "description": "menu group label for landmarks"
+  },
+
+  "headingsLabel": {
+    "message": " Títulos!",
+    "description": "menu group label for headings"
+  },
+
+  "emptyContent": {
+    "message": "[contenido de texto vacío]",
+    "description": "menu item text for heading with empty text content"
+  },
+
+  "noLandmarksMsg": {
+    "message": "¡No se encontraron puntos de referencia!",
+    "description": "menu group message: displayed when there are no 'main', 'search' or 'navigation' landmarks"
+  },
+
+  "noHeadingsMsg": {
+    "message": "¡No se encontraron títulos!",
+    "description": "menu group message: displayed when there are no headings that match the selected options"
+  },
+
+  "maxLevelLabel": {
+    "message": "Mostrar títulos a través del nivel",
+    "description": "options form: label for 'heading level' radio buttons"
+  },
+
+  "mainOnlyLabel": {
+    "message": "Mostrar solo los títulos que se encuentran en el punto de referencia principal",
+    "description": "options form: label for 'main only' checkbox"
+  },
+
+  "buttonLabel": {
+    "message": "Guardar opciones",
+    "description": "options form: label for 'save' button"
+  }
+}
