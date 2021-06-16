@@ -13,7 +13,7 @@ class SkipToMenu extends HTMLElement {
     super();
     // After the following call to attachShadow, the 'shadowRoot'
     // element is retrievable as 'this.shadowRoot'
-    this.attachShadow( { mode: "open" } );
+    this.attachShadow({ mode: "open" });
 
     // Use external CSS stylesheet
     const link = document.createElement('link');

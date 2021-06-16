@@ -16,7 +16,7 @@ template.innerHTML = `
 class MenuGroup extends HTMLElement {
   constructor () {
     super();
-    this.attachShadow({mode: 'open'});
+    this.attachShadow({ mode: 'open' });
 
     // Use external CSS stylesheet
     const link = document.createElement('link');

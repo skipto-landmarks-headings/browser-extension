@@ -4,7 +4,7 @@
 
 ## Description
 
-The `SkipTo` browser extension for Firefox and Chrome provides keyboard
+The `SkipTo` browser extension for Firefox and Brave/Chrome provides keyboard
 access to the landmark regions and headings (H1–H6) on a web page.
 
 When the `SkipTo` menu is opened, it displays a list of landmark regions and
@@ -47,26 +47,37 @@ via the following keystrokes:
 
 ## Installation
 
-Currently, the `SkipTo` extension can be installed by cloning the GitHub repo
-at `https://github.com/skipto/extension`. Once you have cloned the repository,
-follow the instructions for one of the following browsers.
+### Reviewed and Approved Versions
 
-### Chrome
+Current versions for Firefox and Brave/Chrome are available at their respective
+`add-ons` websites:
 
-1. Open the `Extensions` tab from the Chrome main menu.
+* [Firefox version at Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/skipto/)
+* [Brave/Chrome version at Chrome Web Store](https://chrome.google.com/webstore/detail/skipto/fjkpbfcodhflpdildjbmdhhmcoplghgf)
+
+### Development Versions
+
+The latest development version of the `SkipTo` extension can be installed by
+cloning the GitHub repo at `https://github.com/skipto/extension`. Once you
+have cloned the repository, follow the instructions for one of the following
+browsers.
+
+#### Brave/Chrome
+
+1. Open the `Extensions` tab from the Brave/Chrome main menu.
 1. Enable `Developer mode` using the toggle in the upper right corner.
 1. Select the `Load unpacked` button (upper left) and navigate to the Git
    working copy of `extension` (see above).
 1. Within the `extension` folder, select the `chrome` folder.
-1. The `SkipTo` button (currently labeled with an `S`) should appear in the
-   Chrome toolbar.
+1. The `SkipTo` button, containing the `SkipTo` logo image, should appear in
+   the Brave/Chrome toolbar.
 
-### Firefox
+#### Firefox
 
 1. In the Firefox location bar, type `about:debugging`.
 1. In the left column menu of the tab that opens, select `This Firefox`.
 1. Under `Temporary Extensions`, select `Load Temporary Add-on...` and
    navigate to the Git working copy of `extension` (see above).
 1. Open the `firefox` folder and select the `manifest.json` file.
-1. The `SkipTo` button (currently a green jigsaw puzzle piece icon) should
-   appear in the Firefox toolbar.
+1. The `SkipTo` button, containing the `SkipTo` logo image, should appear in
+   the Firefox toolbar.
