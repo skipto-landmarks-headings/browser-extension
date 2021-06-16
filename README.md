@@ -58,9 +58,9 @@ Current versions for Firefox and Brave/Chrome are available at their respective
 ### Development Versions
 
 The latest development version of the `SkipTo` extension can be installed by
-cloning the GitHub repo at `https://github.com/skipto/extension`. Once you
-have cloned the repository, follow the instructions for one of the following
-browsers.
+cloning this GitHub repo (`https://github.com/skipto/extension`). Once you
+have a working copy of the repository, follow the instructions for one of the
+following browsers.
 
 #### Brave/Chrome
 
