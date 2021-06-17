@@ -56,8 +56,8 @@ div[role='menuitem'].landmark .name::before {
 
 div[role='menuitem'].heading {
   display: grid;
-  grid-template-columns: 1fr 1.33rem;
-  grid-column-gap: 0.5rem;
+  grid-template-columns: repeat(6, 1rem) 1fr;
+  /* grid-column-gap: 0.5rem; */
 }
 
 div[role='menuitem'].landmark.main,
@@ -65,7 +65,11 @@ div[role='menuitem'].heading.h1 {
   font-weight: bold;
 }
 
-div[role='menuitem'].heading:not(.h1) .name {
+div[role='menuitem'].heading .level::after {
+  content: ')';
+}
+
+div[role='menuitem'].heading:not(.h1) .level {
   color: var(--dark-gray);
 }
 
@@ -78,22 +82,20 @@ div[role='menuitem'].heading .text {
   overflow: hidden;
 }
 
-div[role='menuitem'].heading .text.h2 {
-  padding-left: 1rem;
-}
+div[role='menuitem'].heading .level.h1 { grid-column: 1 / 2; }
+div[role='menuitem'].heading .text.h1  { grid-column: 2 / 8; }
 
-div[role='menuitem'].heading .text.h3 {
-  padding-left: 2rem;
-}
+div[role='menuitem'].heading .level.h2 { grid-column: 2 / 3; }
+div[role='menuitem'].heading .text.h2  { grid-column: 3 / 8; }
 
-div[role='menuitem'].heading .text.h4 {
-  padding-left: 3rem;
-}
+div[role='menuitem'].heading .level.h3 { grid-column: 3 / 4; }
+div[role='menuitem'].heading .text.h3  { grid-column: 4 / 8; }
 
-div[role='menuitem'].heading .text.h5 {
-  padding-left: 4rem;
-}
+div[role='menuitem'].heading .level.h4 { grid-column: 4 / 5; }
+div[role='menuitem'].heading .text.h4  { grid-column: 5 / 8; }
 
-div[role='menuitem'].heading .text.h6 {
-  padding-left: 5rem;
-}
+div[role='menuitem'].heading .level.h5 { grid-column: 5 / 6; }
+div[role='menuitem'].heading .text.h5  { grid-column: 6 / 8; }
+
+div[role='menuitem'].heading .level.h6 { grid-column: 6 / 7; }
+div[role='menuitem'].heading .text.h6  { grid-column: 7 / 8; }

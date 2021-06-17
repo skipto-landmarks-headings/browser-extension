@@ -131,19 +131,23 @@ class HeadingsGroup extends MenuGroup {
   set menudata (headingsInfo) {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
+      const level = info.tagName.substring(1);
       if (info.tagName === 'h1') { div.classList.add('h1') }
-      div.nav = info.tagName.substring(1); // heading level
+      div.nav = level;
+
+      const levelSpan = document.createElement('span');
+      levelSpan.className = 'level';
+      levelSpan.classList.add(info.tagName);
+      levelSpan.textContent = level;
+      levelSpan.ariaHidden = true;
+      div.appendChild(levelSpan);
 
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
       textSpan.textContent = info.content ? info.content : i18n.emptyContent;
+      textSpan.ariaLabel = `${textSpan.textContent} ${i18n.headingLevel} ${level}`;
       div.appendChild(textSpan);
-
-      const nameSpan = document.createElement('span');
-      nameSpan.className = 'name';
-      nameSpan.textContent = info.tagName;
-      div.appendChild(nameSpan);
 
       this.groupDiv.appendChild(div);
     }

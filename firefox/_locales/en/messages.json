@@ -19,6 +19,11 @@
     "description": "menu group label for headings"
   },
 
+  "headingLevel": {
+    "message": ", heading level",
+    "description": "aria-label suffix for heading text, to be followed by heading level value"
+  },
+
   "emptyContent": {
     "message": "[empty text content]",
     "description": "menu item text for heading with empty text content"
