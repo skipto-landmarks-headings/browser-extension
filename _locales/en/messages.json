@@ -19,7 +19,7 @@
     "description": "menu group label for headings"
   },
 
-  "headingLevelAriaLabel": {
+  "headingLevel": {
     "message": "$TEXT$, heading level $LEVEL$",
     "description": "aria-label attribute value for heading menu item with added heading level info",
     "placeholders": {

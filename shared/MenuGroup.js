@@ -132,9 +132,10 @@ class HeadingsGroup extends MenuGroup {
   set menudata (headingsInfo) {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
-      const level = info.tagName.substring(1);
       const text = info.content ? info.content : i18n.emptyContent;
-      div.ariaLabel = getMessage('headingLevelAriaLabel', [text, level]);
+      const level = info.tagName.substring(1);
+      const labelValue = getMessage('headingLevel', [text, level]);
+      div.setAttribute('aria-label', labelValue);
       div.nav = level;
 
       const levelSpan = document.createElement('span');
