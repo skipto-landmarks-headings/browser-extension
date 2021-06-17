@@ -5,7 +5,7 @@
 ## Description
 
 The `SkipTo` browser extension for Firefox and Brave/Chrome provides keyboard
-access to the landmark regions and headings (H1–H6) on a web page.
+access to the landmark regions and headings (h1–h6) on a web page.
 
 When the `SkipTo` menu is opened, it displays a list of landmark regions and
 headings based on the content of the page currently loaded in the active tab
@@ -21,7 +21,7 @@ understand and find content on well-structured pages.
 
 ### Keyboard Shortcuts
 
-To open the `SkipTo` menu via the keyboard, use `Ctrl/Cmd + Shift + Comma`.
+To open the `SkipTo` menu via the keyboard, use `Alt+2`.
 Focus is set to the first menu item.
 
 Once the menu is displayed and has focus, you can move through the menu items
@@ -34,7 +34,7 @@ via the following keystrokes:
 * `n`: next `navigation` landmark
 * `s`: next `search` landmark
 * `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level
-  (e.g. `2` -> go to next `H2`)
+  (e.g. `2` -> go to next `h2`)
 
 #### To activate a menu item
 * If the menu item has focus, press `enter` or `space`, or
