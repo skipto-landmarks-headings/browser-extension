@@ -19,9 +19,19 @@
     "description": "menu group label for headings"
   },
 
-  "headingLevel": {
-    "message": ", heading level",
-    "description": "aria-label suffix for heading text, to be followed by heading level value"
+  "headingLevelAriaLabel": {
+    "message": "$TEXT$, heading level $LEVEL$",
+    "description": "ariaLabel value for heading, including suffix indicating heading level",
+    "placeholders": {
+      "text": {
+        "content": "$1",
+        "example": "Top headlines"
+      },
+      "level": {
+        "content": "$2",
+        "example": "2"
+      }
+    }
   },
 
   "emptyContent": {

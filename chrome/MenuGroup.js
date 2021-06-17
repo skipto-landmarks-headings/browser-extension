@@ -1,6 +1,7 @@
 /* MenuGroup.js */
 
 import * as i18n from './i18n.js';
+import getMessage from './i18n.js';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -132,21 +133,20 @@ class HeadingsGroup extends MenuGroup {
     for (const info of headingsInfo) {
       const div = this.createMenuitem('heading', info.dataId);
       const level = info.tagName.substring(1);
-      if (info.tagName === 'h1') { div.classList.add('h1') }
+      const text = info.content ? info.content : i18n.emptyContent;
+      div.ariaLabel = getMessage('headingLevelAriaLabel', [text, level]);
       div.nav = level;
 
       const levelSpan = document.createElement('span');
       levelSpan.className = 'level';
       levelSpan.classList.add(info.tagName);
       levelSpan.textContent = level;
-      levelSpan.ariaHidden = true;
       div.appendChild(levelSpan);
 
       const textSpan = document.createElement('span');
       textSpan.className = 'text';
       textSpan.classList.add(info.tagName);
-      textSpan.textContent = info.content ? info.content : i18n.emptyContent;
-      textSpan.ariaLabel = `${textSpan.textContent} ${i18n.headingLevel} ${level}`;
+      textSpan.textContent = text;
       div.appendChild(textSpan);
 
       this.groupDiv.appendChild(div);
