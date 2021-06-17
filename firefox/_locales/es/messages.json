@@ -1,51 +1,41 @@
 {
   "extName": {
-    "message": "SkipTo",
-    "description": "extension name"
+    "message": "SkipTo"
   },
 
   "extDesc": {
-    "message": "Proporciona acceso por teclado a regiones y encabezados emblemáticos (h1-h6) en una página web.",
-    "description": "extension description"
+    "message": "Proporciona acceso por teclado a regiones y encabezados emblemáticos (h1-h6) en una página web."
   },
 
   "landmarksLabel": {
-    "message": "Puntos de referencia",
-    "description": "menu group label for landmarks"
+    "message": "Puntos de referencia"
   },
 
   "headingsLabel": {
-    "message": " Títulos!",
-    "description": "menu group label for headings"
+    "message": " Títulos!"
   },
 
   "emptyContent": {
-    "message": "[contenido de texto vacío]",
-    "description": "menu item text for heading with empty text content"
+    "message": "[contenido de texto vacío]"
   },
 
   "noLandmarksMsg": {
-    "message": "¡No se encontraron puntos de referencia!",
-    "description": "menu group message: displayed when there are no 'main', 'search' or 'navigation' landmarks"
+    "message": "¡No se encontraron puntos de referencia!"
   },
 
   "noHeadingsMsg": {
-    "message": "¡No se encontraron títulos!",
-    "description": "menu group message: displayed when there are no headings that match the selected options"
+    "message": "¡No se encontraron títulos!"
   },
 
   "maxLevelLabel": {
-    "message": "Mostrar títulos a través del nivel",
-    "description": "options form: label for 'heading level' radio buttons"
+    "message": "Mostrar títulos a través del nivel"
   },
 
   "mainOnlyLabel": {
-    "message": "Mostrar solo los títulos que se encuentran en el punto de referencia principal",
-    "description": "options form: label for 'main only' checkbox"
+    "message": "Mostrar solo los títulos que se encuentran en el punto de referencia principal"
   },
 
   "buttonLabel": {
-    "message": "Guardar opciones",
-    "description": "options form: label for 'save' button"
+    "message": "Guardar opciones"
   }
 }
