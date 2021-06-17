@@ -21,7 +21,7 @@
 
   "headingLevelAriaLabel": {
     "message": "$TEXT$, heading level $LEVEL$",
-    "description": "ariaLabel value for heading, including suffix indicating heading level",
+    "description": "aria-label attribute value for heading menu item with added heading level info",
     "placeholders": {
       "text": {
         "content": "$1",

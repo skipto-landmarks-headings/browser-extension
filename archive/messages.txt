@@ -1,4 +1,4 @@
-There are 10 words or phrases that need to be translated.
+There are 11 words or phrases that need to be translated.
 Each grouping below consists of three lines:
 
 (1) Word/Phrase to translate
@@ -24,6 +24,10 @@ Description: menu group label for landmarks
 Word/Phrase: Headings
 Translation:
 Description: menu group label for headings
+
+Word/Phrase: $TEXT$, heading level $LEVEL$
+Translation:
+Description: aria-label attribute value for heading menu item with added heading level info
 
 Word/Phrase: [empty text content]
 Translation:
