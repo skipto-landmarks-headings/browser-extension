@@ -60,17 +60,12 @@ div[role='menuitem'].heading {
   /* grid-column-gap: 0.5rem; */
 }
 
-div[role='menuitem'].landmark.main,
-div[role='menuitem'].heading.h1 {
-  font-weight: bold;
+div[role='menuitem'].heading .level {
+  color: var(--dark-gray);
 }
 
 div[role='menuitem'].heading .level::after {
   content: ')';
-}
-
-div[role='menuitem'].heading:not(.h1) .level {
-  color: var(--dark-gray);
 }
 
 div[role='menuitem'].heading .text {
