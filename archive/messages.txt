@@ -1,10 +1,15 @@
 There are 11 words or phrases that need to be translated.
-Each grouping below consists of four lines:
+Each grouping below consists of three lines:
 
 (1) Message Key -- identifies the message to which your translation applies
 (2) Word/Phrase -- English version of the word or phrase to be translated
 (3) Translation -- please add your translation of word/phrase on this line
-(4) Description -- provides context re. how the word or phrase is used
+
+Note: You may need to refer to the description fields for messages to get
+a better sense of the context in which a word or phrase is used. These can
+be found at:
+
+    https://github.com/skipto/extension/blob/master/_locales/en/messages.json
 
 Note: A phrase may include 'placeholders', which are strings enclosed within
 dollar sign symbols ('$'). Please translate all of the text in the phrase,
@@ -18,54 +23,43 @@ Thank you in advance! Your help is greatly appreciated.
 Message Key: extName
 Word/Phrase: SkipTo
 Translation:
-Description: extension name
 
 Message Key: extDesc
 Word/Phrase: Provides keyboard access to landmark regions and headings (h1–h6) on a web page.
 Translation:
-Description: extension description
 
 Message Key: landmarksLabel
 Word/Phrase: Landmarks
 Translation:
-Description: menu group label for landmarks section
 
 Message Key: headingsLabel
 Word/Phrase: Headings
 Translation:
-Description: menu group label for headings section
 
 Message Key: headingLevel
 Word/Phrase: $TEXT$, heading level $LEVEL$
 Translation:
-Description: aria-label attribute value for heading menu item with added heading level info
 
 Message Key: emptyContent
 Word/Phrase: [empty text content]
 Translation:
-Description: menu item message that indicates the heading text content is empty
 
 Message Key: noLandmarksMsg
 Word/Phrase: No landmarks found!
 Translation:
-Description: menu group message indicating that no 'main', 'search' or 'navigation' landmarks were found
 
 Message Key: noHeadingsMsg
 Word/Phrase: No headings found!
 Translation:
-Description: menu group message indicating that no headings matching the selected options were found
 
 Message Key: maxLevelLabel
 Word/Phrase: Show headings through level
 Translation:
-Description: options form label for 'heading level' radio buttons fieldset
 
 Message Key: mainOnlyLabel
 Word/Phrase: Only show headings found in main landmark
 Translation:
-Description: options form label for 'main only' checkbox
 
 Message Key: buttonLabel
 Word/Phrase: Save Options
 Translation:
-Description: options form label for 'save' button
