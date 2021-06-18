@@ -21,7 +21,7 @@ Please return this file as a plain text file.
 Thank you in advance! Your help is greatly appreciated.
 
 Message Key: extName
-Word/Phrase: SkipTo
+Word/Phrase: Skip to Landmarks and Headings
 Translation:
 
 Message Key: extDesc
