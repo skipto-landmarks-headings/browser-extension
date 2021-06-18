@@ -1,9 +1,9 @@
 # Development Notes
 
-The `SkipTo` browser extension collects data from the web page loaded in the
-active tab using CSS `querySelector` functions targeted at ARIA `landmark`
-regions (`main`, `search` and `navigation`) and HTML `heading` elements
-(`h1`–`h6`) contained in the page.
+The `Skip to Landmarks and Headings` browser extension collects data from the
+web page loaded in the active tab using CSS `querySelector` functions targeted
+at ARIA `landmark` regions (`main`, `search` and `navigation`) and HTML
+`heading` elements (`h1`–`h6`) contained in the page.
 
 The `SkipToMenu` element, which is displayed in a `popup` window, organizes
 this data into a menu system that is keyboard navigable.
@@ -19,7 +19,7 @@ sets focus to the selected element and scrolls it into view.
 ### Overview
 
 The following JavaScript files are the key players in understanding how the
-SkipTo extension works:
+`Skip To` extension works:
 
 * MenuGroup.js
 * SkipToMenu.js
@@ -107,7 +107,7 @@ After processing all of the relevant nodes, the `content` script sends a
 message with `id: menudata` to the `popup` script containing the data it has
 collected.
 
-### SkipTo Menu Construction Phase
+### Skip To Menu Construction Phase
 
 The menu construction phase makes use of the custom elements `LandmarksGroup`,
 `HeadingsGroup` and `SkipToMenu`. The first two are defined in the
@@ -192,16 +192,16 @@ invoked, which does the following:
    the removal of all the `data-skipto` attributes from the web page DOM.
 
 The removal of all `data-skipto` attributes from the web page DOM is needed
-for the case when the user has opened the SkipTo menu and then changes the
+for the case when the user has opened the Skip To menu and then changes the
 headings level configuration while remaining on the same web page. When the
-`SkipTo` button is reactivated, causing a new menu to be constructed, if
+`Skip To` button is reactivated, causing a new menu to be constructed, if
 `data-skipto` attributes with previously generated `dataId` values remain in
 the DOM, the correspondence between the `dataId` values in the menuitems
 for heading elements in the web page will no longer be correct.
 
 ## Build Notes
 
-_Important:_ The files used in developing the `SkipTo` extension are located
+_Important:_ The files used in developing the `Skip To` extension are located
 in the top-most directory and in the `shared` folder. The top-most directory
 contains files with a `gpp-` prefix, which are processed by a utility called
 the `generic preprocessor`, free software available at
@@ -216,4 +216,3 @@ two separately installable extensions, one for Chrome and one for Firefox.
 Thus, even though the files in the `chrome` and `firefox` folders are tracked
 by Git, they should not be manually modified, as the `build.sh` script will
 overwrite all of these files when it is run.
-
