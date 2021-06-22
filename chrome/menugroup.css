@@ -1,5 +1,10 @@
 /* menugroup.css */
 
+html {
+  --col-offset: 0;
+  --level-display: 'inline-block';
+}
+
 div {
   --dark-gray:             #666;
   --illini-orange:      #FF552E;
@@ -61,7 +66,7 @@ div[role='menuitem'].heading {
 
 div[role='menuitem'].heading .level {
   color: var(--dark-gray);
-  display: var(--level-display, 'inline-block');
+  display: var(--level-display);
 }
 
 div[role='menuitem'].heading .level::after {
@@ -85,20 +90,20 @@ div[role='menuitem'].heading .level.h5 { grid-column: 5; }
 div[role='menuitem'].heading .level.h6 { grid-column: 6; }
 
 div[role='menuitem'].heading .text.h1 {
-  grid-column: calc(1 + var(--col-offset, 1)) / span calc(6 + var(--col-incr, 0));
+  grid-column: calc(2 - var(--col-offset)) / 8;
 }
 div[role='menuitem'].heading .text.h2 {
-  grid-column: calc(2 + var(--col-offset, 1)) / span calc(5 + var(--col-incr, 0));
+  grid-column: calc(3 - var(--col-offset)) / 8;
 }
 div[role='menuitem'].heading .text.h3 {
-  grid-column: calc(3 + var(--col-offset, 1)) / span calc(4 + var(--col-incr, 0));
+  grid-column: calc(4 - var(--col-offset)) / 8;
 }
 div[role='menuitem'].heading .text.h4 {
-  grid-column: calc(4 + var(--col-offset, 1)) / span calc(3 + var(--col-incr, 0));
+  grid-column: calc(5 - var(--col-offset)) / 8;
 }
 div[role='menuitem'].heading .text.h5 {
-  grid-column: calc(5 + var(--col-offset, 1)) / span calc(2 + var(--col-incr, 0));
+  grid-column: calc(6 - var(--col-offset)) / 8;
 }
 div[role='menuitem'].heading .text.h6 {
-  grid-column: calc(6 + var(--col-offset, 1)) / span calc(1 + var(--col-incr, 0));
+  grid-column: calc(7 - var(--col-offset)) / 8;
 }
