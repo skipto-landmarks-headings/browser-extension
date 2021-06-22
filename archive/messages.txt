@@ -1,4 +1,4 @@
-There are 11 words or phrases that need to be translated.
+There are 13 words or phrases that need to be translated.
 Each grouping below consists of three lines:
 
 (1) Message Key -- identifies the message to which your translation applies
@@ -52,12 +52,20 @@ Message Key: noHeadingsMsg
 Word/Phrase: No headings found!
 Translation:
 
+Message Key: optionsSavedMsg
+Word/Phrase: Options saved!
+Translation:
+
 Message Key: maxLevelLabel
 Word/Phrase: Show headings through level
 Translation:
 
 Message Key: mainOnlyLabel
 Word/Phrase: Only show headings found in main landmark
+Translation:
+
+Message Key: showLevelsLabel
+Word/Phrase: Show heading level numbers
 Translation:
 
 Message Key: buttonLabel
