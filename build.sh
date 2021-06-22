@@ -6,8 +6,8 @@ GPPFILES=(
   i18n.js
   menu.css
   options.css
-  options.js
   popup.js
+  storage.js
 )
 
 # Process extension JS files: output to browser folders

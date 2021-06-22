@@ -1,17 +1,12 @@
 /* options.js */
 
+import { getOptions, saveOptions } from './storage.js';
 import getMessage from './i18n.js';
 
 const debug = false;
 const maxLevelItems = document.querySelectorAll('[name="level"]');
 const mainOnly      = document.querySelector('input[id="main-only"]');
 const showLevels    = document.querySelector('input[id="show-levels"]');
-
-const defaultOptions = {
-  maxLevelIndex: 1,
-  mainOnly: false,
-  showLevels: true
-};
 
 function setFormLabels () {
   const maxLevelLegend  = document.querySelector('fieldset > legend');
@@ -25,22 +20,12 @@ function setFormLabels () {
   saveButton.textContent      = getMessage('buttonLabel');
 }
 
-function notifySaved () {}
+function notifySaved () {
+  const message = getMessage('optionsSavedMsg');
+  const status = document.getElementById('status');
+  status.textContent = message;
 
-// Save options object to storage.sync
-
-function saveOptions (options) {
-  if (debug) console.log('saveOptions: ', options);
-
-#ifdef FIREFOX
-  browser.storage.sync.set(options)
-  .then(notifySaved, onError);
-#endif
-#ifdef CHROME
-  chrome.storage.sync.set(options, function () {
-    if (notLastError()) { notifySaved(); }
-  });
-#endif
+  setTimeout(function () { status.textContent = ''; }, 1500);
 }
 
 // Save user options selected in form and display message
@@ -54,7 +39,6 @@ function saveFormOptions (e) {
         return i;
       }
     }
-    return defaultOptions.maxLevelIndex;
   }
 
   const options = {
@@ -64,10 +48,7 @@ function saveFormOptions (e) {
   }
 
   if (debug) console.log(options);
-  saveOptions(options);
-#ifdef CHROME
-  window.close();
-#endif
+  saveOptions(options).then(notifySaved);
 }
 
 // Update HTML form values based on user options saved in storage.sync
@@ -78,56 +59,14 @@ function updateOptionsForm() {
   function updateForm (options) {
     console.log('updateForm: ', options);
 
-    if (Object.entries(options).length === 0) {
-      console.log('options object is empty: saving defaultOptions');
-      saveOptions(defaultOptions);
-    }
-
-    const maxLevelIndex = (typeof options.maxLevelIndex === 'undefined') ?
-      defaultOptions.maxLevelIndex : options.maxLevelIndex;
-
-    const mainOnlyValue = (typeof options.mainOnly === 'undefined') ?
-      defaultOptions.mainOnly : options.mainOnly;
-
-    const showLevelsValue = (typeof options.showLevels === 'undefined') ?
-      defaultOptions.showLevels : options.showLevels;
-
     // Set form element values and states
-    maxLevelItems[maxLevelIndex].checked = true;
-    mainOnly.checked = mainOnlyValue;
-    showLevels.checked = showLevelsValue;
+    maxLevelItems[options.maxLevelIndex].checked = true;
+    mainOnly.checked = options.mainOnly;
+    showLevels.checked = options.showLevels;
   }
 
-#ifdef FIREFOX
-  browser.storage.sync.get()
-  .then(updateForm, onError);
-#endif
-#ifdef CHROME
-  chrome.storage.sync.get(function (options) {
-    if (notLastError()) { updateForm(options); }
-  });
-#endif
+  getOptions().then(updateForm);
 }
-
-#ifdef FIREFOX
-// Generic error handler
-function onError (error) {
-  console.log(`Error: ${error}`);
-}
-#endif
-#ifdef CHROME
-// Redefine console for Chrome extension
-var console = chrome.extension.getBackgroundPage().console;
-
-// Generic error handler
-function notLastError () {
-  if (!chrome.runtime.lastError) { return true; }
-  else {
-    console.log(chrome.runtime.lastError.message);
-    return false;
-  }
-}
-#endif
 
 // Add event listeners for saving and restoring options
 

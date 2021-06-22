@@ -49,6 +49,11 @@
     "description": "menu group message indicating that no headings matching the selected options were found"
   },
 
+  "optionsSavedMsg": {
+    "message": "Options saved!",
+    "description": "options form message indicating that options have been saved"
+  },
+
   "maxLevelLabel": {
     "message": "Show headings through level",
     "description": "options form label for 'heading level' radio buttons fieldset"

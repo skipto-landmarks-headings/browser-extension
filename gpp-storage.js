@@ -1,6 +1,6 @@
 /* storage.js */
 
-export const defaultOptions = {
+const defaultOptions = {
   maxLevelIndex: 1,
   mainOnly: false,
   showLevels: true
@@ -60,17 +60,6 @@ export function saveOptions (options) {
     });
 #endif
   });
-}
-
-/*
-**  logOptions
-*/
-export function logOptions (context, objName, obj) {
-  let output = [];
-  for (const prop in obj) {
-    output.push(`${prop}: '${obj[prop]}'`);
-  }
-  console.log(`${context} > ${objName} > ${output.join(', ')}`);
 }
 
 /*

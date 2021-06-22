@@ -10,7 +10,7 @@
   "default_locale": "en",
 
   "background": {
-    "scripts": ["background.js"],
+    "page": "background.html",
     "persistent": true
   },
 

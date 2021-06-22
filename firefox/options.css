@@ -21,6 +21,13 @@ div.show-levels-checkbox {
   margin: 1rem 0;
 }
 
+div#status {
+  margin: 0.75em 0 0.5em;
+  font-size:  1rem;
+  font-weight:  bold;
+  color: #0a84ff;
+}
+
 div.save-button {
   margin: 1.5rem 0;
 }
