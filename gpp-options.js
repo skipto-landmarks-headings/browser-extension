@@ -4,21 +4,25 @@ import getMessage from './i18n.js';
 
 const debug = false;
 const maxLevelItems = document.querySelectorAll('[name="level"]');
-const mainOnly = document.querySelector('input[id="main-only"]');
+const mainOnly      = document.querySelector('input[id="main-only"]');
+const showLevels    = document.querySelector('input[id="show-levels"]');
 
 const defaultOptions = {
   maxLevelIndex: 1,
-  mainOnly: false
+  mainOnly: false,
+  showLevels: true
 };
 
 function setFormLabels () {
-  const maxLevelLegend = document.querySelector('fieldset > legend');
-  const mainOnlyLabel = document.querySelector('label[for="main-only"]');
-  const saveButton = document.querySelector('button');
+  const maxLevelLegend  = document.querySelector('fieldset > legend');
+  const mainOnlyLabel   = document.querySelector('label[for="main-only"]');
+  const showLevelsLabel = document.querySelector('label[for="show-levels"]');
+  const saveButton      = document.querySelector('button');
 
-  maxLevelLegend.textContent = getMessage('maxLevelLabel');
-  mainOnlyLabel.textContent  = getMessage('mainOnlyLabel');
-  saveButton.textContent     = getMessage('buttonLabel');
+  maxLevelLegend.textContent  = getMessage('maxLevelLabel');
+  mainOnlyLabel.textContent   = getMessage('mainOnlyLabel');
+  showLevelsLabel.textContent = getMessage('showLevelsLabel');
+  saveButton.textContent      = getMessage('buttonLabel');
 }
 
 function notifySaved () {}
@@ -55,7 +59,8 @@ function saveFormOptions (e) {
 
   const options = {
     maxLevelIndex: getMaxLevelIndex(),
-    mainOnly: mainOnly.checked
+    mainOnly: mainOnly.checked,
+    showLevels: showLevels.checked
   }
 
   if (debug) console.log(options);
@@ -84,9 +89,13 @@ function updateOptionsForm() {
     const mainOnlyValue = (typeof options.mainOnly === 'undefined') ?
       defaultOptions.mainOnly : options.mainOnly;
 
+    const showLevelsValue = (typeof options.showLevels === 'undefined') ?
+      defaultOptions.showLevels : options.showLevels;
+
     // Set form element values and states
     maxLevelItems[maxLevelIndex].checked = true;
     mainOnly.checked = mainOnlyValue;
+    showLevels.checked = showLevelsValue;
   }
 
 #ifdef FIREFOX

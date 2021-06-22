@@ -4,7 +4,8 @@ const storageCache = {};
 
 const defaultOptions = {
   maxLevelIndex: 1,
-  mainOnly: false
+  mainOnly: false,
+  showLevels: true
 };
 
 function sendStorage () {

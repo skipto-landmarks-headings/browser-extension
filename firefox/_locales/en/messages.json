@@ -59,6 +59,11 @@
     "description": "options form label for 'main only' checkbox"
   },
 
+  "showLevelsLabel": {
+    "message": "Show heading level numbers",
+    "description": "options form label for 'show levels' checkbox"
+  },
+
   "buttonLabel": {
     "message": "Save Options",
     "description": "options form label for 'save' button"

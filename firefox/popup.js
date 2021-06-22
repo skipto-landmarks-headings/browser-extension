@@ -13,6 +13,7 @@ customElements.define('headings-group', HeadingsGroup);
 
 const numGroups = 2;
 var groupsCompleted = 0;
+var showLevelsOption;
 var kbdEventMgr;
 var contentPort;
 var debug = false;
@@ -68,6 +69,7 @@ function checkProtocol (tab) {
 */
 function initProcessing (message) {
   console.log('initProcessing: ', message);
+  showLevelsOption = message.options.showLevels;
   contentPort.postMessage(message);
 }
 
@@ -100,7 +102,7 @@ function constructMenu (message) {
 **  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
-  headingsGroup.showLevels = false;
+  headingsGroup.showLevels = showLevelsOption;
   customElements.define('skipto-menu', SkipToMenu);
 
   const menuitems = skipToMenu.menuitems;
