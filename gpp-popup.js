@@ -126,6 +126,7 @@ function constructMenu (message) {
 **  MenuGroup components are built: display SkipTo menu
 */
 function displayMenu () {
+  headingsGroup.showLevels = false;
   customElements.define('skipto-menu', SkipToMenu);
 
   const menuitems = skipToMenu.menuitems;

@@ -125,6 +125,21 @@ class HeadingsGroup extends MenuGroup {
     this.messageText = i18n.noHeadingsMsg;
   }
 
+  set showLevels (flag) {
+    const docElem = document.documentElement;
+    const show = [1, 0, 'inline-block'];
+    const hide = [0, 1, 'none'];
+
+    function setCustomProps (values) {
+      const props = ['--col-offset', '--col-incr', '--level-display']
+      for (let i = 0; i < values.length; i++) {
+        docElem.style.setProperty(props[i], values[i])
+      }
+    }
+
+    setCustomProps(flag ? show : hide);
+  }
+
   // Use this setter to pass in menu data from external module
   set menudata (headingsInfo) {
     for (const info of headingsInfo) {
