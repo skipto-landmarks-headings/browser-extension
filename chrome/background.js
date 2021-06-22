@@ -17,13 +17,3 @@ function getStorageHandler (message, sender) {
 }
 
 chrome.runtime.onMessage.addListener(getStorageHandler);
-
-/* ---------------------------------------------------------------- */
-
-function notLastError () {
-  if (!chrome.runtime.lastError) { return true; }
-  else {
-    console.log(chrome.runtime.lastError.message);
-    return false;
-  }
-}

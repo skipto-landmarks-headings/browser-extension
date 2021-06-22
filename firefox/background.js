@@ -17,9 +17,3 @@ function getStorageHandler (message, sender) {
 }
 
 browser.runtime.onMessage.addListener(getStorageHandler);
-
-/* ---------------------------------------------------------------- */
-
-function onError (error) {
-  console.log(`Error: ${error}`);
-}

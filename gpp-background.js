@@ -27,20 +27,3 @@ browser.runtime.onMessage.addListener(getStorageHandler);
 #ifdef CHROME
 chrome.runtime.onMessage.addListener(getStorageHandler);
 #endif
-
-/* ---------------------------------------------------------------- */
-
-#ifdef FIREFOX
-function onError (error) {
-  console.log(`Error: ${error}`);
-}
-#endif
-#ifdef CHROME
-function notLastError () {
-  if (!chrome.runtime.lastError) { return true; }
-  else {
-    console.log(chrome.runtime.lastError.message);
-    return false;
-  }
-}
-#endif
