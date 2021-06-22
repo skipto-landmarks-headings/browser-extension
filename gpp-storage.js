@@ -10,17 +10,25 @@ const defaultOptions = {
 **  getOptions
 */
 export function getOptions () {
+  const numOptions = Object.entries(defaultOptions).length;
+
+  function getDefaults (options) {
+    const copy = Object.assign({}, defaultOptions);
+    return Object.assign(copy, options);
+  }
+
   return new Promise (function (resolve, reject) {
 #ifdef FIREFOX
     let promise = browser.storage.sync.get();
     promise.then(
       options => {
-        if (Object.entries(options).length > 0) {
+        if (Object.entries(options).length === numOptions) {
           resolve(options);
         }
         else {
-          saveOptions(defaultOptions);
-          resolve(defaultOptions);
+          const optionsWithDefaults = getDefaults(options);
+          saveOptions(optionsWithDefaults);
+          resolve(optionsWithDefaults);
         }
       },
       message => { reject(new Error(`getOptions: ${message}`)) }

@@ -10,6 +10,13 @@ const defaultOptions = {
 **  getOptions
 */
 export function getOptions () {
+  const numOptions = Object.entries(defaultOptions).length;
+
+  function getDefaults (options) {
+    const copy = Object.assign({}, defaultOptions);
+    return Object.assign(copy, options);
+  }
+
   return new Promise (function (resolve, reject) {
     chrome.storage.sync.get(function (options) {
       if (notLastError()) {
