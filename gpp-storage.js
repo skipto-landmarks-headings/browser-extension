@@ -37,12 +37,13 @@ export function getOptions () {
 #ifdef CHROME
     chrome.storage.sync.get(function (options) {
       if (notLastError()) {
-        if (Object.entries(options).length > 0) {
+        if (Object.entries(options).length === numOptions) {
           resolve(options);
         }
         else {
-          saveOptions(defaultOptions)
-          resolve(defaultOptions);
+          const optionsWithDefaults = getDefaults(options);
+          saveOptions(optionsWithDefaults);
+          resolve(optionsWithDefaults);
         }
       }
     });

@@ -1,8 +1,6 @@
 /* background.js */
 
-import { getOptions, clearStorage } from './storage.js';
-
-clearStorage();
+import { getOptions } from './storage.js';
 
 function sendStorage (options) {
   const message = {
