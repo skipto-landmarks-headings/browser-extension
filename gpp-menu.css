@@ -5,6 +5,9 @@ div[role='menu'] {
   font-family: sans-serif;
   font-size: 0.8rem;
   scroll-behavior: smooth;
+#ifdef FIREFOX
+  min-width: 14rem;
+#endif
 #ifdef CHROME
   width: max-content;
 #endif

@@ -5,4 +5,5 @@ div[role='menu'] {
   font-family: sans-serif;
   font-size: 0.8rem;
   scroll-behavior: smooth;
+  min-width: 14rem;
 }
