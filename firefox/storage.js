@@ -85,4 +85,3 @@ export function logOptions (context, objName, obj) {
 export function clearStorage () {
   browser.storage.sync.clear();
 }
-

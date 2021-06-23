@@ -113,8 +113,8 @@ export function clearStorage () {
   chrome.storage.sync.clear();
 #endif
 }
-
 #ifdef CHROME
+
 // Redefine console for Chrome extension
 var console = chrome.extension.getBackgroundPage().console;
 
