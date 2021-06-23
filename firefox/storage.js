@@ -6,8 +6,6 @@ const defaultOptions = {
   showLevels: true
 };
 
-const debug = false;
-
 function hasAllProperties (refObj, srcObj) {
   for (const key of Object.keys(refObj)) {
     if (!srcObj.hasOwnProperty(key)) {
@@ -18,7 +16,6 @@ function hasAllProperties (refObj, srcObj) {
 }
 
 function isComplete (obj) {
-  if (debug) logOptions('isComplete', 'obj', obj);
   const numOptions = Object.keys(defaultOptions).length;
   if (Object.keys(obj).length !== numOptions) {
     return false;
