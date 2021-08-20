@@ -175,10 +175,10 @@ export class KbdEventMgr {
         flag = true;
         break;
 
-      case 'm':
-      case 'n':
-      case 's':
-      case 'f':
+      case 'c': // contentinfo
+      case 'm': // main
+      case 'n': // navigation
+      case 's': // search
       case '1':
       case '2':
       case '3':

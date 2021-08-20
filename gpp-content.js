@@ -51,11 +51,11 @@ function getTargetElement (dataId, element) {
     return element;
   }
 
-  // Must be main landmark
+  // Must be main or contentinfo landmark
   for (const selector of selectorsArray) {
     let elem = element.querySelector(selector);
     if (elem && isVisible(elem)) {
-      if (debug) console.log(`target for main: ${elem.tagName.toLowerCase()}`);
+      if (debug) console.log(`target: ${elem.tagName.toLowerCase()}`);
       return elem;
     }
   }
@@ -133,6 +133,27 @@ function processPage (options) {
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
   let contentinfoLandmarks = document.querySelectorAll('footer, [role="contentinfo"]');
 
+  function isDescendantOfNames (element) {
+    const names = ['article', 'aside', 'main', 'nav', 'section'];
+    return names.some(name => element.closest(name));
+    return false;
+  }
+
+  function isDescendantOfRoles (element) {
+    const roles = ['article', 'complementary', 'main', 'navigation', 'region'];
+    return roles.some(role => element.closest(`[role="${role}"]`));
+    return false;
+  }
+
+  function hasRoleContentinfo (element) {
+    if (element.hasAttribute('role')) {
+      if (element.getAttribute('role') === 'contentinfo') {
+        return true;
+      }
+    }
+    return !(isDescendantOfNames(element) || isDescendantOfRoles(element));
+  }
+
   function getLandmarkInfo (elem, dataId, role) {
     return {
       tagName: elem.tagName.toLowerCase(),
@@ -167,10 +188,10 @@ function processPage (options) {
   });
 
   contentinfoLandmarks.forEach(function (elem) {
-    if (isVisible(elem)) {
+    if (isVisible(elem) && hasRoleContentinfo(elem)) {
       let dataId = `f-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
-      landmarksArray.push(getLandmarkInfo(elem, dataId, 'footer'));
+      landmarksArray.push(getLandmarkInfo(elem, dataId, 'contentinfo'));
     }
   });
 
