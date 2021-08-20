@@ -46,7 +46,7 @@ function getTargetElement (dataId, element) {
     return element;
   }
 
-  // Must be main or contentinfo landmark
+  // Must be 'main' or 'contentinfo' landmark
   for (const selector of selectorsArray) {
     let elem = element.querySelector(selector);
     if (elem && isVisible(elem)) {
@@ -131,13 +131,11 @@ function processPage (options) {
   function isDescendantOfNames (element) {
     const names = ['article', 'aside', 'main', 'nav', 'section'];
     return names.some(name => element.closest(name));
-    return false;
   }
 
   function isDescendantOfRoles (element) {
     const roles = ['article', 'complementary', 'main', 'navigation', 'region'];
     return roles.some(role => element.closest(`[role="${role}"]`));
-    return false;
   }
 
   function hasRoleContentinfo (element) {
