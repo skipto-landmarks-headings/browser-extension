@@ -178,6 +178,7 @@ export class KbdEventMgr {
       case 'm':
       case 'n':
       case 's':
+      case 'f':
       case '1':
       case '2':
       case '3':

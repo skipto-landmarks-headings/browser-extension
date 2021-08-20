@@ -131,6 +131,7 @@ function processPage (options) {
   let mainLandmarks = document.querySelectorAll('main, [role="main"]');
   let searchLandmarks = document.querySelectorAll('[role="search"]');
   let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
+  let contentinfoLandmarks = document.querySelectorAll('footer, [role="contentinfo"]');
 
   function getLandmarkInfo (elem, dataId, role) {
     return {
@@ -162,6 +163,14 @@ function processPage (options) {
       let dataId = `n-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'navigation'));
+    }
+  });
+
+  contentinfoLandmarks.forEach(function (elem) {
+    if (isVisible(elem)) {
+      let dataId = `f-${++counter}`;
+      elem.setAttribute(dataAttribName, dataId);
+      landmarksArray.push(getLandmarkInfo(elem, dataId, 'footer'));
     }
   });
 
