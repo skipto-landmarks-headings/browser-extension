@@ -139,11 +139,14 @@ function processPage (options) {
   }
 
   function hasRoleContentinfo (element) {
+    // The following 'return' statement will reject any element with a 'role'
+    // attribute (even a 'footer' element) if its value is not 'contentinfo'
     if (element.hasAttribute('role')) {
-      if (element.getAttribute('role') === 'contentinfo') {
-        return true;
-      }
+      return (element.getAttribute('role') === 'contentinfo');
     }
+    // At this point, based on the above test and the selector for
+    // contentinfoLandmarks, 'element' (1) does not have a 'role' attribute
+    // and (2) must be a 'footer' element.
     return !(isDescendantOfNames(element) || isDescendantOfRoles(element));
   }
 
@@ -182,7 +185,7 @@ function processPage (options) {
 
   contentinfoLandmarks.forEach(function (elem) {
     if (isVisible(elem) && hasRoleContentinfo(elem)) {
-      let dataId = `f-${++counter}`;
+      let dataId = `c-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'contentinfo'));
     }
