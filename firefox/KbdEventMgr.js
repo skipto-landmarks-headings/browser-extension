@@ -175,6 +175,7 @@ export class KbdEventMgr {
         flag = true;
         break;
 
+      case 'a': // complementary
       case 'c': // contentinfo
       case 'm': // main
       case 'n': // navigation

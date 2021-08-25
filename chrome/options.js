@@ -4,19 +4,26 @@ import { getOptions, saveOptions } from './storage.js';
 import getMessage from './i18n.js';
 
 const debug = false;
-const maxLevelItems = document.querySelectorAll('[name="level"]');
-const mainOnly      = document.querySelector('input[id="main-only"]');
-const showLevels    = document.querySelector('input[id="show-levels"]');
+const inclComp       = document.querySelector('input[id="incl-comp"]');
+const maxLevelItems  = document.querySelectorAll('[name="level"]');
+const showLevels     = document.querySelector('input[id="show-levels"]');
+const mainOnly       = document.querySelector('input[id="main-only"]');
 
 function setFormLabels () {
+  const landmarksLabel  = document.querySelector('h2[id="landmarks"]');
+  const headingsLabel   = document.querySelector('h2[id="headings"]');
+  const inclCompLabel   = document.querySelector('label[for="incl-comp"]');
   const maxLevelLegend  = document.querySelector('fieldset > legend');
-  const mainOnlyLabel   = document.querySelector('label[for="main-only"]');
   const showLevelsLabel = document.querySelector('label[for="show-levels"]');
+  const mainOnlyLabel   = document.querySelector('label[for="main-only"]');
   const saveButton      = document.querySelector('button');
 
+  landmarksLabel.textContent  = getMessage('landmarksLabel');
+  headingsLabel.textContent   = getMessage('headingsLabel');
+  inclCompLabel.textContent   = getMessage('inclCompLabel');
   maxLevelLegend.textContent  = getMessage('maxLevelLabel');
-  mainOnlyLabel.textContent   = getMessage('mainOnlyLabel');
   showLevelsLabel.textContent = getMessage('showLevelsLabel');
+  mainOnlyLabel.textContent   = getMessage('mainOnlyLabel');
   saveButton.textContent      = getMessage('buttonLabel');
 }
 
@@ -42,9 +49,10 @@ function saveFormOptions (e) {
   }
 
   const options = {
+    inclComp: inclComp.checked,
     maxLevelIndex: getMaxLevelIndex(),
-    mainOnly: mainOnly.checked,
-    showLevels: showLevels.checked
+    showLevels: showLevels.checked,
+    mainOnly: mainOnly.checked
   }
 
   if (debug) console.log(options);
@@ -60,9 +68,10 @@ function updateOptionsForm() {
     console.log('updateForm: ', options);
 
     // Set form element values and states
+    inclComp.checked = options.inclComp;
     maxLevelItems[options.maxLevelIndex].checked = true;
-    mainOnly.checked = options.mainOnly;
     showLevels.checked = options.showLevels;
+    mainOnly.checked = options.mainOnly;
   }
 
   getOptions().then(updateForm);

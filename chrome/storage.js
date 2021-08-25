@@ -1,9 +1,10 @@
 /* storage.js */
 
 const defaultOptions = {
+  inclComp: true,
   maxLevelIndex: 1,
-  mainOnly: false,
-  showLevels: true
+  showLevels: true,
+  mainOnly: false
 };
 
 function hasAllProperties (refObj, srcObj) {

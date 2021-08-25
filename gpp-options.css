@@ -4,14 +4,22 @@ body {
   padding: 0 4px;
 }
 
+h2 {
+#ifdef FIREFOX
+  font-size: 1.2rem;
+#endif
+  font-weight: 550;
+  margin: 1.5rem 0 0.75rem;
+}
+
+#ifdef CHROME
+h2:first-child {
+  margin-top: -0.5rem;
+}
+#endif
+
 fieldset {
   margin: 0;
-#ifdef FIREFOX
-  margin-top: 1.5rem;
-#endif
-#ifdef CHROME
-  margin-top: -0.5rem;
-#endif
 }
 
 div.levels-radio {

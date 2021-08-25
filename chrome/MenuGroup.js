@@ -96,7 +96,8 @@ class LandmarksGroup extends MenuGroup {
   set menudata (landmarksInfo) {
     for (const info of landmarksInfo) {
       const div = this.createMenuitem('landmark', info.dataId);
-      div.nav = info.ariaRole.substring(0, 1); // c, m, n, s
+      // div.nav = info.ariaRole.substring(0, 1); // c, m, n, s
+      div.nav = info.dataId.substring(0, 1); // a, c, m, n, s
 
       const roleSpan = document.createElement('span');
       roleSpan.className = 'role';

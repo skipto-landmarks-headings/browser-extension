@@ -11,12 +11,12 @@
 
   "landmarksLabel": {
     "message": "Landmarks",
-    "description": "menu group label for landmarks section"
+    "description": "label for landmarks menu group and section in options form"
   },
 
   "headingsLabel": {
     "message": "Headings",
-    "description": "menu group label for headings section"
+    "description": "label for headings menu group and section in options form"
   },
 
   "headingLevel": {
@@ -54,19 +54,24 @@
     "description": "options form message indicating that options have been saved"
   },
 
+  "inclCompLabel": {
+    "message": "Include complementary landmarks",
+    "description": "options form label for 'incl-comp' checkbox"
+  },
+
   "maxLevelLabel": {
     "message": "Show headings through level",
-    "description": "options form label for 'heading level' radio buttons fieldset"
+    "description": "options form label for 'level' radio buttons fieldset"
   },
 
   "mainOnlyLabel": {
     "message": "Only show headings found in main landmark",
-    "description": "options form label for 'main only' checkbox"
+    "description": "options form label for 'main-only' checkbox"
   },
 
   "showLevelsLabel": {
     "message": "Show heading level numbers",
-    "description": "options form label for 'show levels' checkbox"
+    "description": "options form label for 'show-levels' checkbox"
   },
 
   "buttonLabel": {

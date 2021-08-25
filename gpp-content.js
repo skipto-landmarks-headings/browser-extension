@@ -35,15 +35,17 @@ function messageHandler (message) {
 **  aria role of the landmark (indicated by dataId prefix).
 */
 function getTargetElement (dataId, element) {
-  let selectorsArray = ['h1', 'a[href]', 'h2', 'h3', 'section', 'article', 'h4', 'h5', 'h6', 'p', 'li'];
-  let isSearch = dataId.startsWith('s-');
-  let isNav = dataId.startsWith('n-');
+  const selectorsArray = ['h1', 'a[href]', 'h2', 'h3', 'section', 'article', 'h4', 'h5', 'h6', 'p', 'li'];
+  const role = element.hasAttribute('role') ? element.getAttribute('role') : '';
+  const tagName = element.tagName.toLowerCase();
+  const isSearch = (role === 'search');
+  const isNavigation = (tagName === 'nav') || (role === 'navigation');
 
   if (isSearch) {
     return element.querySelector('input');
   }
 
-  if (isNav) {
+  if (isNavigation) {
     let elements = element.querySelectorAll('a');
     for (const elem of elements) {
       if (isVisible(elem)) return elem;
@@ -51,7 +53,7 @@ function getTargetElement (dataId, element) {
     return element;
   }
 
-  // Must be 'main' or 'contentinfo' landmark
+  // Must be 'main', 'complementary' or 'contentinfo' landmark
   for (const selector of selectorsArray) {
     let elem = element.querySelector(selector);
     if (elem && isVisible(elem)) {
@@ -127,11 +129,7 @@ function processPage (options) {
   let headingsArray = [];
   let counter = 0;
 
-  // Process the landmark elements
-  let mainLandmarks = document.querySelectorAll('main, [role="main"]');
-  let searchLandmarks = document.querySelectorAll('[role="search"]');
-  let navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
-  let contentinfoLandmarks = document.querySelectorAll('footer, [role="contentinfo"]');
+  // Helper functions
 
   function isDescendantOfNames (element) {
     const names = ['article', 'aside', 'main', 'nav', 'section'];
@@ -164,44 +162,59 @@ function processPage (options) {
     };
   }
 
+  // Process the landmark elements
+  const mainLandmarks = document.querySelectorAll('main, [role="main"]');
   mainLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      let dataId = `m-${++counter}`;
+      const dataId = `m-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'main'));
     }
   });
 
+  const searchLandmarks = document.querySelectorAll('[role="search"]');
   searchLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      let dataId = `s-${++counter}`;
+      const dataId = `s-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'search'));
     }
   });
 
+  const navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
   navigationLandmarks.forEach(function (elem) {
     if (isVisible(elem)) {
-      let dataId = `n-${++counter}`;
+      const dataId = `n-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'navigation'));
     }
   });
 
+  if (options.inclComp) {
+    const complementaryLandmarks = document.querySelectorAll('aside, [role="complementary"]');
+    complementaryLandmarks.forEach(function (elem) {
+      if (isVisible(elem)) {
+        const dataId = `a-${++counter}`;
+        elem.setAttribute(dataAttribName, dataId);
+        landmarksArray.push(getLandmarkInfo(elem, dataId, 'complementary'));
+      }
+    });
+  }
+
+  const contentinfoLandmarks = document.querySelectorAll('footer, [role="contentinfo"]');
   contentinfoLandmarks.forEach(function (elem) {
     if (isVisible(elem) && hasRoleContentinfo(elem)) {
-      let dataId = `c-${++counter}`;
+      const dataId = `c-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'contentinfo'));
     }
   });
 
   // Process the heading elements
-  let headingElements = getHeadingElements(options);
-
+  const headingElements = getHeadingElements(options);
   headingElements.forEach(function (elem) {
     if (isVisible(elem)) {
-      let dataId = `h-${++counter}`;
+      const dataId = `h-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       headingsArray.push({
         tagName: elem.tagName.toLowerCase(),
@@ -211,6 +224,7 @@ function processPage (options) {
     }
   });
 
+  // Send the menu data to the popup script
   const message = {
     id: 'menudata',
     landmarks: landmarksArray,

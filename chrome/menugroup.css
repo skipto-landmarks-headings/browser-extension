@@ -52,7 +52,7 @@ div[role='menuitem']:nth-child(odd) {
 }
 
 div[role='menuitem'].landmark .role {
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 div[role='menuitem'].landmark .name::before {
