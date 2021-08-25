@@ -32,8 +32,10 @@ via the following keystrokes:
 * `page down`, `page up`: move eight items forward or backward
 * `home`, `end`: move to first or last item
 * `m`: next `main` landmark
-* `n`: next `navigation` landmark
 * `s`: next `search` landmark
+* `n`: next `navigation` landmark
+* `a`: next `complementary` landmark (optionally included based on user preference)
+* `c`: next `contentinfo` landmark
 * `1`, `2`, `3`, `4`, `5`, `6`: next heading of that level
   (e.g. `2` -> go to next `h2`)
 
@@ -45,6 +47,15 @@ via the following keystrokes:
 * Press `tab` or `escape`, or
 * `click` the `Skip To` toolbar button, or
 * `click` somewhere outside of the popup window.
+
+## Options/Preferences
+
+Users have access to the following options for controlling what is displayed
+in the `Skip To` menu:
+* Include `complementary` landmarks (toggle on/off)
+* Limit the maximum depth for `heading` levels (select level 2 – 6)
+* Show `heading` level numbers (toggle on/off)
+* Only show headings found in `main` landmark (toggle on/off)
 
 ## Installation
 
