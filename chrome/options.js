@@ -4,10 +4,10 @@ import { getOptions, saveOptions } from './storage.js';
 import getMessage from './i18n.js';
 
 const debug = false;
-const inclComp       = document.querySelector('input[id="incl-comp"]');
-const maxLevelItems  = document.querySelectorAll('[name="level"]');
-const showLevels     = document.querySelector('input[id="show-levels"]');
-const mainOnly       = document.querySelector('input[id="main-only"]');
+const inclComp      = document.querySelector('input[id="incl-comp"]');
+const maxLevelItems = document.querySelectorAll('[name="level"]');
+const showLevels    = document.querySelector('input[id="show-levels"]');
+const mainOnly      = document.querySelector('input[id="main-only"]');
 
 function setFormLabels () {
   const landmarksLabel  = document.querySelector('h2[id="landmarks"]');
