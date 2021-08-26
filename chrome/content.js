@@ -148,6 +148,15 @@ function processPage (options) {
     return !(isDescendantOfNames(element) || isDescendantOfRoles(element));
   }
 
+  function hasRoleOtherThanDefault (element, defaultRole) {
+    if (element.hasAttribute('role')) {
+      return (element.getAttribute('role') !== defaultRole);
+    }
+    else {
+      return false;
+    }
+  }
+
   function getLandmarkInfo (elem, dataId, role) {
     return {
       tagName: elem.tagName.toLowerCase(),
@@ -160,7 +169,7 @@ function processPage (options) {
   // Process the landmark elements
   const mainLandmarks = document.querySelectorAll('main, [role="main"]');
   mainLandmarks.forEach(function (elem) {
-    if (isVisible(elem)) {
+    if (isVisible(elem) && !hasRoleOtherThanDefault(elem, 'main')) {
       const dataId = `m-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'main'));
@@ -178,7 +187,7 @@ function processPage (options) {
 
   const navigationLandmarks = document.querySelectorAll('nav, [role="navigation"]');
   navigationLandmarks.forEach(function (elem) {
-    if (isVisible(elem)) {
+    if (isVisible(elem) && !hasRoleOtherThanDefault(elem, 'navigation')) {
       const dataId = `n-${++counter}`;
       elem.setAttribute(dataAttribName, dataId);
       landmarksArray.push(getLandmarkInfo(elem, dataId, 'navigation'));
@@ -188,7 +197,7 @@ function processPage (options) {
   if (options.inclComp) {
     const complementaryLandmarks = document.querySelectorAll('aside, [role="complementary"]');
     complementaryLandmarks.forEach(function (elem) {
-      if (isVisible(elem)) {
+      if (isVisible(elem) && !hasRoleOtherThanDefault(elem, 'complementary')) {
         const dataId = `a-${++counter}`;
         elem.setAttribute(dataAttribName, dataId);
         landmarksArray.push(getLandmarkInfo(elem, dataId, 'complementary'));
