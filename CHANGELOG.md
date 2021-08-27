@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.2.0 — Aug. 27, 2021
+## 2.0.0 — Aug. 27, 2021
 
 * Add 'contentinfo' landmarks (always displayed if present). Use the criteria
   defined in the W3C 'ARIA in HTML' document to determine whether an element
