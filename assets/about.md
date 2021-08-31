@@ -1,10 +1,8 @@
-About this extension:
-
 ## Overview
 
 "Skip to Landmarks and Headings" extends the [Chrome/Firefox] browser by identifying and providing navigation to the ARIA landmark regions and HTML section headings (h1–h6) of a web page. The extension provides a menu divided into two groups: (1) the important landmark regions and (2) an outline of the heading structure of the page.
 
-The keyboard shortcut for opening the menu is alt+2 (option+2 on macOS) and cursors keys can be used to navigate the menu. Activating a menu item scrolls the item into view and moves keyboard focus to the corresponding section of the page.
+The keyboard shortcut for opening the menu is 'alt+2' ('option+2' on macOS) and cursors keys can be used to navigate the menu. Activating a menu item scrolls the item into view and moves keyboard focus to the corresponding section of the page.
 
 "Skip to Landmarks and Headings" provides a means for people using the keyboard to efficiently navigate to specific content on the page. The outline of headings provides an easy way for people to view the topics on a web page without having to scroll through the entire page.
 
@@ -14,15 +12,15 @@ To open the "Skip To" menu using the keyboard, press 'alt+2' ('option+2' on macO
 
 You can move through the menu items by pressing the following keys:
 
-* arrow down, arrow up: step through the items one at a time
-* page down, page up: move eight items forward or backward
-* home, end: move to first or last item
-* m: move to 'main' landmark
-* n: next 'navigation' landmark
-* s: next 'search' landmark
-* a: next 'complementary' landmark
-* c: next 'contentinfo' landmark
-* 1, 2, 3, 4, 5, 6: next heading of that level
+* 'arrow down', 'arrow up': step through the items one at a time
+* 'page down', 'page up': move eight items forward or backward
+* 'home', 'end': move to first or last item
+* 'm': 'main' landmark
+* 'n': next 'navigation' landmark
+* 's': next 'search' landmark
+* 'a': next 'complementary' landmark
+* 'c': next 'contentinfo' landmark
+* '1', '2', '3', '4', '5', '6': next heading of that level
 
 ## Options/Preferences
 
@@ -32,15 +30,15 @@ By default, "Skip To" displays 'main', 'search', 'navigation' and 'contentinfo' 
 
 ### Headings
 
-1. The "Skip To" Preferences allow the user to configure the number of heading levels used to create the headings outline. The benefit of limiting the heading levels is to make the outline shorter and easier to scan for topics of interest.
+1. The Preferences form provides a means for selecting the maximum depth of heading levels used to create the headings outline. The benefit of limiting the maximum depth is to make the outline shorter and easier to scan for topics of interest.
 
-2. Also in Preferences is an option for toggling on or off the display of heading level numbers, which are added as a prefix to the heading text content.
+2. Also in Preferences is an option for choosing whether heading level numbers are displayed. When this option is toggled 'on', the heading level number is added as a prefix to the heading menu items.
 
-3. Finally, there is an additional option to limit the list of headings to only those contained within the 'main' landmark region. In well structured pages, the 'main' region contains the most important information on the page; limiting headings to the 'main' region makes it easier to identify topics of interest by filtering out headings in other parts of the page.
+3. Additionally, there is an option to limit the list of headings to only those contained within the 'main' landmark region. In well structured pages, the 'main' region contains the most important information on the page; limiting headings to the 'main' region makes it easier to identify topics of interest by filtering out headings in other parts of the page.
 
 ## Keyboard Navigation and WCAG Bypass Blocks
 
-The "Skip To" extension implements a long standing browser accessibility requirement to implement keyboard navigation to landmark regions and section headings based on the W3C WCAG Success Criteria 2.4.1 "Bypass Blocks" requirement and the W3C UAAG Requirement 9.9 "Structured Navigation".
+The "Skip To" extension implements a long-standing browser accessibility requirement to provide keyboard navigation to landmark regions and section headings based on the W3C WCAG Success Criteria 2.4.1 "Bypass Blocks" requirement and the W3C UAAG Requirement 9.9 "Structured Navigation".
 
 Many people with disabilities cannot use a mouse or touchpad to navigate the content of a web page and they typically rely on only using the keyboard for operating the browser. However, the built-in keyboard support in browsers is limited to the Tab key for navigating to links and form controls.
 
