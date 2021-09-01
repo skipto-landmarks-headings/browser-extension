@@ -1,3 +1,7 @@
+## Homepage URL
+
+https://github.com/skipto/extension
+
 ## Overview
 
 "Skip to Landmarks and Headings" extends the [Chrome/Firefox] browser by identifying and providing navigation to the ARIA landmark regions and HTML section headings (h1–h6) of a web page. The extension provides a menu divided into two groups: (1) the important landmark regions and (2) an outline of the heading structure of the page.
