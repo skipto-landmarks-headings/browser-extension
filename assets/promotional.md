@@ -2,6 +2,10 @@
 
 ## Version 2.0.0
 
+Homepage URL:
+
+https://github.com/skipto/extension
+
 Description:
 
 The Skip to Landmarks and Headings browser extension collects data from the active tab web page, targeting its ARIA landmark regions (main, search, navigation, complementary and contentinfo) and HTML heading elements (h1–h6). From this data, it creates and displays a keyboard navigable menu from which you can "skip to" any of the selected landmarks or headings on the page.
