@@ -14,7 +14,7 @@ The `SkipTo` menu, which is keyboard navigable, also provides an outline of the 
 
 ### More Information
 
-Complete documentation on keyboard shortcuts, options/preferences and more is available at the <a href="https://skipto.github.io/">SkipTo Documentation</a> website.
+See the <a href="https://skipto.github.io/">SkipTo Documentation</a> website for information on all keyboard shortcuts, the options/preferences settings and the web accessibility requirements and benefits for people with disabilities that motivate the development of `SkipTo`.
 
 ## Installation
 
