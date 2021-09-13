@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.1.0 – Sept. 13, 2021
+
+<ul>
+  <li>Updated name of extension</li>
+  <li>Added link to new SkipTo documentation</li>
+</ul>
+
 ## 2.0.0 — Aug. 27, 2021
 
 <ul>
@@ -9,7 +16,7 @@
   <li>Update the layout of the Options/Preferences panel. Divide panel into two sections: 'Landmarks' and 'Headings', and add new option under 'Landmarks' section: 'Include complementary landmarks'.</li>
 </ul>
 
-## 1.1.0 — Jun. 24, 2021
+## 1.1.0 — June 24, 2021
 
 * Change extension name
 * Change keyboard shortcut to 'Alt+2'/'Option+2'
