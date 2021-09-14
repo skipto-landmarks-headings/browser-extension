@@ -16,7 +16,7 @@ The keyboard shortcut for opening the menu is <b>alt+2</b> (<b>option+2</b> on M
 
 Activating a menu item scrolls the corresponding landmark region or heading element into view and moves keyboard focus to it on the page.
 
-Complete documentation on keyboard shortcuts, options/preferences and more is available at the <a href="https://skipto.github.io/">SkipTo Documentation</a> website.
+Complete documentation on keyboard shortcuts, options/preferences and more is available at the SkipTo Documentation website at https://skipto.github.io/.
 
 ## Version 2.0.0
 
