@@ -1,6 +1,6 @@
 # SkipTo Landmarks & Headings
 
-<img src="https://github.com/skipto/extension/blob/master/images/skipto-96.png">
+<img src="https://github.com/skipto/extension/blob/main/images/skipto-96.png">
 
 ## Description
 
