@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extName__",
   "version": "2.2.0",
 
@@ -11,18 +11,18 @@
 
   "permissions": [
     "activeTab",
+    "scripting",
     "storage"
   ],
 
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "images/skipto-32.png"
   },
 
   "options_ui": {
     "page": "options.html",
-    "browser_style": true,
-    "chrome_style": true
+    "browser_style": true
   },
 
   "commands": {

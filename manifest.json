@@ -1,5 +1,10 @@
 {
+#ifdef CHROME
+  "manifest_version": 3,
+#endif
+#ifdef FIREFOX
   "manifest_version": 2,
+#endif
   "name": "__MSG_extName__",
   "version": "2.2.0",
 
@@ -11,10 +16,18 @@
 
   "permissions": [
     "activeTab",
+#ifdef CHROME
+    "scripting",
+#endif
     "storage"
   ],
 
+#ifdef CHROME
+  "action": {
+#endif
+#ifdef FIREFOX
   "browser_action": {
+#endif
     "default_popup": "popup.html",
     "default_icon": "images/skipto-32.png"
   },
@@ -29,8 +42,7 @@
 
   "options_ui": {
     "page": "options.html",
-    "browser_style": true,
-    "chrome_style": true
+    "browser_style": true
   },
 
   "commands": {

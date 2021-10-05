@@ -61,8 +61,8 @@ function checkProtocol (tab) {
     browser.tabs.executeScript( { file: 'content.js' } );
 #endif
 #ifdef CHROME
-    chrome.tabs.executeScript( { file: 'domUtils.js' } );
-    chrome.tabs.executeScript( { file: 'content.js' } );
+    chrome.scripting.executeScript( { target: { tabId: tab.id }, files: ['domUtils.js'] } );
+    chrome.scripting.executeScript( { target: { tabId: tab.id }, files: ['content.js'] } );
 #endif
   }
   else {

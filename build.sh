@@ -23,7 +23,7 @@ do
 done
 
 # Process manifest.json
-gpp -o chrome/manifest.json manifest.json
+gpp -DCHROME=1 -o chrome/manifest.json manifest.json
 gpp -DFIREFOX=1 -o firefox/manifest.json manifest.json
 
 # Copy shared extension files to browser folders
