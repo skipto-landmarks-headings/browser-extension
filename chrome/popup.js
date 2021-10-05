@@ -3,6 +3,7 @@
 import SkipToMenu from './SkipToMenu.js';
 import { LandmarksGroup, HeadingsGroup } from './MenuGroup.js';
 import { KbdEventMgr } from './KbdEventMgr.js';
+import { getOptions } from './storage.js';
 
 const skipToMenu     = document.querySelector('skipto-menu');
 const landmarksGroup = document.querySelector('landmarks-group');
@@ -27,18 +28,7 @@ function connectionHandler (port) {
   if (debug) console.log(`port.name: ${port.name}`);
   contentPort = port;
   contentPort.onMessage.addListener(portMessageHandler);
-
-  // Set up listener/handler for message from background
-  chrome.runtime.onMessage.addListener(messageHandler);
-  function messageHandler (message, sender) {
-    if (message.id === 'storage') {
-      if (debug) console.log(`popup: 'storage' message`);
-      initProcessing(message);
-    }
-  }
-
-  // Request storage options from background script
-  chrome.runtime.sendMessage({ id: 'getStorage' });
+  getOptions().then(initProcessing);
 }
 
 function portMessageHandler (message) {
@@ -67,10 +57,10 @@ function checkProtocol (tab) {
 /*
 **  Initiate processing in content script
 */
-function initProcessing (message) {
-  console.log('initProcessing: ', message);
-  showLevelsOption = message.options.showLevels;
-  contentPort.postMessage(message);
+function initProcessing (options) {
+  console.log('initProcessing: ', options);
+  showLevelsOption = options.showLevels;
+  contentPort.postMessage({ id: 'storage', options: options });
 }
 
 /*
@@ -151,7 +141,6 @@ function getActiveTab () {
 }
 
 // Generic error handler
-var console = chrome.extension.getBackgroundPage().console;
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }
   else {

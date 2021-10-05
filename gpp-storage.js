@@ -116,9 +116,6 @@ export function clearStorage () {
 }
 #ifdef CHROME
 
-// Redefine console for Chrome extension
-var console = chrome.extension.getBackgroundPage().console;
-
 // Generic error handler
 function notLastError () {
   if (!chrome.runtime.lastError) { return true; }
