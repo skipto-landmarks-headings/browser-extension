@@ -46,8 +46,9 @@ getActiveTab().then(tab => checkProtocol(tab));
 
 function checkProtocol (tab) {
   if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
-    chrome.scripting.executeScript( { target: { tabId: tab.id }, files: ['domUtils.js'] } );
-    chrome.scripting.executeScript( { target: { tabId: tab.id }, files: ['content.js'] } );
+    chrome.scripting.executeScript(
+      { target: { tabId: tab.id }, files: ['domUtils.js', 'content.js'] }
+    );
   }
   else {
     console.log('Invalid protocol: ', tab.url);

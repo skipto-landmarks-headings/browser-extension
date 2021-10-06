@@ -46,7 +46,12 @@
   },
 
   "commands": {
+#ifdef CHROME
+    "_execute_action": {
+#endif
+#ifdef FIREFOX
     "_execute_browser_action": {
+#endif
       "suggested_key": {
         "default": "Alt+2"
       }
