@@ -26,7 +26,6 @@ The following JavaScript files are the key players in understanding how the
 * popup.js
 * content.js
 * options.js
-* background.js
 
 Additionally, the following files contain helper classes or functions:
 
@@ -46,7 +45,7 @@ When the `popup` script runs, it immediately does the following:
 1. Creates a listener named `connectionHandler` for the port connection
    from the `content` script;
 
-1. Executes the `content` script.
+1. Executes both the `domUtils` and `content` scripts.
 
 #### content script
 
@@ -65,33 +64,12 @@ script's `connectionHandler` function is invoked. It:
 1. Creates a listener named `portMessageHandler` for the port message it will
    receive from the `content` script with `id: menudata`;
 
-1. Creates a listener for the one-off message from the `background` script
-   with `id: storage`;
+1. Calls the `getOptions` function defined in `storage.js`. The function
+   returns a Promise object that, when it resolves, calls the `initProcessing`
+   function with `options` as its argument.
 
-1. Sends a one-off message to the `background` script with `id: getStorage`.
-
-#### background script
-
-The `background` script is persistent: once the extension is installed, it
-loads whenever the browser starts up and its functions and variables stay in
-memory. When it runs, it:
-
-1. Retrieves the user options from `storage.sync` and creates a listener
-   for any changes to the options, which enables it to keep its `storageCache`
-   variable up to date.
-
-1. Creates a listener for the one-off message from the `popup` script with
-   `id: getStorage`.
-
-When the `background` script receives the `getStorage` message, it sends the
-user options from `storageCache` to the `popup` script in a message with
-`id: storage`.
-
-#### popup script
-
-When the `popup` script receives the `id: storage` message from the
-`background` script, it passes the message with `id: storage` directly to the
-`content` script via the function `initProcessing`.
+When `initProcessing` is called, it packages the `options` data into a message
+with `id: storage` and sends it off (to the content script).
 
 #### content script
 
