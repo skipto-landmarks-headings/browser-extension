@@ -6,18 +6,17 @@ function getLandmarkAccessibleName (landmark) {
     title = landmark.getAttribute('title');
 
   if (labelledbyIds && labelledbyIds.length) {
-    let ids = labelledbyIds.split(' '), strings = [];
-    if (!ids.length) ids = [labelledbyIds]; // is this necessary?
+    const ids = labelledbyIds.split(' '), strings = [];
 
-    ids.forEach(id => {
-      let elem = document.getElementById(id);
+    for (const id of ids) {
+      const elem = document.getElementById(id);
       if (elem) {
-        let text = getTextContent(elem);
-        if (text & text.length) {
-          strings.push(text);
+        const str = getTextContent(elem);
+        if (str && str.length) {
+          strings.push(str);
         }
       }
-    });
+    }
     return strings.join(' ');
   }
 
