@@ -1,25 +1,26 @@
 # Development Notes
 
-The `Skip to Landmarks and Headings` browser extension collects data from the
-web page loaded in the active tab using CSS `querySelector` functions targeted
-at ARIA `landmark` regions (`main`, `search` and `navigation`) and HTML
-`heading` elements (`h1`–`h6`) contained in the page.
+The `SkipTo Landmarks & Headings` browser extension collects data from the
+web page loaded in the active tab using CSS `querySelector` functions targeting
+ARIA `landmark` regions (`main`, `search`, `navigation`, `complementary` and
+`contentinfo`) and HTML `heading` elements (`h1`–`h6`) contained in the page.
 
 The `SkipToMenu` element, which is displayed in a `popup` window, organizes
 this data into a menu system that is keyboard navigable.
 
-Each menuitem in the menu contains a `dataId` corresponding to one of the
-`landmark` or `heading` elements in the active tab web page.
+Each menuitem in the menu contains a `dataId` corresponding to the `landmark`
+or `heading` element found on the active tab web page.
 
 When a menuitem is activated, the `popup` window is closed and the extension
-sets focus to the selected element and scrolls it into view.
+sets focus to the selected element (or one of its descendants) on the page and
+scrolls it into view.
 
 ## How the Code Works
 
 ### Overview
 
 The following JavaScript files are the key players in understanding how the
-`Skip To` extension works:
+`SkipTo` extension works:
 
 * MenuGroup.js
 * SkipToMenu.js
@@ -36,7 +37,7 @@ Additionally, the following files contain helper classes or functions:
 When the user activates the extension button, `popup.html` is displayed.
 This causes `popup.js`, i.e. the `popup` script to load.
 
-### Synchronous and Asynchronous Actions: Messages and Listeners
+### Phase 1: Data Collection Based on User Options
 
 #### popup script
 
@@ -85,7 +86,7 @@ After processing all of the relevant nodes, the `content` script sends a
 message with `id: menudata` to the `popup` script containing the data it has
 collected.
 
-### Skip To Menu Construction Phase
+### Phase 2: SkipTo Menu Construction
 
 The menu construction phase makes use of the custom elements `LandmarksGroup`,
 `HeadingsGroup` and `SkipToMenu`. The first two are defined in the
@@ -132,7 +133,7 @@ corresponding to the data they have been sent, it:
 At this point, the `SkipToMenu` element is fully initialized and its DOM
 content is subsequently displayed.
 
-### Menu Interaction Phase
+### Phase 3: Menu Interaction
 
 #### popup script and SkipToMenu
 
@@ -170,16 +171,16 @@ invoked, which does the following:
    the removal of all the `data-skipto` attributes from the web page DOM.
 
 The removal of all `data-skipto` attributes from the web page DOM is needed
-for the case when the user has opened the Skip To menu and then changes the
+for the case when the user has opened the SkipTo menu and then changes the
 headings level configuration while remaining on the same web page. When the
-`Skip To` button is reactivated, causing a new menu to be constructed, if
+`SkipTo` button is reactivated, causing a new menu to be constructed, if
 `data-skipto` attributes with previously generated `dataId` values remain in
 the DOM, the correspondence between the `dataId` values in the menuitems
 for heading elements in the web page will no longer be correct.
 
 ## Build Notes
 
-_Important:_ The files used in developing the `Skip To` extension are located
+_Important:_ The files used in developing the `SkipTo` extension are located
 in the top-most directory and in the `shared` folder. The top-most directory
 contains files with a `gpp-` prefix, which are processed by a utility called
 the `generic preprocessor`, free software available at
