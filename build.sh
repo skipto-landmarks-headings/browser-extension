@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 GPPFILES=(
-  background.js
   content.js
   i18n.js
   menu.css
