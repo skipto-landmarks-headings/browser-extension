@@ -47,12 +47,7 @@ function portMessageHandler (message) {
 /*
 ** Run content scripts if active tab protocol allows
 */
-#ifdef FIREFOX
 getActiveTab().then(checkProtocol).catch(onError);
-#endif
-#ifdef CHROME
-getActiveTab().then(tab => checkProtocol(tab));
-#endif
 
 function checkProtocol (tab) {
   if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
@@ -155,35 +150,21 @@ function getActiveTab () {
   return new Promise (function (resolve, reject) {
 #ifdef FIREFOX
     let promise = browser.tabs.query({ currentWindow: true, active: true });
+#endif
+#ifdef CHROME
+    let promise = chrome.tabs.query({ currentWindow: true, active: true });
+#endif
     promise.then(
       tabs => { resolve(tabs[0]) },
       msg => { reject(new Error(`getActiveTab: ${msg}`)); }
     )
-#endif
-#ifdef CHROME
-    chrome.tabs.query({ currentWindow: true, active: true },
-      function (tabs) {
-        if (notLastError()) { resolve(tabs[0]) }
-      });
-#endif
   });
 }
 
 // Generic error handler
-#ifdef FIREFOX
 function onError (error) {
   console.log(`Error: ${error}`);
 }
-#endif
-#ifdef CHROME
-function notLastError () {
-  if (!chrome.runtime.lastError) { return true; }
-  else {
-    console.log(chrome.runtime.lastError.message);
-    return false;
-  }
-}
-#endif
 
 window.addEventListener('unload', evt => {
   if (debug) console.log('popup unloaded');

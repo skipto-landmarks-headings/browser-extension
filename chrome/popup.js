@@ -42,7 +42,7 @@ function portMessageHandler (message) {
 /*
 ** Run content scripts if active tab protocol allows
 */
-getActiveTab().then(tab => checkProtocol(tab));
+getActiveTab().then(checkProtocol).catch(onError);
 
 function checkProtocol (tab) {
   if (tab.url.indexOf('http:') === 0 || tab.url.indexOf('https:') === 0) {
@@ -134,20 +134,17 @@ function sendSkipToData (evt) {
 */
 function getActiveTab () {
   return new Promise (function (resolve, reject) {
-    chrome.tabs.query({ currentWindow: true, active: true },
-      function (tabs) {
-        if (notLastError()) { resolve(tabs[0]) }
-      });
+    let promise = chrome.tabs.query({ currentWindow: true, active: true });
+    promise.then(
+      tabs => { resolve(tabs[0]) },
+      msg => { reject(new Error(`getActiveTab: ${msg}`)); }
+    )
   });
 }
 
 // Generic error handler
-function notLastError () {
-  if (!chrome.runtime.lastError) { return true; }
-  else {
-    console.log(chrome.runtime.lastError.message);
-    return false;
-  }
+function onError (error) {
+  console.log(`Error: ${error}`);
 }
 
 window.addEventListener('unload', evt => {
