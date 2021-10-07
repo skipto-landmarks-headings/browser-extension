@@ -1,11 +1,12 @@
 # CHANGELOG
 
-## 2.2.0 – Oct. 6, 2021
+## 2.2.0 – Oct. 7, 2021
 
 <ul>
   <li>Replaced background page and script with direct import of storage.js module in popup.js</li>
   <li>Migrated Chrome version to Manifest V3: chrome.scripting API; use of Promises in tabs.query</li>
   <li>Fixed bug related to aria-labelledby in domUtils module: getLandmarkAccessibleName</li>
+  <li>Added function getHeadingTarget in content.js for enhanced UX related to links and headings</li>
 </ul>
 
 ## 2.1.0 – Sept. 13, 2021
