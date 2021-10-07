@@ -26,10 +26,10 @@ function messageHandler (message) {
 }
 
 /*
-**  getTargetElement: Find an element that is focusable based on the
-**  aria role of the landmark (indicated by dataId prefix).
+**  getLandmarkTarget: Find the best choice for a element descendant of the
+**  landmark on which to set focus, based on the ARIA role of the landmark.
 */
-function getTargetElement (dataId, element) {
+function getLandmarkTarget (element) {
   const selectorsArray = ['h1', 'a[href]', 'h2', 'h3', 'section', 'article', 'h4', 'h5', 'h6', 'p', 'li'];
   const role = element.hasAttribute('role') ? element.getAttribute('role') : '';
   const tagName = element.tagName.toLowerCase();
@@ -59,6 +59,14 @@ function getTargetElement (dataId, element) {
   return element;
 }
 
+function getHeadingTarget (element) {
+  const anchorDescendant = element.querySelector('a');
+  if (anchorDescendant !== null) return anchorDescendant;
+
+  const anchorAncestor = element.closest('a');
+  return (anchorAncestor === null) ? element : anchorAncestor;
+}
+
 /*
 **  Perform the action specified by activated menu item
 */
@@ -69,7 +77,7 @@ function skipToContent (dataId) {
 
   let element = document.querySelector(selector);
   if (element) {
-    target = isHeading ? element : getTargetElement(dataId, element);
+    target = isHeading ? getHeadingTarget(element) : getLandmarkTarget(element);
     if (target && isVisible(target)) {
       let options = { behavior: 'smooth', block: 'center' };
       target.setAttribute('tabindex', '-1');
