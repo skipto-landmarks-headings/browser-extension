@@ -65,11 +65,16 @@ function getLandmarkTarget (element) {
 }
 
 function getHeadingTarget (element) {
+  // first choice: anchor descendant
   const anchorDescendant = element.querySelector('a');
   if (anchorDescendant !== null) return anchorDescendant;
 
+  // second choice: anchor ancestor
   const anchorAncestor = element.closest('a');
-  return (anchorAncestor === null) ? element : anchorAncestor;
+  if (anchorAncestor !== null) return anchorAncestor;
+
+  // default: heading element
+  return element;
 }
 
 /*
