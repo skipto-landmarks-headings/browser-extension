@@ -31,8 +31,8 @@ function messageHandler (message) {
 }
 
 /*
-**  getLandmarkTarget: Find the best choice for a element descendant of the
-**  landmark on which to set focus, based on the ARIA role of the landmark.
+**  getLandmarkTarget: Find the best choice among the landmark's descendants
+**  for setting focus, based on the landmark's ARIA role.
 */
 function getLandmarkTarget (element) {
   const selectorsArray = ['h1', 'a[href]', 'h2', 'h3', 'section', 'article', 'h4', 'h5', 'h6', 'p', 'li'];
