@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2.2.0 – Oct. 7, 2021
+## 2.2.0 – Oct. 8, 2021
 
 <ul>
   <li>Replaced background page and script with direct import of storage.js module in popup.js</li>
